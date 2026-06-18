@@ -357,8 +357,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
     .cf-card h4{font-size:16px;font-weight:700;color:var(--c1);margin-bottom:12px;display:flex;align-items:center;gap:10px}
     .cf-card p{color:var(--tx2);font-size:14px;line-height:1.7}
     .cf-card ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px}
-    .cf-card li{font-size:13px;color:var(--tx2);padding-left:22px;position:relative;line-height:1.5}
-    .cf-card li::before{content:'\\2713';position:absolute;left:0;color:var(--c3);font-weight:800}
+    .cf-card li{font-size:13px;color:var(--tx2);display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+    .cf-card li::before{content:'\2713';color:var(--c3);font-weight:800;font-size:14px;flex-shrink:0;margin-top:1px}
     .cf-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
     .cf-kpi-item{background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:18px;text-align:center}
     .cf-kpi-num{font-size:28px;font-weight:800;color:var(--c1)}
@@ -877,6 +877,12 @@ window.addEventListener('scroll', () => {
 function showStep(n) {
   document.querySelectorAll('.wf-step').forEach((s, i) => s.classList.toggle('active', i === n));
   document.querySelectorAll('.wf-content').forEach((c, i) => c.classList.toggle('active', i === n));
+}
+
+// ===== CONSULTANT FRAMEWORK TABS =====
+function showCF(n) {
+  document.querySelectorAll('.cf-tab').forEach((t, i) => t.classList.toggle('active', i === n));
+  document.querySelectorAll('.cf-panel').forEach((p, i) => p.classList.toggle('active', i === n));
 }
 
 // ===== ROI CALCULATOR =====
