@@ -252,8 +252,8 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
         <span class="dot"></span> Vertrauliches Strategiepapier <span style="opacity:.6">•</span> Juni 2026
       </div>
-      <h1>Digitale Transformations&shy;strategie <span class="hl">AgroPark Nekrasovo</span></h1>
-      <p class="hero-desc">Datengestutzte Analyse der Marktposition, operative Effizienzhebel und ein phasiger Implementierungsplan zur Erschliessung neuer Umsatzstrome durch KI-Automatisierung, moderne Webtechnologie und Multi-Channel-Suchmaschinenoptimierung (SEO × GEO × AEO).</p>
+      <h1>Weniger Aufwand. Mehr Buchungen. Bessere Ubersicht. <span class="hl">AgroPark Nekrasovo</span></h1>
+      <p class="hero-desc">Ein pragmatischer Plan, Ihren Park effizienter zu fuhren: automatisierte Buchungen, ein intelligenter Chatbot fur Telegram und Web, sowie bessere Sichtbarkeit bei Google und Yandex. Ohne over-engineering. Mit klaren KPIs und nachweisbarem ROI.</p>
       <div class="hero-stats">
         <div class="hs-item"><span class="hs-num" data-count="22.4">0</span><span class="hs-label">Mrd. $ Markt 2026</span></div>
         <div class="hs-item"><span class="hs-num" data-count="50">0</span><span class="hs-label">Mrd. $ Prognose 2033</span></div>
@@ -266,7 +266,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
       <div class="demo-window">
         <div class="demo-header">
           <div class="demo-dot r"></div><div class="demo-dot y"></div><div class="demo-dot g"></div>
-          <div class="demo-title">AgroPark OS — Live Dashboard</div>
+          <div class="demo-title">AgroPark OS – Live Dashboard</div>
         </div>
         <div class="demo-body">
           <div class="demo-sidebar">
@@ -311,7 +311,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
                 <div class="demo-chat" id="demoChat">
                   <div class="demo-msg bot">Hallo! Ich helfe Ihnen bei der Buchung. Welchen Termin möchten Sie?</div>
                   <div class="demo-msg user">Nächsten Samstag, 2 Erwachsene + 1 Kind</div>
-                  <div class="demo-msg bot">Perfekt — Samstag, 21.06. ist verfügbar. Ticket für €34 hinzugefügt. Zahlung?</div>
+                  <div class="demo-msg bot">Perfekt – Samstag, 21.06. ist verfügbar. Ticket für €34 hinzugefügt. Zahlung?</div>
                 </div>
               </div>
             </div>
@@ -331,6 +331,151 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
   </div>
 </section>
 
+<!-- ===== CONSULTANT FRAMEWORK ===== -->
+<section class="sec" id="beratung" style="background:#FAFAF7">
+  <div class="sec-header">
+    <div class="sec-num">00</div>
+    <div>
+      <div class="sec-title">Von der Analyse zur messbaren Wertschopfung</div>
+      <div class="sec-desc">Unser Beratungsansatz fur AgroPark Nekrasovo: Ausgangslage verstehen, Schmerzpunkte beseitigen, Losungen skalieren.</div>
+    </div>
+  </div>
+
+  <div class="cf-tabs" style="display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap">
+    <button class="cf-tab active" onclick="showCF(0)" style="flex:1;min-width:140px;padding:14px 18px;border:1px solid var(--bdr);border-radius:10px;background:#fff;font-family:inherit;font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .2s">1. Ihre Ausgangslage</button>
+    <button class="cf-tab" onclick="showCF(1)" style="flex:1;min-width:140px;padding:14px 18px;border:1px solid var(--bdr);border-radius:10px;background:#fff;font-family:inherit;font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .2s">2. Aktuelle Probleme</button>
+    <button class="cf-tab" onclick="showCF(2)" style="flex:1;min-width:140px;padding:14px 18px;border:1px solid var(--bdr);border-radius:10px;background:#fff;font-family:inherit;font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .2s">3. Unsere Losung</button>
+    <button class="cf-tab" onclick="showCF(3)" style="flex:1;min-width:140px;padding:14px 18px;border:1px solid var(--bdr);border-radius:10px;background:#fff;font-family:inherit;font-size:13px;font-weight:700;color:var(--tx2);cursor:pointer;transition:all .2s">4. Vorteile & KPIs</button>
+  </div>
+
+  <style>
+    .cf-tab.active{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
+    .cf-panel{display:none;animation:fadeIn .4s}
+    .cf-panel.active{display:block}
+    .cf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+    .cf-card{background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:28px;box-shadow:var(--sh)}
+    .cf-card h4{font-size:16px;font-weight:700;color:var(--c1);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+    .cf-card p{color:var(--tx2);font-size:14px;line-height:1.7}
+    .cf-card ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:10px}
+    .cf-card li{font-size:13px;color:var(--tx2);padding-left:22px;position:relative;line-height:1.5}
+    .cf-card li::before{content:'\\2713';position:absolute;left:0;color:var(--c3);font-weight:800}
+    .cf-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+    .cf-kpi-item{background:#fff;border:1px solid var(--bdr);border-radius:12px;padding:18px;text-align:center}
+    .cf-kpi-num{font-size:28px;font-weight:800;color:var(--c1)}
+    .cf-kpi-label{font-size:11px;color:var(--tx2);margin-top:6px;text-transform:uppercase;letter-spacing:.5px}
+    @media(max-width:768px){.cf-grid,.cf-kpi{grid-template-columns:1fr}}
+  </style>
+
+  <div class="cf-panels">
+    <div class="cf-panel active" id="cf-0">
+      <div class="cf-grid">
+        <div class="cf-card">
+          <h4><span style="font-size:20px">🌾</span> Ihr Betrieb heute</h4>
+          <p>AgroPark Nekrasovo ist ein saisonaler Agritourismus-Park in der Kaliningrader Oblast mit mehreren Erlebniszonen: Maisfeld-Labyrinth, Maschinenmuseum, Tierbereiche, Restaurant und Grillkuppeln. Die Saison lauft von Mai bis September.</p>
+          <ul>
+            <li>Starke physische Attraktion und regionale Bekanntheit</li>
+            <li>Sieben Einnahmestrome, davon viele noch manuell abgewickelt</li>
+            <li>Telegram und VKontakte bereits als Kanale genutzt</li>
+            <li>Engagierte Familie/Team mit Hands-on-Mentalitat</li>
+          </ul>
+        </div>
+        <div class="cf-card">
+          <h4><span style="font-size:20px">🔄</span> Ihr aktueller Workflow</h4>
+          <p>Kunden finden Sie uber VK, Telegram oder Mund-zu-Mund-Propaganda. Buchungen laufen per Chat, Telefon oder vor Ort. Jede Anfrage muss manuell bearbeitet, bestatigt und in Kalender ubertragen werden.</p>
+          <ul>
+            <li>Besucher schreiben auf Telegram -> manuelle Beantwortung</li>
+            <li>Verfugbarkeiten werden per Telefon geklart</li>
+            <li>Zahlungen erfolgen vor Ort oder fragmentiert</li>
+            <li>Keine zentrale Kundenhistorie oder CRM-Datenbank</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cf-panel" id="cf-1">
+      <div class="cf-grid">
+        <div class="cf-card">
+          <h4><span style="font-size:20px">⏰</span> Zeitfresser & manuelle Prozesse</h4>
+          <p>Jede Buchung kostet Ihr Team Minuten bis Stunden. Wiederholte Fragen nach Offnungszeiten, Preisen und Verfugbarkeiten blockieren Ressourcen, die im Betrieb dringender gebraucht werden.</p>
+          <ul>
+            <li>Manuelle Beantwortung von 80+ Nachrichten pro Woche</li>
+            <li>Doppelte Datenerfassung in verschiedenen Chat-Verlaufen</li>
+            <li>Fehlende Verfugbarkeitsubersicht fuhrt zu Doppelbuchungen</li>
+            <li>Keine automatische Erinnerung oder Stornierungslogik</li>
+          </ul>
+        </div>
+        <div class="cf-card">
+          <h4><span style="font-size:20px">💸</span> Verpasste Umsatzchancen</h4>
+          <p>Wenn potenzielle Gaste nicht sofort buchen konnen, verlieren Sie Buchungen an Wettbewerber oder an die eigene Vergesslichkeit. Firmenevents und Geburtstagspakete bleiben unter ihrem Potential.</p>
+          <ul>
+            <li>Kein 24/7 Buchungskanal fur spontane Entscheider</li>
+            <li>Firmenanfragen werden nicht systematisch verfolgt</li>
+            <li>Kein automatisiertes Upselling (Grillkuppel, F&B, Touren)</li>
+            <li>Google/Yandex-Sichtbarkeit deutlich unter dem Moglichen</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cf-panel" id="cf-2">
+      <div class="cf-grid">
+        <div class="cf-card">
+          <h4><span style="font-size:20px">🤖</span> Automatisierung ohne Overhead</h4>
+          <p>Wir bauen ein schlankes digitales System, das Ihre bestehenden Kanale verbindet statt sie zu ersetzen. Der Fokus liegt auf pragmatischen Tools, die von Tag eins funktionieren.</p>
+          <ul>
+            <li>KI-Chatbot auf Telegram und Webseite (mehrsprachig)</li>
+            <li>Online-Buchung mit Echtzeit-Verfugbarkeit und QR-Tickets</li>
+            <li>Leichtes CRM fur Kunden, Buchungen und Anfragen</li>
+            <li>Google/Yandex-Optimierung fur lokale Suche</li>
+          </ul>
+        </div>
+        <div class="cf-card">
+          <h4><span style="font-size:20px">📊</span> Daten, die Sie steuern lassen</h4>
+          <p>Statt Bauchgefuhl entscheiden Sie auf Basis von Zahlen: Welche Events lohnen sich? Wann ist Auslastung hoch? Welche Kanale bringen die besten Gaste?</p>
+          <ul>
+            <li>Zentrales Dashboard mit Buchungen, Umsatz und Auslastung</li>
+            <li>Automatische Berichte per E-Mail oder Telegram</li>
+            <li>Bewertungsmanagement und Kundenfeedback</li>
+            <li>Datenbasierte Preis- und Kapazitatsplanung</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="cf-panel" id="cf-3">
+      <div class="cf-kpi">
+        <div class="cf-kpi-item"><div class="cf-kpi-num">+200%</div><div class="cf-kpi-label">Buchungskonversion</div></div>
+        <div class="cf-kpi-item"><div class="cf-kpi-num">-70%</div><div class="cf-kpi-label">Admin-Aufwand</div></div>
+        <div class="cf-kpi-item"><div class="cf-kpi-num">+33%</div><div class="cf-kpi-label">Umsatz pro Gast</div></div>
+        <div class="cf-kpi-item"><div class="cf-kpi-num">4-8</div><div class="cf-kpi-label">Monate Break-even</div></div>
+      </div>
+      <div class="cf-grid" style="margin-top:20px">
+        <div class="cf-card">
+          <h4><span style="font-size:20px">✅</span> Konkrete Vorteile fur Sie</h4>
+          <ul>
+            <li>Weniger Telefonate und Chat-Nachrichten durch Selbstbuchung</li>
+            <li>Hohere Auslastung durch 24/7 Buchbarkeit</li>
+            <li>Bessere Planbarkeit durch Echtzeit-Verfugbarkeit</li>
+            <li>Professionellerer Eindruck bei Firmenkunden</li>
+            <li>Mehr Zeit fur Ihr Team und Ihre Gaste vor Ort</li>
+          </ul>
+        </div>
+        <div class="cf-card">
+          <h4><span style="font-size:20px">📏</span> KPI-Definitionen</h4>
+          <ul>
+            <li><strong>Buchungskonversion:</strong> Anteil der Website-/Chat-Besucher, die buchen</li>
+            <li><strong>Admin-Aufwand:</strong> Stunden pro Woche fur manuelle Buchungsabwicklung</li>
+            <li><strong>Umsatz pro Gast:</strong> Durchschnittlicher Ticket- und Zusatzumsatz</li>
+            <li><strong>Break-even:</strong> Zeit bis die Investition durch Mehrerlos gedeckt ist</li>
+            <li><strong>Sichtbarkeit:</strong> Ranking und Impressions auf Google/Yandex</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- ===== SECTION 1: MARKT ===== -->
 <section class="sec" id="markt">
   <div class="sec-header">
@@ -343,15 +488,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
   <div class="counter-grid">
     <div class="counter-item"><div class="counter-num" data-count="22.4">0</div><div class="counter-label">Globaler Agritech-Markt 2026 (Mrd. $)</div></div>
     <div class="counter-item"><div class="counter-num" data-count="50">0</div><div class="counter-label">Marktprognose 2033 (Mrd. $)</div></div>
-    <div class="counter-item"><div class="counter-num" data-count="10.8">0</div><div class="counter-label">CAGR 2026&ndash;2033 (%)</div></div>
+    <div class="counter-item"><div class="counter-num" data-count="10.8">0</div><div class="counter-label">CAGR 2026–2033 (%)</div></div>
     <div class="counter-item"><div class="counter-num" data-count="50">0</div><div class="counter-label">% Buchungen nun online</div></div>
   </div>
-  <div class="img-wrap"><img src="de_01_markt.svg" alt=""><div class="img-cap">Abb. 1: Globaler Agritech-Markt &mdash; historische Entwicklung und Prognose bis 2033. Quelle: Coherent Market Insights, DLL Group, eigene Analyse.</div></div>
+  <div class="img-wrap"><img src="de_01_markt.svg" alt=""><div class="img-cap">Abb. 1: Globaler Agritech-Markt  –  historische Entwicklung und Prognose bis 2033. Quelle: Coherent Market Insights, DLL Group, eigene Analyse.</div></div>
   <div class="two-col mt-8">
-    <div class="img-wrap"><img src="de_05_wettbewerb.svg" alt=""><div class="img-cap">Abb. 2: Wettbewerbsmatrix &mdash; Technologiereife vs. Marktposition. Die gestrichelte Linie zeigt die projizierte Zielposition von AgroPark nach Phasen-3-Abschluss.</div></div>
+    <div class="img-wrap"><img src="de_05_wettbewerb.svg" alt=""><div class="img-cap">Abb. 2: Wettbewerbsmatrix  –  Technologiereife vs. Marktposition. Die gestrichelte Linie zeigt die projizierte Zielposition von AgroPark nach Phasen-3-Abschluss.</div></div>
     <div>
-      <h3 style="font-size:22px;font-weight:700;margin-bottom:20px">Wettbewerbsanalyse &mdash; 2×2 Matrix</h3>
-      <p style="color:var(--tx2);font-size:15px;line-height:1.7;margin-bottom:20px">AgroPark Nekrasovo befindet sich aktuell im Quadrant <strong>»Niedrige Digitalisierung / Hoher Marktanteil«</strong> &mdash; eine Position mit hohem Disruptionsrisiko durch technologieaffine Wettbewerber. Die Analyse zeigt, dass europaische Marktfuhrer (Lyman Orchards, Great Canadian Farm Tour) durch gezielte Technologieinvestitionen ihre Marktposition konsolidiert haben.</p>
+      <h3 style="font-size:22px;font-weight:700;margin-bottom:20px">Wettbewerbsanalyse  –  2×2 Matrix</h3>
+      <p style="color:var(--tx2);font-size:15px;line-height:1.7;margin-bottom:20px">AgroPark Nekrasovo befindet sich aktuell im Quadrant <strong>»Niedrige Digitalisierung / Hoher Marktanteil«</strong>  –  eine Position mit hohem Disruptionsrisiko durch technologieaffine Wettbewerber. Die Analyse zeigt, dass europaische Marktfuhrer (Lyman Orchards, Great Canadian Farm Tour) durch gezielte Technologieinvestitionen ihre Marktposition konsolidiert haben.</p>
       <table class="pro-table">
         <thead><tr><th>Wettbewerber</th><th>Digitalisierung</th><th>Position</th></tr></thead>
         <tbody>
@@ -439,7 +584,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
     </div>
   </div>
 
-  <div class="img-wrap mt-8"><img src="de_03_ai_impact.svg" alt=""><div class="img-cap">Abb. 4: Betrieblicher Impact der KI-Automatisierung &mdash; Baseline vs. optimierter Zustand nach Systemeinfuhrung. Quelle: Eigene Modellierung basierend auf verifizierten Case Studies.</div></div>
+  <div class="img-wrap mt-8"><img src="de_03_ai_impact.svg" alt=""><div class="img-cap">Abb. 4: Betrieblicher Impact der KI-Automatisierung  –  Baseline vs. optimierter Zustand nach Systemeinfuhrung. Quelle: Eigene Modellierung basierend auf verifizierten Case Studies.</div></div>
 
   <!-- INTERACTIVE WORKFLOW STEPPER -->
   <div class="wf-container">
@@ -547,11 +692,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
       </div>
     </div>
     <div>
-      <div class="img-wrap"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 5: Digitale Sichtbarkeitsanalyse &mdash; aktueller Status vs. 12-Monats-Ziel nach Strategieimplementierung.</div></div>
+      <div class="img-wrap"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 5: Digitale Sichtbarkeitsanalyse  –  aktueller Status vs. 12-Monats-Ziel nach Strategieimplementierung.</div></div>
     </div>
   </div>
 
-  <div class="img-wrap mt-8"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 6: Multi-Channel-Marketing-Strategie &mdash; Kanaloptimierung von aktuellem Status zu optimiertem Potential.</div></div>
+  <div class="img-wrap mt-8"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 6: Multi-Channel-Marketing-Strategie  –  Kanaloptimierung von aktuellem Status zu optimiertem Potential.</div></div>
 </section>
 
 <!-- ===== SECTION 5: ROADMAP ===== -->
@@ -565,7 +710,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
   </div>
   <div class="tl">
     <div class="tl-phase p1">
-      <div class="tl-dur">Phase 1 &mdash; Monat 1&ndash;2</div>
+      <div class="tl-dur">Phase 1  –  Monat 1–2</div>
       <div class="tl-title">Quick Wins</div>
       <ul class="tl-list">
         <li>KI-Chatbot auf Telegram deployen</li>
@@ -577,32 +722,32 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
       </ul>
     </div>
     <div class="tl-phase p2">
-      <div class="tl-dur">Phase 2 &mdash; Monat 3&ndash;5</div>
+      <div class="tl-dur">Phase 2  –  Monat 3–5</div>
       <div class="tl-title">Kernfunktionen</div>
       <ul class="tl-list">
+        <li>CRM-Integration abschliessen (uberschaubar & skalierbar)</li>
         <li>Eventmanagement-System vollstandig</li>
-        <li>AEO-Optimierung (FAQ Schema)</li>
-        <li>Content-Marketing-Engine aufbauen</li>
         <li>E-Mail-Marketing-Automation</li>
+        <li>AEO-Optimierung (FAQ Schema)</li>
         <li>GEO-Optimierung (KI-Sichtbarkeit)</li>
-        <li>CRM-Integration abschliessen</li>
+        <li>Content-Marketing-Engine aufbauen</li>
       </ul>
     </div>
     <div class="tl-phase p3">
-      <div class="tl-dur">Phase 3 &mdash; Monat 6&ndash;9</div>
+      <div class="tl-dur">Phase 3  –  Monat 6–9 (optional)</div>
       <div class="tl-title">Differenzierung</div>
       <ul class="tl-list">
-        <li>VR-Farmtour-Entwicklung</li>
         <li>Mitgliedschaftsprogramm-Start</li>
-        <li>Fortgeschrittenes Analytics-Dashboard</li>
         <li>Mehrsprachigkeit (EN, DE)</li>
+        <li>Fortgeschrittenes Analytics-Dashboard</li>
         <li>Influencer-Partnerschaften</li>
         <li>Digitale Produkte lancieren</li>
+        <li>VR-Farmtour-Entwicklung (optional, hoher Aufwand)</li>
       </ul>
     </div>
     <div class="tl-phase p4">
-      <div class="tl-dur">Phase 4 &mdash; Monat 9&ndash;18</div>
-      <div class="tl-title" style="color:var(--ac2)">Zukunft: IoT &amp; Smart Farm</div>
+      <div class="tl-dur">Phase 4  –  Zukunft (ab Monat 9–18)</div>
+      <div class="tl-title" style="color:var(--ac2)">IoT &amp; Smart Farm (spater)</div>
       <ul class="tl-list">
         <li><em>IoT-Sensorstation (Boden, Wetter)</em></li>
         <li><em>Live-Daten-Dashboard</em></li>
@@ -610,7 +755,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
         <li><em>Premium "Smart Farm"-Tickets</em></li>
         <li><em>Schul-Workshops Data Literacy</em></li>
       </ul>
-      <div class="tl-note"><strong>Zukunftige Erweiterung</strong> &mdash; Detaillierte Konzeption auf Anfrage verfugbar. Geschatzte Investition: 7.500&ndash;15.000 USD.</div>
+      <div class="tl-note"><strong>Zukunftige Erweiterung</strong>  –  Detaillierte Konzeption auf Anfrage verfugbar. Geschatzte Investition: 7.500–15.000 USD.</div>
     </div>
   </div>
 </section>
@@ -627,16 +772,16 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
 
   <div class="price-grid">
     <div class="price-card">
-      <div class="price-label">Gesamtinvestition Phase 1&ndash;3</div>
-      <div class="price-num">21.000&ndash;40.000 $</div>
-      <div class="price-note">Einmalige Entwicklungskosten<br>Jahrliche Betriebskosten: ~10.200 $<br><em>Phase 1 separat ab 19.000 $ moglich</em></div>
+      <div class="price-label">Gesamtinvestition Phase 1–3</div>
+      <div class="price-num">21.000–40.000 $</div>
+      <div class="price-note">Einmalige Entwicklungskosten<br>Jahrliche Betriebskosten: ~10.200 $<br><em>Phase 1 separat ab 12.000 $ moglich</em><br><em>VR/IoT werden als spate Erweiterungen geplant</em></div>
       <div class="price-features">
-        <div class="price-f">&#10003; KI-Chatbot (OpenClaw)</div>
-        <div class="price-f">&#10003; Next.js Website + shadcn/ui</div>
-        <div class="price-f">&#10003; Buchungssystem + QR-Checkin</div>
+        <div class="price-f">&#10003; KI-Chatbot (Telegram + Web)</div>
+        <div class="price-f">&#10003; Next.js Website + Online-Buchung</div>
+        <div class="price-f">&#10003; Leichtes CRM fur Kunden & Anfragen</div>
         <div class="price-f">&#10003; SEO / GEO / AEO Optimierung</div>
         <div class="price-f">&#10003; Telegram + VK Integration</div>
-        <div class="price-f">&#10003; Content-Marketing Engine</div>
+        <div class="price-f">&#10003; E-Mail-Marketing & Analytics</div>
       </div>
     </div>
     <div>
@@ -650,13 +795,13 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
         <div class="roi-row"><div class="roi-name">Organischer Traffic</div><div class="roi-track"><div class="roi-fill" style="width:80%;background:linear-gradient(90deg,var(--c1),var(--c3))">+250%</div></div></div>
         <div class="roi-row"><div class="roi-name">Firmenevents</div><div class="roi-track"><div class="roi-fill" style="width:75%;background:linear-gradient(90deg,var(--ac),var(--ac2))">+150%</div></div></div>
       </div>
-      <p class="muted" style="margin-top:24px;font-size:14px">Branchenbenchmarks: Agritourismus-Technologieimplementierungen in Europa und Nordamerika zeigen typischerweise ROI innerhalb von <strong>6&ndash;12 Monaten</strong> nach Phase-1-Abschluss.</p>
+      <p class="muted" style="margin-top:24px;font-size:14px">Branchenbenchmarks: Agritourismus-Technologieimplementierungen in Europa und Nordamerika zeigen typischerweise ROI innerhalb von <strong>6–12 Monaten</strong> nach Phase-1-Abschluss.</p>
     </div>
   </div>
 
   <!-- INTERACTIVE ROI CALCULATOR -->
   <div class="roi-calc">
-    <div class="roi-calc-title">&#128290; Interaktiver ROI-Rechner &mdash; Passen Sie die Parameter an</div>
+    <div class="roi-calc-title">&#128290; Interaktiver ROI-Rechner  –  Passen Sie die Parameter an</div>
     <div class="roi-inputs">
       <div class="roi-field">
         <label>Wochentliche Besucher (Saison)</label>
