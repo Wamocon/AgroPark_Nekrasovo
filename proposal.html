@@ -12,7 +12,7 @@
   --ac:#D4A373;--ac2:#BC8A5F;--tx:#1A1A1A;--tx2:#5C5F62;--bg:#F5F5F0;--card:#FFFFFF;
   --bdr:#E2E2DC;--sh:0 2px 8px rgba(0,0,0,0.04);--sh2:0 8px 32px rgba(0,0,0,0.08);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
 /* ===== NAVIGATION ===== */
@@ -26,6 +26,17 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
 .nav-cta{background:var(--c1);color:#fff;padding:10px 24px;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:all .2s;letter-spacing:0.3px}
 .nav-cta:hover{background:var(--c2);transform:translateY(-1px);box-shadow:var(--sh2)}
 .progress-bar{position:fixed;top:64px;left:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c3),var(--ac));z-index:1001;transition:width .1s linear;width:0%}
+.nav-toggle{display:none;width:40px;height:40px;border:none;background:transparent;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:6px;padding:0}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--c1);border-radius:2px;transition:all .3s}
+.nav-toggle.active span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+.mobile-menu{position:fixed;top:64px;left:0;right:0;bottom:0;background:rgba(245,245,240,0.98);backdrop-filter:blur(20px);z-index:999;padding:24px;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto}
+.mobile-menu.open{transform:translateX(0)}
+.mobile-menu ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.mobile-menu a{display:block;padding:14px 16px;font-size:16px;font-weight:700;color:var(--tx);text-decoration:none;border-radius:10px;transition:background .2s}
+.mobile-menu a:hover{background:rgba(27,67,50,0.08);color:var(--c1)}
+.mobile-menu .nav-cta{text-align:center;margin-top:8px;color:#fff}
 
 /* ===== HERO WITH PARALLAX ===== */
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding:120px 48px 80px;overflow:hidden;background:linear-gradient(160deg,var(--c1) 0%,#0F2E1F 50%,var(--c2) 100%)}
@@ -204,17 +215,101 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
   .hero-inner{grid-template-columns:1fr;gap:48px}
   .hero-demo{max-width:720px;margin:0 auto;width:100%}
   .demo-window{transform:none;animation:none}
+  .wf-detail{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .two-col{grid-template-columns:minmax(0,1fr);gap:32px}
+  .price-grid{grid-template-columns:1fr}
+  .counter-grid{grid-template-columns:repeat(2,1fr)}
+  .tl{flex-direction:column}
+  .sec{padding:72px 32px}
+  .sec-title{font-size:28px}
+  .sec-header{margin-bottom:40px}
+  .cta h2{font-size:32px}
+  .roi-inputs{grid-template-columns:1fr}
+  .roi-results{grid-template-columns:1fr}
+  .wf-steps{flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:32px}
+  .wf-steps::before{display:none}
+  .wf-step{flex:0 0 calc(50% - 8px)}
+  .wf-step .step-label{max-width:none}
 }
 @media(max-width:768px){
-  .nav{padding:0 20px}.nav-links{display:none}
-  .hero{padding:100px 24px 60px}.hero h1{font-size:32px}.hero-stats{grid-template-columns:repeat(2,1fr)}
-  .demo-body{grid-template-columns:1fr}
-  .demo-sidebar{flex-direction:row;justify-content:center;padding:10px}
-  .demo-grid{grid-template-columns:1fr}
-  .sec{padding:60px 24px}.counter-grid,.tl{grid-template-columns:1fr}
-  .tl{flex-direction:column}.price-grid{grid-template-columns:1fr}
-  .two-col{grid-template-columns:1fr}.roi-inputs{grid-template-columns:1fr}
-  .wf-detail{grid-template-columns:1fr}.hero-stats{grid-template-columns:repeat(2,1fr)}
+  .sec{min-width:0}
+  .two-col{grid-template-columns:minmax(0,1fr)}
+  .card-grid-3d{grid-template-columns:minmax(0,1fr)}
+  .nav{padding:0 16px}
+  .nav-links,.desktop-cta{display:none}
+  .nav-toggle{display:flex}
+  .nav-brand{font-size:13px;gap:6px}
+  .progress-bar{top:56px}
+  .nav{height:56px}
+  .mobile-menu{top:56px}
+  .hero{padding:96px 16px 56px;min-height:auto}
+  .hero h1{font-size:30px;letter-spacing:-1px}
+  .hero-desc{font-size:15px}
+  .hero-tag{font-size:11px;padding:6px 12px;flex-wrap:wrap;gap:6px}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:12px}
+  .hs-item{padding:12px}
+  .hs-num{font-size:20px}
+  .hs-label{font-size:9px}
+  .demo-top{grid-template-columns:1fr}
+  .demo-kpi{padding:10px}
+  .demo-kpi-value{font-size:16px}
+  .demo-integrations{flex-wrap:wrap;justify-content:center;gap:8px}
+  .demo-title{font-size:10px}
+  .demo-sidebar{padding:10px;gap:12px}
+  .demo-nav{width:28px;height:28px;font-size:13px}
+  .demo-main{padding:14px}
+  .sec{padding:56px 16px}
+  .sec-num{width:40px;height:40px;font-size:14px}
+  .sec-title{font-size:24px}
+  .sec-desc{font-size:14px}
+  .counter-grid{grid-template-columns:1fr;gap:16px}
+  .counter-num{font-size:36px}
+  .counter-item{padding:28px 20px}
+  .card-grid-3d{grid-template-columns:1fr}
+  .card-3d{padding:24px}
+  .card-3d h3{font-size:16px}
+  .card-3d p{font-size:13px}
+  .pro-table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+  .pro-table thead,.pro-table tbody{display:table;width:100%;min-width:520px}
+  .tl{gap:16px}
+  .tl-phase{padding:24px 20px}
+  .tl-title{font-size:18px}
+  .price-card{padding:32px 24px}
+  .price-num{font-size:36px}
+  .price-features{grid-template-columns:1fr}
+  .roi-calc{padding:24px}
+  .roi-calc-title{font-size:17px}
+  .roi-res-num{font-size:26px}
+  .roi-row{flex-direction:column;align-items:stretch;gap:8px}
+  .roi-name{width:auto;text-align:left;font-size:12px}
+  .roi-track{width:100%}
+  .wf-container{padding:28px 20px}
+  .wf-visual{padding:24px}
+  .wf-step .dot{width:36px;height:36px;font-size:13px}
+  .cta{padding:72px 24px}
+  .cta h2{font-size:28px}
+  .cta p{font-size:15px}
+  .cta-btn{padding:14px 28px;font-size:15px;width:100%;max-width:320px}
+  .img-cap{padding:12px 16px;font-size:11px}
+  .cf-tab{flex:1 1 100%!important;min-width:auto!important;padding:12px 14px!important;font-size:12px!important}
+  .cf-card{padding:20px}
+  .cf-kpi{grid-template-columns:repeat(2,1fr)}
+  #kunde .two-col > div:last-child > div > div{flex-direction:column!important;gap:8px!important}
+  #kunde .two-col > div:last-child > div > div span:last-child{align-self:flex-start}
+}
+@media(max-width:480px){
+  .hero h1{font-size:26px}
+  .hero-stats{grid-template-columns:1fr}
+  .sec-title{font-size:22px}
+  .sec-num{width:36px;height:36px;font-size:13px}
+  .counter-num{font-size:32px}
+  .price-num{font-size:30px}
+  .cta h2{font-size:24px}
+  .wf-step{flex:0 0 100%;display:flex;align-items:center;gap:12px;text-align:left}
+  .wf-step .dot{margin:0}
+  .wf-step .step-label{font-size:12px}
 }
 
 /* Utility */
@@ -238,8 +333,22 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#investition">Investition</a></li>
   </ul>
-  <a href="#kontakt" class="nav-cta">Kontakt</a>
+  <a href="#kontakt" class="nav-cta desktop-cta">Kontakt</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <ul>
+    <li><a href="#markt">Marktanalyse</a></li>
+    <li><a href="#kunde">Kundenanalyse</a></li>
+    <li><a href="#tech">Technologie</a></li>
+    <li><a href="#marketing">Marketing</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#investition">Investition</a></li>
+    <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+  </ul>
+</div>
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="top">
@@ -491,9 +600,9 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
     <div class="counter-item"><div class="counter-num" data-count="10.8">0</div><div class="counter-label">CAGR 2026–2033 (%)</div></div>
     <div class="counter-item"><div class="counter-num" data-count="50">0</div><div class="counter-label">% Buchungen nun online</div></div>
   </div>
-  <div class="img-wrap"><img src="de_01_markt.svg" alt=""><div class="img-cap">Abb. 1: Globaler Agritech-Markt  –  historische Entwicklung und Prognose bis 2033. Quelle: Coherent Market Insights, DLL Group, eigene Analyse.</div></div>
+  <div class="img-wrap"><img src="public/de_01_markt.svg" alt=""><div class="img-cap">Abb. 1: Globaler Agritech-Markt  –  historische Entwicklung und Prognose bis 2033. Quelle: Coherent Market Insights, DLL Group, eigene Analyse.</div></div>
   <div class="two-col mt-8">
-    <div class="img-wrap"><img src="de_05_wettbewerb.svg" alt=""><div class="img-cap">Abb. 2: Wettbewerbsmatrix  –  Technologiereife vs. Marktposition. Die gestrichelte Linie zeigt die projizierte Zielposition von AgroPark nach Phasen-3-Abschluss.</div></div>
+    <div class="img-wrap"><img src="public/de_05_wettbewerb.svg" alt=""><div class="img-cap">Abb. 2: Wettbewerbsmatrix  –  Technologiereife vs. Marktposition. Die gestrichelte Linie zeigt die projizierte Zielposition von AgroPark nach Phasen-3-Abschluss.</div></div>
     <div>
       <h3 style="font-size:22px;font-weight:700;margin-bottom:20px">Wettbewerbsanalyse  –  2×2 Matrix</h3>
       <p style="color:var(--tx2);font-size:15px;line-height:1.7;margin-bottom:20px">AgroPark Nekrasovo befindet sich aktuell im Quadrant <strong>»Niedrige Digitalisierung / Hoher Marktanteil«</strong>  –  eine Position mit hohem Disruptionsrisiko durch technologieaffine Wettbewerber. Die Analyse zeigt, dass europaische Marktfuhrer (Lyman Orchards, Great Canadian Farm Tour) durch gezielte Technologieinvestitionen ihre Marktposition konsolidiert haben.</p>
@@ -521,7 +630,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
   </div>
   <div class="two-col">
     <div>
-      <div class="img-wrap"><img src="de_02_umsatz.svg" alt=""><div class="img-cap">Abb. 3: Geschatzte Umsatzverteilung nach sieben Einnahmekategorien. Basis: Branchenbenchmarks vergleichbarer europaischer Agritourismus-Betriebe.</div></div>
+      <div class="img-wrap"><img src="public/de_02_umsatz.svg" alt=""><div class="img-cap">Abb. 3: Geschatzte Umsatzverteilung nach sieben Einnahmekategorien. Basis: Branchenbenchmarks vergleichbarer europaischer Agritourismus-Betriebe.</div></div>
     </div>
     <div>
       <h3 style="font-size:20px;font-weight:700;margin-bottom:20px">Digitale Touchpoint-Bewertung</h3>
@@ -584,7 +693,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
     </div>
   </div>
 
-  <div class="img-wrap mt-8"><img src="de_03_ai_impact.svg" alt=""><div class="img-cap">Abb. 4: Betrieblicher Impact der KI-Automatisierung  –  Baseline vs. optimierter Zustand nach Systemeinfuhrung. Quelle: Eigene Modellierung basierend auf verifizierten Case Studies.</div></div>
+  <div class="img-wrap mt-8"><img src="public/de_03_ai_impact.svg" alt=""><div class="img-cap">Abb. 4: Betrieblicher Impact der KI-Automatisierung  –  Baseline vs. optimierter Zustand nach Systemeinfuhrung. Quelle: Eigene Modellierung basierend auf verifizierten Case Studies.</div></div>
 
   <!-- INTERACTIVE WORKFLOW STEPPER -->
   <div class="wf-container">
@@ -692,11 +801,11 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);line-he
       </div>
     </div>
     <div>
-      <div class="img-wrap"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 5: Digitale Sichtbarkeitsanalyse  –  aktueller Status vs. 12-Monats-Ziel nach Strategieimplementierung.</div></div>
+      <div class="img-wrap"><img src="public/de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 5: Digitale Sichtbarkeitsanalyse  –  aktueller Status vs. 12-Monats-Ziel nach Strategieimplementierung.</div></div>
     </div>
   </div>
 
-  <div class="img-wrap mt-8"><img src="de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 6: Multi-Channel-Marketing-Strategie  –  Kanaloptimierung von aktuellem Status zu optimiertem Potential.</div></div>
+  <div class="img-wrap mt-8"><img src="public/de_04_sichtbarkeit.svg" alt=""><div class="img-cap">Abb. 6: Multi-Channel-Marketing-Strategie  –  Kanaloptimierung von aktuellem Status zu optimiertem Potential.</div></div>
 </section>
 
 <!-- ===== SECTION 5: ROADMAP ===== -->
@@ -909,6 +1018,23 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// ===== MOBILE NAV =====
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+function toggleMenu(){
+  const open = mobileMenu.classList.toggle('open');
+  navToggle.classList.toggle('active', open);
+  navToggle.setAttribute('aria-expanded', open);
+  mobileMenu.setAttribute('aria-hidden', !open);
+  document.body.classList.toggle('menu-open', open);
+}
+if(navToggle && mobileMenu){
+  navToggle.addEventListener('click', toggleMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    if(mobileMenu.classList.contains('open')) toggleMenu();
+  }));
+}
 
 // ===== ANIMATE ROI BARS ON SCROLL =====
 const roiBars = document.querySelectorAll('.roi-fill');
