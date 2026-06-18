@@ -42,3 +42,6 @@ next-env.d.ts
 
 # python virtual env
 .venv/
+
+# Microsoft Word lock/temp files
+~$*.docx
