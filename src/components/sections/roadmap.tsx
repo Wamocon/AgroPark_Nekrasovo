@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { SectionHeader } from "./section-header";
+import { AmbientBackground } from "@/components/ui/ambient-background";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { cn } from "@/lib/utils";
 
 const phases = [
@@ -65,47 +67,50 @@ const phases = [
 
 export function Roadmap() {
   return (
-    <section className="py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          number="05"
-          title="Implementierungs-Roadmap"
-          description="Phasierter Ansatz mit definierten Meilensteinen, Deliverables und Erfolgsmetriken."
-        />
+    <section className="relative overflow-hidden">
+      <AmbientBackground variant="neutral" intensity="subtle" className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            number="05"
+            title="Implementierungs-Roadmap"
+            description="Phasierter Ansatz mit definierten Meilensteinen, Deliverables und Erfolgsmetriken."
+          />
 
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {phases.map((p, i) => (
-            <motion.div
-              key={p.phase}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              whileHover={{ y: -8 }}
-              className={cn(
-                "relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg",
-                p.future && "border-accent-500/30 bg-accent-100/30"
-              )}
-            >
-              <div className={cn("absolute left-0 right-0 top-0 h-1 bg-gradient-to-r", p.color)} />
-              <div className="mb-2 text-xs font-bold uppercase tracking-wider text-green-700">
-                {p.phase} – {p.duration}
-              </div>
-              <h3 className={cn("mb-4 text-xl font-bold", p.future && "text-accent-600")}>
-                {p.title}
-              </h3>
-              <ul className="space-y-3">
-                {p.items.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-neutral-600">
-                    <span className="mt-0.5 text-green-600">✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {phases.map((p, i) => (
+              <TiltCard key={p.phase} tiltAmount={6} className="group rounded-2xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ y: -8 }}
+                  className={cn(
+                    "relative h-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg",
+                    p.future && "border-accent-500/30 bg-accent-100/30"
+                  )}
+                >
+                  <div className={cn("absolute left-0 right-0 top-0 h-1 bg-gradient-to-r", p.color)} />
+                  <div className="mb-2 text-xs font-bold uppercase tracking-wider text-green-700">
+                    {p.phase} – {p.duration}
+                  </div>
+                  <h3 className={cn("mb-4 text-xl font-bold", p.future && "text-accent-600")}>
+                    {p.title}
+                  </h3>
+                  <ul className="space-y-3">
+                    {p.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm text-neutral-600">
+                        <span className="mt-0.5 text-green-600">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </TiltCard>
+            ))}
+          </div>
         </div>
-      </div>
+      </AmbientBackground>
     </section>
   );
 }

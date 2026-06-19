@@ -52,3 +52,5 @@ message_to_waleri.md
 
 # Microsoft Word lock/temp files
 ~$*.docx
+
+.vercel

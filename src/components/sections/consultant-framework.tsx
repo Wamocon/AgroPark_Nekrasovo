@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeader } from "./section-header";
+import { AmbientBackground } from "@/components/ui/ambient-background";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { cn } from "@/lib/utils";
 
 const tabs = [
@@ -129,89 +131,94 @@ export function ConsultantFramework() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="bg-neutral-50 py-20 sm:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          number="00"
-          title="Von der Analyse zur messbaren Wertschöpfung"
-          description="Unser Beratungsansatz für AgroPark Nekrasovo: Ausgangslage verstehen, Schmerzpunkte beseitigen, Lösungen skalieren."
-        />
+    <section className="relative overflow-hidden">
+      <AmbientBackground variant="light" intensity="subtle" className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeader
+            number="00"
+            title="Von der Analyse zur messbaren Wertschöpfung"
+            description="Unser Beratungsansatz für AgroPark Nekrasovo: Ausgangslage verstehen, Schmerzpunkte beseitigen, Lösungen skalieren."
+          />
 
-        <div className="mb-8 flex flex-wrap gap-2">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActive(tab.id)}
-              className={cn(
-                "flex-1 min-w-[140px] rounded-xl border px-4 py-3 text-sm font-bold transition-all",
-                active === tab.id
-                  ? "border-green-900 bg-green-900 text-white"
-                  : "border-neutral-200 bg-white text-neutral-600 hover:border-green-700 hover:text-green-900"
-              )}
+          <div className="mb-8 flex flex-wrap gap-2">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActive(tab.id)}
+                className={cn(
+                  "relative flex-1 min-w-[140px] overflow-hidden rounded-xl border px-4 py-3 text-sm font-bold transition-all",
+                  active === tab.id
+                    ? "border-green-900 bg-gradient-to-r from-green-900 to-green-800 text-white shadow-lg shadow-green-900/20"
+                    : "border-neutral-200 bg-white text-neutral-600 hover:border-green-700 hover:text-green-900 hover:shadow-md"
+                )}
+              >
+                {active === tab.id && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer" />
+                )}
+                <span className="relative z-10">{tab.label}</span>
+              </button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
             >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+              {active === 3 && (
+                <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+                  {kpis.map((kpi) => (
+                    <TiltCard key={kpi.label} tiltAmount={6} className="group rounded-2xl">
+                      <div className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-5 text-center shadow-sm transition-shadow hover:shadow-md">
+                        <div className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 rounded-t-2xl bg-gradient-to-r from-green-900 to-green-600 transition-transform duration-500 group-hover:scale-x-100" />
+                        <div className="text-2xl font-black text-green-900 sm:text-3xl">
+                          {kpi.value}
+                        </div>
+                        <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                          {kpi.label}
+                        </div>
+                      </div>
+                    </TiltCard>
+                  ))}
+                </div>
+              )}
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            {active === 3 && (
-              <div className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-                {kpis.map((kpi) => (
-                  <div
-                    key={kpi.label}
-                    className="rounded-2xl border border-neutral-200 bg-white p-5 text-center"
-                  >
-                    <div className="text-2xl font-black text-green-900 sm:text-3xl">
-                      {kpi.value}
+              <div className="grid gap-5 md:grid-cols-2">
+                {tabs[active].cards.map((card) => (
+                  <TiltCard key={card.title} tiltAmount={5} className="group rounded-2xl">
+                    <div className="relative h-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg">
+                      <div className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 rounded-t-2xl bg-gradient-to-r from-green-900 via-green-600 to-accent-500 transition-transform duration-500 group-hover:scale-x-100" />
+                      <h3 className="mb-3 flex items-center gap-3 text-lg font-bold text-green-900">
+                        <span className="text-2xl">{card.icon}</span>
+                        {card.title}
+                      </h3>
+                      {"text" in card && card.text && (
+                        <p className="mb-4 text-sm leading-relaxed text-neutral-600">
+                          {card.text}
+                        </p>
+                      )}
+                      <ul className="space-y-2">
+                        {card.items.map((item) => (
+                          <li
+                            key={item}
+                            className="flex items-start gap-2 text-sm text-neutral-600"
+                          >
+                            <span className="mt-0.5 text-green-600">✓</span>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <div className="mt-1 text-xs font-semibold uppercase tracking-wider text-neutral-600">
-                      {kpi.label}
-                    </div>
-                  </div>
+                  </TiltCard>
                 ))}
               </div>
-            )}
-
-            <div className="grid gap-5 md:grid-cols-2">
-              {tabs[active].cards.map((card) => (
-                <div
-                  key={card.title}
-                  className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <h3 className="mb-3 flex items-center gap-3 text-lg font-bold text-green-900">
-                    <span className="text-2xl">{card.icon}</span>
-                    {card.title}
-                  </h3>
-                  {"text" in card && card.text && (
-                    <p className="mb-4 text-sm leading-relaxed text-neutral-600">
-                      {card.text}
-                    </p>
-                  )}
-                  <ul className="space-y-2">
-                    {card.items.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-2 text-sm text-neutral-600"
-                      >
-                        <span className="mt-0.5 text-green-600">✓</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </AmbientBackground>
     </section>
   );
 }
