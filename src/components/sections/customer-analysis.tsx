@@ -1,0 +1,73 @@
+"use client";
+
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { SectionHeader } from "./section-header";
+import { Badge } from "@/components/ui/badge";
+
+const touchpoints = [
+  { name: "Website", score: "35/100", text: "Statische Inhalte, keine Online-Buchung, kein responsives Design, keine Analytics-Integration.", variant: "accent" as const },
+  { name: "Telegram Buchung", score: "45/100", text: "Manueller Chat-Prozess, keine Automatisierung, Abhängigkeit von Personalverfügbarkeit.", variant: "accent" as const },
+  { name: "VKontakte (7.900+ Follower)", score: "60/100", text: "Aktive Community, aber keine Conversion-Optimierung, kein automatisiertes Booking.", variant: "success" as const },
+  { name: "Google My Business / Yandex", score: "40/100", text: "Grundeintrag vorhanden, unvollständige Informationen, keine aktive Bewertungsstrategie.", variant: "accent" as const },
+];
+
+export function CustomerAnalysis() {
+  return (
+    <section className="bg-neutral-50 py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          number="02"
+          title="Kunden- & Umsatzstrukturanalyse"
+          description="Aktuelle Geschäftsmodell-Architektur, Revenue-Streams und digitale Touchpoint-Analyse."
+        />
+
+        <div className="grid gap-8 lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4"
+          >
+            <Image
+              src="/de_02_umsatz.svg"
+              alt="Geschätzte Umsatzverteilung nach sieben Einnahmekategorien"
+              width={800}
+              height={600}
+              className="w-full"
+            />
+            <p className="mt-3 text-center text-sm italic text-neutral-600">
+              Abb. 3: Geschätzte Umsatzverteilung nach sieben Einnahmekategorien.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h3 className="mb-5 text-2xl font-bold text-foreground">
+              Digitale Touchpoint-Bewertung
+            </h3>
+            <div className="space-y-4">
+              {touchpoints.map((tp) => (
+                <div
+                  key={tp.name}
+                  className="rounded-2xl border border-neutral-200 bg-white p-5 transition-all hover:shadow-md"
+                >
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="font-bold text-foreground">{tp.name}</span>
+                    <Badge variant={tp.variant}>Score: {tp.score}</Badge>
+                  </div>
+                  <p className="text-sm text-neutral-600">{tp.text}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

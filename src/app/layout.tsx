@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,9 +14,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Strategiepapier: Digitale Transformation | AgroPark Nekrasovo",
+  title: "AgroPark Nekrasovo | Digitale Transformation",
   description:
-    "Weniger Aufwand. Mehr Buchungen. Bessere Übersicht. Ein pragmatischer Plan für die digitale Transformation von AgroPark Nekrasovo.",
+    "Weniger Aufwand. Mehr Buchungen. Bessere Übersicht. Die moderne digitale Plattform für AgroPark Nekrasovo.",
+  keywords: ["AgroPark", "Nekrasovo", "Agritourismus", "Digitale Transformation", "KI-Chatbot"],
+  authors: [{ name: "WAMOCON GmbH" }],
 };
 
 export const viewport: Viewport = {
@@ -30,10 +33,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="de"
+      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   );
 }

@@ -43,5 +43,12 @@ next-env.d.ts
 # python virtual env
 .venv/
 
+# QA / test artifacts
+qa_output/
+test-results/
+playwright-report/
+message_to_waleri.md
+.docx_build/
+
 # Microsoft Word lock/temp files
 ~$*.docx
