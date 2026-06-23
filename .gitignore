@@ -47,6 +47,7 @@ next-env.d.ts
 qa_output/
 test-results/
 playwright-report/
+.tmp/
 message_to_waleri.md
 .docx_build/
 

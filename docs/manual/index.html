@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!--
     HANDBOOK META - updated by Copilot on every relevant change
-    APP_NAME        : [APP_NAME]
-    APP_VERSION     : 0.1.0
-    LAST_UPDATED    : [LAST_UPDATED]
-    PRIMARY_COLOR   : [PRIMARY_COLOR]   e.g. #3b82f6
-    PRIMARY_DARK    : [PRIMARY_DARK]    e.g. #2563eb
-    LOGO_EMOJI      : [LOGO_EMOJI]      e.g. &#128230;
+    APP_NAME        : AgroPark Nekrasovo
+    APP_VERSION     : 1.0.0
+    LAST_UPDATED    : Juni 2026
+    PRIMARY_COLOR   : #1b4332
+    PRIMARY_DARK    : #0f2e1f
+    LOGO_EMOJI      : 🌾
   -->
-  <title>[APP_NAME] &ndash; Produkthandbuch | WAMOCON</title>
+  <title>AgroPark Nekrasovo &ndash; Produkthandbuch | WAMOCON</title>
   <style>
     /* ── Reset & Base ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       /* Brand colors - Copilot updates these to match the app */
-      --primary:      #3b82f6;
-      --primary-dark: #2563eb;
-      --primary-glow: rgba(59,130,246,0.18);
+      --primary:      #1b4332;
+      --primary-dark: #0f2e1f;
+      --primary-glow: rgba(27,67,50,0.18);
       --success:      #10b981;
       --warning:      #f59e0b;
       --danger:       #ef4444;
@@ -63,10 +63,10 @@
       body { background: #fff !important; color: #000 !important; }
       :root {
         --text: #000; --text-muted: #333; --bg-page: #fff;
-        --bg-card: #f5f5f5; --border: #ddd; --primary: #1d4ed8;
+        --bg-card: #f5f5f5; --border: #ddd; --primary: #0f2e1f;
       }
-      .cover { background: #f0f4ff !important; border-color: #1d4ed8 !important; }
-      h2 { color: #1d4ed8 !important; border-color: #1d4ed8 !important; }
+      .cover { background: #f0f7f4 !important; border-color: #0f2e1f !important; }
+      h2 { color: #0f2e1f !important; border-color: #0f2e1f !important; }
       .page-footer { position: static !important; border-top: 1px solid #ddd; }
     }
 
@@ -125,8 +125,8 @@
     /* ── PDF download / OneDrive buttons ─────────────────────────── */
     .download-bar {
       display: flex; align-items: center; gap: 0.5rem;
-      background: rgba(59,130,246,0.06);
-      border: 1px solid rgba(59,130,246,0.2);
+      background: rgba(27,67,50,0.06);
+      border: 1px solid rgba(27,67,50,0.2);
       border-radius: 10px; padding: 0.5rem 1rem;
       font-size: 0.8rem; color: var(--text-muted);
     }
@@ -177,8 +177,8 @@
 
     /* ── Cover page ───────────────────────────────────────────────── */
     .cover {
-      background: linear-gradient(160deg, rgba(30,60,130,0.2) 0%, rgba(13,21,38,0.9) 100%);
-      border: 1px solid rgba(59,130,246,0.25);
+      background: linear-gradient(160deg, rgba(27,67,50,0.2) 0%, rgba(13,21,38,0.9) 100%);
+      border: 1px solid rgba(27,67,50,0.25);
       border-radius: 24px; padding: 4rem;
       margin-bottom: 4rem; position: relative; overflow: hidden;
     }
@@ -186,7 +186,7 @@
       content: '';
       position: absolute; top: -40px; right: -40px;
       width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(27,67,50,0.08) 0%, transparent 70%);
       pointer-events: none;
     }
 
@@ -231,13 +231,13 @@
       font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
     }
     .badge-success { background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
-    .badge-primary { background: var(--primary-glow); color: var(--primary); border: 1px solid rgba(59,130,246,0.2); }
+    .badge-primary { background: var(--primary-glow); color: var(--primary); border: 1px solid rgba(27,67,50,0.2); }
     .badge-warning { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
     .badge-danger  { background: rgba(239,68,68,0.1); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
 
     .info-box {
       padding: 1.2rem 1.5rem; border-radius: 12px; margin: 2rem 0;
-      border-left: 4px solid var(--primary); background: rgba(59,130,246,0.05);
+      border-left: 4px solid var(--primary); background: rgba(27,67,50,0.05);
     }
     .info-box-title { font-weight: 900; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 0.5rem; }
 
@@ -263,7 +263,7 @@
       font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em;
     }
     td { padding: 1rem; border-top: 1px solid var(--border); vertical-align: top; }
-    tr:hover td { background: rgba(59,130,246,0.02); }
+    tr:hover td { background: rgba(27,67,50,0.02); }
 
     .yes { color: var(--success); font-weight: 700; }
     .no  { color: var(--text-dim); }
@@ -291,6 +291,233 @@
       .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
       .header-actions .download-bar { display: none; }
     }
+
+    /* 2026 responsive polish layer */
+    body {
+      overflow-x: hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+        #0b1220;
+      background-size: 48px 48px, 48px 48px, auto;
+    }
+
+    .page-header {
+      min-height: 72px;
+      height: auto;
+      background: rgba(10,18,32,0.94);
+      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+    }
+
+    .logo-mark {
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(212,163,115,0.92), rgba(16,185,129,0.82)),
+        var(--primary-dark);
+      color: #0b1220;
+    }
+
+    #toc-sidebar {
+      background: rgba(10,18,32,0.62);
+      box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
+    }
+
+    .toc-link {
+      border-radius: 8px;
+      padding-left: 0.9rem;
+    }
+
+    .toc-link:hover {
+      background: rgba(255,255,255,0.04);
+      transform: none;
+    }
+
+    main {
+      width: min(100%, 1040px);
+      max-width: 1040px;
+    }
+
+    .cover {
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(20,184,166,0.08), transparent 38%),
+        linear-gradient(160deg, rgba(27,67,50,0.35) 0%, rgba(10,18,32,0.96) 72%);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+    }
+
+    .cover::before {
+      inset: 0;
+      width: auto;
+      height: auto;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity: 0.28;
+    }
+
+    .cover h1 {
+      line-height: 1.02;
+      max-width: 760px;
+    }
+
+    h2 {
+      border-bottom-width: 1px;
+      border-image: linear-gradient(90deg, var(--primary), rgba(212,163,115,0.75), transparent) 1;
+      line-height: 1.08;
+    }
+
+    .card,
+    .feature-card,
+    .info-box,
+    .warn-box,
+    .table-wrap {
+      border-radius: 8px;
+      background: rgba(255,255,255,0.045);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .feature-icon {
+      display: inline-flex;
+      width: 2.5rem;
+      height: 2.5rem;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.08);
+      font-size: 1.35rem;
+    }
+
+    table {
+      min-width: 680px;
+    }
+
+    code {
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 760px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        padding: 0.75rem 1rem;
+      }
+
+      .brand {
+        min-width: 0;
+      }
+
+      .brand-name {
+        font-size: 0.95rem;
+        line-height: 1.12;
+      }
+
+      .brand-sub {
+        font-size: 0.66rem;
+      }
+
+      .logo-mark {
+        width: 40px;
+        height: 40px;
+      }
+
+      .header-actions {
+        margin-left: auto;
+        gap: 0.45rem;
+      }
+
+      .header-actions .btn-outline {
+        display: none;
+      }
+
+      .btn {
+        border-radius: 8px;
+        padding: 0.48rem 0.72rem;
+        font-size: 0.75rem;
+      }
+
+      .layout,
+      main,
+      .cover,
+      section {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      main {
+        padding: 1.5rem 1rem 3rem;
+      }
+
+      .cover {
+        padding: 2rem 1.35rem;
+        margin-bottom: 3rem;
+      }
+
+      .cover * {
+        min-width: 0;
+      }
+
+      .doc-type {
+        font-size: 0.62rem;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+      }
+
+      .cover h1 {
+        font-size: clamp(1.8rem, 9vw, 2.35rem);
+        line-height: 1.08;
+        overflow-wrap: anywhere;
+      }
+
+      .cover-sub {
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+      }
+
+      .cover-meta {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+
+      h2 {
+        align-items: flex-start;
+        font-size: clamp(1.7rem, 9vw, 2.2rem);
+      }
+
+      h3 {
+        font-size: 1.08rem;
+      }
+
+      p,
+      li {
+        font-size: 0.96rem;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .table-wrap {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .page-footer {
+        padding: 1.25rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -299,9 +526,9 @@
 <header class="page-header no-print">
   <div class="brand">
     <!-- LOGO: Copilot updates the emoji/letter and gradient to match the app -->
-    <div class="logo-mark" aria-label="App logo">&#128230;</div>
+    <div class="logo-mark" aria-label="App logo">🌾</div>
     <div>
-      <div class="brand-name">[APP_NAME]</div>
+      <div class="brand-name">AgroPark Nekrasovo</div>
       <div class="brand-sub">WAMOCON &middot; Produkthandbuch</div>
     </div>
   </div>
@@ -350,14 +577,14 @@
     <a class="toc-link l1" href="#uebersicht">01 &Uuml;bersicht</a>
     <a class="toc-link l1" href="#features">02 Funktionen</a>
     <a class="toc-link l2" href="#feature-list">2.1 Feature-Liste</a>
-    <a class="toc-link l2" href="#plaene">2.2 Pl&auml;ne &amp; Preise</a>
+    <a class="toc-link l2" href="#demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</a>
     <a class="toc-link l1" href="#tutorials">03 Erste Schritte</a>
-    <a class="toc-link l2" href="#tut-konto">3.1 Konto erstellen</a>
-    <a class="toc-link l2" href="#tut-start">3.2 Loslegen</a>
-    <a class="toc-link l2" href="#tut-upgrade">3.3 Upgrade</a>
+    <a class="toc-link l2" href="#tut-login">3.1 Demo-Login</a>
+    <a class="toc-link l2" href="#tut-buchung">3.2 Erste Buchung</a>
+    <a class="toc-link l2" href="#tut-dashboard">3.3 Dashboard-&Uuml;bersicht</a>
     <a class="toc-link l1" href="#howto">04 How-to Guides</a>
-    <a class="toc-link l2" href="#ht-profil">4.1 Profil verwalten</a>
-    <a class="toc-link l2" href="#ht-loeschen">4.2 Konto l&ouml;schen</a>
+    <a class="toc-link l2" href="#ht-buchung">4.1 Buchung durchf&uuml;hren</a>
+    <a class="toc-link l2" href="#ht-chat">4.2 KI-Chat nutzen</a>
     <a class="toc-link l1" href="#referenz">05 Funktionsreferenz</a>
     <a class="toc-link l2" href="#routen">5.1 Routen</a>
     <a class="toc-link l2" href="#api">5.2 API &amp; Hooks</a>
@@ -375,13 +602,13 @@
     <!-- ── Cover ─────────────────────────────────────────────────── -->
     <div class="cover">
       <div class="doc-type">Offizielles Produkthandbuch &middot; WAMOCON GmbH</div>
-      <h1>[APP_NAME]</h1>
-      <div class="cover-sub">[APP_TAGLINE]</div>
+      <h1>AgroPark Nekrasovo</h1>
+      <div class="cover-sub">Digitale Transformation f&uuml;r Agritourismus</div>
       <div class="cover-meta">
-        <div><div class="meta-label">Version</div><div class="meta-value">[APP_VERSION]</div></div>
+        <div><div class="meta-label">Version</div><div class="meta-value">1.0.0</div></div>
         <div><div class="meta-label">Status</div><div class="meta-value"><span class="badge badge-success">Produktiv</span></div></div>
-        <div><div class="meta-label">Pl&auml;ne</div><div class="meta-value">[PLAN_NAMES]</div></div>
-        <div><div class="meta-label">Datum</div><div class="meta-value">[LAST_UPDATED]</div></div>
+        <div><div class="meta-label">URL</div><div class="meta-value"><a href="https://agroparknekrasovo.vercel.app" target="_blank" rel="noopener">agropark-nekrasovo.vercel.app</a></div></div>
+        <div><div class="meta-label">Datum</div><div class="meta-value">Juni 2026</div></div>
       </div>
     </div>
 
@@ -389,42 +616,41 @@
     <section id="uebersicht">
       <h2><span class="num">01</span> &Uuml;bersicht</h2>
       <p>
-        [APP_NAME] ist eine webbasierte SaaS-Plattform, die [APP_DESCRIPTION].
+        AgroPark Nekrasovo ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Sie transformiert das urspr&uuml;ngliche statische Strategiepapier in eine interaktive, KI-gest&uuml;tzte Plattform mit Buchungssystem, Dashboard, Multi-Role-Login und einer verbundenen Startseiten-Erfahrung f&uuml;r Buchung, Chat, Betrieb und Roadmap.
       </p>
       <div class="card">
-        <strong>Was [APP_NAME] l&ouml;st:</strong> [PROBLEM_STATEMENT]
+        <strong>Was AgroPark Nekrasovo l&ouml;st:</strong> Saisonale Attraktionen wie Agrar-Parks verlieren Buchungen und Anfragen durch starre, statische Webseiten. Die App schafft eine zentrale digitale Anlaufstelle, reduziert administrativen Aufwand und gibt Besuchern eine durchg&auml;ngige Online-Erfahrung.
       </div>
       <div class="feature-grid">
-        <!-- Copilot fills these cards based on actual implemented features -->
         <div class="feature-card">
-          <div class="feature-icon">&#128269;</div>
-          <div class="feature-title">[FEATURE_1_TITLE]</div>
-          <div class="feature-desc">[FEATURE_1_DESC]</div>
+          <div class="feature-icon">🌐</div>
+          <div class="feature-title">Marketing-Site &amp; Inhalt</div>
+          <div class="feature-desc">Animierter Hero, verbundene Plattform-Br&uuml;cke, Marktanalyse, Strategie, Roadmap, Investition und rechtliche Unterseiten mit SEO-Grundlagen.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">&#9889;</div>
-          <div class="feature-title">[FEATURE_2_TITLE]</div>
-          <div class="feature-desc">[FEATURE_2_DESC]</div>
+          <div class="feature-icon">🤖</div>
+          <div class="feature-title">KI-Chatbot</div>
+          <div class="feature-desc">Floating-Chat-Widget auf allen Seiten mit serverseitigem Proxy und Fallback-Modus f&uuml;r Demos.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">&#128202;</div>
-          <div class="feature-title">[FEATURE_3_TITLE]</div>
-          <div class="feature-desc">[FEATURE_3_DESC]</div>
+          <div class="feature-icon">🔐</div>
+          <div class="feature-title">Rollen &amp; Dashboard</div>
+          <div class="feature-desc">Demo-Login mit vier Rollen und gesch&uuml;tztem Dashboard mit KPIs, Charts und Aktivit&auml;tsfeed.</div>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">&#128276;</div>
-          <div class="feature-title">[FEATURE_4_TITLE]</div>
-          <div class="feature-desc">[FEATURE_4_DESC]</div>
+          <div class="feature-icon">🎟️</div>
+          <div class="feature-title">Buchungssystem</div>
+          <div class="feature-desc">3-Schritt-Ticketbuchung f&uuml;r Erwachsene, Kinder, Familien und Gruppenf&uuml;hrungen inklusive Saisonpr&uuml;fung, Mengenbegrenzung und QR-Code.</div>
         </div>
       </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Nutzerrolle</th><th>Beschreibung</th></tr></thead>
           <tbody>
-            <!-- Copilot updates rows to reflect actual roles -->
-            <tr><td><strong>Free-Nutzer</strong></td><td>[FREE_ROLE_DESC]</td></tr>
-            <tr><td><strong>Pro-Nutzer</strong></td><td>[PRO_ROLE_DESC]</td></tr>
-            <tr><td><strong>Admin (WAMOCON)</strong></td><td>Nutzerverwaltung, Systemkonfiguration, Monitoring</td></tr>
+            <tr><td><strong>Administrator</strong></td><td>Voller Zugriff auf Dashboard und Inhalte.</td></tr>
+            <tr><td><strong>Park Manager</strong></td><td>Betriebliche &Uuml;bersicht, Buchungen, KPIs.</td></tr>
+            <tr><td><strong>Mitarbeiter</strong></td><td>Eingeschr&auml;nkter Zugriff, Check-in-&auml;hnliche Ansicht.</td></tr>
+            <tr><td><strong>Besucher</strong></td><td>&Ouml;ffentliche Seiten, Buchung, Chat.</td></tr>
           </tbody>
         </table>
       </div>
@@ -435,22 +661,31 @@
       <h2><span class="num">02</span> Funktionen</h2>
 
       <h3 id="feature-list">2.1 Feature-Liste</h3>
-      <p>[FEATURE_LIST_INTRO]</p>
+      <p>Die App ist in folgende Funktionsbereiche unterteilt:</p>
+      <ol>
+        <li><strong>Marketing-Site</strong> &ndash; Animierter Hero, verbundene Plattform-Br&uuml;cke, Marktanalyse, Kundenanalyse, Tech-Architektur, Marketingstrategie, Roadmap und Investition. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
+        <li><strong>KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Demos.</li>
+        <li><strong>Demo-Authentifizierung &amp; Rollen</strong> &ndash; Login mit vier Rollen (Administrator, Park Manager, Mitarbeiter, Besucher) und gesch&uuml;tztem Dashboard.</li>
+        <li><strong>Dashboard</strong> &ndash; KPI-Karten, Buchungs- und Umsatz-Charts, Kanal-Attribution, Aktivit&auml;tsfeed und Schnellzugriffe.</li>
+        <li><strong>Buchungssystem</strong> &ndash; 3-Schritt-Buchung (Termin &rarr; Tickets &rarr; Best&auml;tigung), saisonale Datumspr&uuml;fung, begrenzte Ticketmengen, Tickettypen Erwachsene/Kinder/Familie/Gruppenf&uuml;hrung, Buchungsreferenz mit QR-Code, Zahlung vor Ort.</li>
+        <li><strong>Coming Soon</strong> &ndash; Seiten unter <code>/membership</code>, <code>/vr-tour</code>, <code>/iot</code>, <code>/shop</code> und <code>/workshops</code> mit Waitlist-Formular.</li>
+      </ol>
       <div class="info-box">
         <div class="info-box-title">Hinweis</div>
         <p>Diese Liste wird von Copilot automatisch aktualisiert, wenn neue Features implementiert werden.</p>
       </div>
 
-      <h3 id="plaene">2.2 Pl&auml;ne &amp; Preise</h3>
+      <h3 id="demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</h3>
+      <p>Die App verwendet Demo-Login-Rollen. Nicht alle Funktionen sind f&uuml;r jede Rolle verf&uuml;gbar:</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Feature</th><th>Free</th><th>Pro ([PRO_PRICE])</th></tr></thead>
+          <thead><tr><th>Funktion</th><th>Administrator</th><th>Park Manager</th><th>Mitarbeiter</th><th>Besucher</th></tr></thead>
           <tbody>
-            <!-- Copilot updates this table when pricing/plans change -->
-            <tr><td>[FEATURE_A]</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>[FEATURE_B]</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>[FEATURE_C_PRO]</td><td class="no">&#10007;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>[FEATURE_D_PRO]</td><td class="no">&#10007;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Marketing-Seiten &amp; Inhalte</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>KI-Chat</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Ticketbuchung</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+            <tr><td>Dashboard</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">eingeschr&auml;nkt</td><td class="no">&#10007;</td></tr>
+            <tr><td>Admin-Funktionen</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="no">&#10007;</td></tr>
           </tbody>
         </table>
       </div>
@@ -460,31 +695,31 @@
     <section id="tutorials">
       <h2><span class="num">03</span> Erste Schritte</h2>
 
-      <h3 id="tut-konto">3.1 Konto erstellen</h3>
+      <h3 id="tut-login">3.1 Demo-Login</h3>
       <ol>
-        <!-- Copilot updates steps to match actual auth flow and routes -->
-        <li><code>[APP_URL]/auth/registrieren</code> aufrufen</li>
-        <li>E-Mail-Adresse und Passwort (min. 8 Zeichen) eingeben</li>
-        <li>AGB und Datenschutzerkl&auml;rung akzeptieren</li>
-        <li><strong>&bdquo;Kostenlos starten&ldquo;</strong> klicken</li>
-        <li>Best&auml;tigungslink in der E-Mail anklicken</li>
-        <li>Weiterleitung zum Dashboard</li>
+        <li><code>/login</code> aufrufen</li>
+        <li>Eine der vier Demo-Rollen w&auml;hlen: <strong>Administrator</strong>, <strong>Park Manager</strong>, <strong>Mitarbeiter</strong> oder <strong>Besucher</strong></li>
+        <li><strong>&bdquo;Anmelden&ldquo;</strong> klicken</li>
+        <li>Bei internen Rollen erfolgt die Weiterleitung zum Dashboard; Besucher bleiben auf den &ouml;ffentlichen Seiten</li>
       </ol>
 
-      <h3 id="tut-start">3.2 Loslegen</h3>
+      <h3 id="tut-buchung">3.2 Erste Buchung</h3>
       <ol>
-        <!-- Copilot fills this section with the actual first-run workflow -->
-        <li>[STEP_1]</li>
-        <li>[STEP_2]</li>
-        <li>[STEP_3]</li>
+        <li><code>/buchung</code> aufrufen</li>
+        <li>Ein Besuchsdatum innerhalb der Saison (Mai bis September) im Kalender w&auml;hlen</li>
+        <li>Tickettypen und Anzahl ausw&auml;hlen (Erwachsene, Kinder, Familie, Gruppenf&uuml;hrung; maximal 20 je Tickettyp)</li>
+        <li>Kontaktdaten eingeben</li>
+        <li>Die Buchung mit einer eindeutigen <strong>Buchungsreferenz</strong> und einem <strong>QR-Code</strong> best&auml;tigen</li>
+        <li>Die Zahlung erfolgt vor Ort am Park</li>
       </ol>
 
-      <h3 id="tut-upgrade">3.3 Auf Pro upgraden</h3>
+      <h3 id="tut-dashboard">3.3 Dashboard-&Uuml;bersicht</h3>
       <ol>
-        <li>Im Dashboard auf <strong>&bdquo;Auf Pro upgraden&ldquo;</strong> klicken</li>
-        <li>Stripe Checkout &ouml;ffnet sich im selben Fenster</li>
-        <li>Zahlungsdaten eingeben (Kreditkarte, SEPA-Lastschrift)</li>
-        <li>Nach Zahlung: automatische R&uuml;ckleitung zum Dashboard mit aktiviertem Pro-Status</li>
+        <li>Nach dem Demo-Login wird das Dashboard geladen</li>
+        <li>KPI-Karten zeigen Besucherzahlen, Umsatz und offene Buchungen</li>
+        <li>Buchungs- und Umsatz-Charts visualisieren Trends</li>
+        <li>Der Aktivit&auml;tsfeed listet j&uuml;ngste Ereignisse</li>
+        <li>Schnellzugriffe f&uuml;hren zur Buchung, zum Chat und zu Coming-Soon-Bereichen</li>
       </ol>
     </section>
 
@@ -492,28 +727,26 @@
     <section id="howto">
       <h2><span class="num">04</span> How-to Guides</h2>
 
-      <h3 id="ht-profil">4.1 Profil &amp; Abonnement verwalten</h3>
+      <h3 id="ht-buchung">4.1 Buchung durchf&uuml;hren</h3>
       <ol>
-        <li><code>/[locale]/profil</code> aufrufen</li>
-        <li>Stammdaten (Name, E-Mail) &auml;ndern &rarr; <strong>&bdquo;Speichern&ldquo;</strong></li>
-        <li>Passwort &auml;ndern &rarr; Best&auml;tigungs-E-Mail wird versandt</li>
-        <li>Abo-Status und n&auml;chstes Abrechnungsdatum einsehen</li>
-        <li>Zahlungsmethode &auml;ndern &rarr; Weiterleitung zum Stripe Customer Portal</li>
-        <li>Pro-Abo k&uuml;ndigen &rarr; Weiterleitung zum Stripe Customer Portal (K&uuml;ndigung zum Periodenende)</li>
+        <li>&Uuml;ber das Men&uuml; oder die Startseite zu <code>/buchung</code> navigieren</li>
+        <li>Den gew&uuml;nschten Besuchstermin innerhalb der Parksaison ausw&auml;hlen</li>
+        <li>Die gew&uuml;nschten Ticketkategorien und Mengen hinzuf&uuml;gen</li>
+        <li>Vor- und Nachname sowie E-Mail-Adresse eingeben</li>
+        <li>Die Zusammenfassung pr&uuml;fen und <strong>&bdquo;Jetzt reservieren&ldquo;</strong> klicken</li>
+        <li>Die Best&auml;tigungsseite mit Buchungsreferenz und QR-Code speichern oder ausdrucken</li>
       </ol>
 
-      <h3 id="ht-loeschen">4.2 Konto l&ouml;schen (DSGVO)</h3>
+      <h3 id="ht-chat">4.2 KI-Chat nutzen</h3>
       <ol>
-        <li><code>/[locale]/profil</code> aufrufen &rarr; Abschnitt <strong>&bdquo;Konto l&ouml;schen&ldquo;</strong></li>
-        <li>Best&auml;tigungsdialog &ouml;ffnet sich &ndash; Vorgang ist <strong>nicht r&uuml;ckg&auml;ngig zu machen</strong></li>
-        <li>Best&auml;tigung eingeben und <strong>&bdquo;Konto unwiderruflich l&ouml;schen&ldquo;</strong> klicken</li>
-        <li>Alle personenbezogenen Daten werden gel&ouml;scht (DSGVO Art. 17)</li>
-        <li>Aktives Pro-Abo wird bei Stripe sofort gek&uuml;ndigt</li>
+        <li>Das Chat-Icon in der unteren rechten Ecke &ouml;ffnen</li>
+        <li>Eine Frage zu &Ouml;ffnungszeiten, Ticketpreisen oder dem Park stellen</li>
+        <li>Der serverseitige Proxy leitet die Anfrage an ein OpenAI-kompatibles Modell weiter</li>
+        <li>Ist die KI-Schnittstelle nicht erreichbar, antwortet der integrierte Fallback-Modus mit allgemeinen Informationen</li>
       </ol>
-
-      <div class="warn-box">
-        <div class="warn-box-title">Unumkehrbarer Vorgang</div>
-        <p>Die Konto-L&ouml;schung kann nicht r&uuml;ckg&auml;ngig gemacht werden. Alle Daten werden dauerhaft entfernt.</p>
+      <div class="info-box">
+        <div class="info-box-title">Demo-Hinweis</div>
+        <p>Der Chat dient der Demonstration. Antworten k&ouml;nnen bei Nichtverf&uuml;gbarkeit der externen API auf vorbereitete Fallback-Inhalte zur&uuml;ckgreifen.</p>
       </div>
     </section>
 
@@ -522,20 +755,26 @@
       <h2><span class="num">05</span> Funktionsreferenz</h2>
 
       <h3 id="routen">5.1 Routen-&Uuml;bersicht</h3>
+      <p>Die App verwendet keine <code>[locale]</code>-Pr&auml;fixe. Alle Routen sind einstufig.</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>Route</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
           <tbody>
-            <!-- Copilot updates this table to match actual app routes from src/app/ -->
-            <tr><td><code>/[locale]</code></td><td>Startseite / Marketing</td><td>Alle</td></tr>
-            <tr><td><code>/[locale]/auth/anmelden</code></td><td>Login</td><td>&Ouml;ffentlich</td></tr>
-            <tr><td><code>/[locale]/auth/registrieren</code></td><td>Registrierung</td><td>&Ouml;ffentlich</td></tr>
-            <tr><td><code>/[locale]/dashboard</code></td><td>Nutzer-Dashboard</td><td>Eingeloggt</td></tr>
-            <tr><td><code>/[locale]/profil</code></td><td>Profil, Abo, Konto</td><td>Eingeloggt</td></tr>
-            <tr><td><code>/[locale]/admin</code></td><td>Admin-Dashboard</td><td>Admin only</td></tr>
-            <tr><td><code>/[locale]/impressum</code></td><td>Impressum</td><td>Alle</td></tr>
-            <tr><td><code>/[locale]/datenschutz</code></td><td>Datenschutzerkl&auml;rung</td><td>Alle</td></tr>
-            <tr><td><code>/[locale]/agb</code></td><td>AGB</td><td>Alle</td></tr>
+            <tr><td><code>/</code></td><td>Startseite / Marketing mit verbundener Plattform-Br&uuml;cke</td><td>Alle</td></tr>
+            <tr><td><code>/login</code></td><td>Demo-Login</td><td>&Ouml;ffentlich</td></tr>
+            <tr><td><code>/dashboard</code></td><td>Gesch&uuml;tztes Dashboard</td><td>Eingeloggt</td></tr>
+            <tr><td><code>/buchung</code></td><td>Ticketbuchung</td><td>Alle</td></tr>
+            <tr><td><code>/park</code></td><td>Park-Informationen</td><td>Alle</td></tr>
+            <tr><td><code>/attraktionen</code></td><td>Attraktionen</td><td>Alle</td></tr>
+            <tr><td><code>/kontakt</code></td><td>Kontaktformular</td><td>Alle</td></tr>
+            <tr><td><code>/membership</code></td><td>Coming Soon &ndash; Mitgliedschaft</td><td>Alle</td></tr>
+            <tr><td><code>/vr-tour</code></td><td>Coming Soon &ndash; VR-Tour</td><td>Alle</td></tr>
+            <tr><td><code>/iot</code></td><td>Coming Soon &ndash; IoT</td><td>Alle</td></tr>
+            <tr><td><code>/shop</code></td><td>Coming Soon &ndash; Shop</td><td>Alle</td></tr>
+            <tr><td><code>/workshops</code></td><td>Coming Soon &ndash; Workshops</td><td>Alle</td></tr>
+            <tr><td><code>/impressum</code></td><td>Impressum</td><td>Alle</td></tr>
+            <tr><td><code>/datenschutz</code></td><td>Datenschutzerkl&auml;rung</td><td>Alle</td></tr>
+            <tr><td><code>/agb</code></td><td>AGB</td><td>Alle</td></tr>
           </tbody>
         </table>
       </div>
@@ -549,9 +788,8 @@
         <table>
           <thead><tr><th>Endpunkt / Hook</th><th>Methode</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
           <tbody>
-            <!-- Copilot updates rows when API routes are added/changed -->
-            <tr><td><code>/api/health</code></td><td>GET</td><td>Health-Check</td><td>Alle</td></tr>
-            <tr><td><code>/api/stripe/webhook</code></td><td>POST</td><td>Stripe-Webhook (intern)</td><td>Stripe only</td></tr>
+            <tr><td><code>/api/chat</code></td><td>POST</td><td>KI-Chat Proxy mit Payload-Validierung und Fallback</td><td>Alle</td></tr>
+            <tr><td><code>/api/login</code></td><td>POST</td><td>Demo-Login API</td><td>&Ouml;ffentlich</td></tr>
           </tbody>
         </table>
       </div>
@@ -566,64 +804,64 @@
         <table>
           <thead><tr><th>Schicht</th><th>Technologie</th><th>Aufgabe</th></tr></thead>
           <tbody>
-            <tr><td>Frontend &amp; Backend</td><td>Next.js 16 (App Router), TypeScript</td><td>SSR, API-Routen, Middleware</td></tr>
-            <tr><td>Styling</td><td>Tailwind CSS v4</td><td>Utility-First, Dark/Light Mode</td></tr>
-            <tr><td>Datenbank &amp; Auth</td><td>Supabase (PostgreSQL, RLS)</td><td>Schema <code>[DB_SCHEMA]</code></td></tr>
-            <tr><td>i18n</td><td>next-intl v4</td><td>Deutsch (prim&auml;r) &amp; Englisch</td></tr>
-            <tr><td>Payment</td><td>Stripe</td><td>Abonnement, Customer Portal</td></tr>
-            <tr><td>E-Mail</td><td>Resend</td><td>Transaktions-E-Mails, Benachrichtigungen</td></tr>
-            <tr><td>Tests</td><td>Vitest, Testing Library</td><td>Unit-Tests, Coverage-Threshold</td></tr>
-            <tr><td>CI/CD</td><td>GitHub Actions</td><td>Tests, Lint, Typecheck, Vercel Deploy</td></tr>
-            <tr><td>Hosting</td><td>Vercel (Frontend), Supabase EU-Frankfurt</td><td>DSGVO-konforme EU-Region</td></tr>
+            <tr><td>Frontend &amp; Backend</td><td>Next.js 16 (App Router), React 19, TypeScript strict</td><td>SSR, API-Routen, Middleware</td></tr>
+            <tr><td>Styling</td><td>Tailwind CSS v4, shadcn/ui (manuelles Setup)</td><td>Utility-First, Komponenten-Bibliothek</td></tr>
+            <tr><td>Animation &amp; Icons</td><td>Framer Motion, Lucide React</td><td>Motion &amp; Iconografie</td></tr>
+            <tr><td>Charts</td><td>Original-SVGs f&uuml;r Marketing-Charts; Recharts in Abh&auml;ngigkeiten, aktuell nicht genutzt</td><td>Visualisierung</td></tr>
+            <tr><td>KI</td><td>OpenAI-compatible API &uuml;ber serverseitigen Proxy mit Fallback</td><td>KI-Chatbot</td></tr>
+            <tr><td>Auth</td><td>Demo-Cookie-Sessions (keine Signatur &ndash; nur Demo)</td><td>Rollen-basierter Login</td></tr>
+            <tr><td>Datenbank</td><td>Supabase Client konfiguriert, optional f&uuml;r diese Demo</td><td>Persistenz vorbereitet</td></tr>
+            <tr><td>Tests</td><td>Playwright E2E + Smoke-Test (<code>scripts/smoke-test.mjs</code>)</td><td>End-to-End-Validierung</td></tr>
+            <tr><td>CI/CD</td><td>GitHub Actions</td><td>Qualit&auml;ts-Gates und Deployments</td></tr>
+            <tr><td>Hosting</td><td>Vercel</td><td>Frontend-Bereitstellung</td></tr>
           </tbody>
         </table>
       </div>
 
       <h3 id="tech-schema">6.2 Datenbank-Schema</h3>
-      <p>Supabase-Schema: <code>[DB_SCHEMA_DEV]</code> (Entwicklung) / <code>[DB_SCHEMA_PROD]</code> (Produktion). Row Level Security (RLS) ist auf allen Tabellen aktiv.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Tabelle</th><th>Inhalt</th><th>RLS</th></tr></thead>
-          <tbody>
-            <!-- Copilot updates this table when Supabase migrations are applied -->
-            <tr><td><code>profiles</code></td><td>Nutzerprofile, Plan (free/pro)</td><td>Nur eigener Datensatz</td></tr>
-          </tbody>
-        </table>
+      <p>Die aktuelle Demo arbeitet mit Mock- und Demo-Daten sowie Cookie-Sessions. Es sind keine Supabase-Migrationen angewendet worden.</p>
+      <div class="warn-box">
+        <div class="warn-box-title">Hinweis zur Persistenz</div>
+        <p>Row Level Security (RLS) wird erst relevant, sobald persistente Tabellen angelegt werden. F&uuml;r den Demo-Betrieb werden keine personenbezogenen Daten in der Datenbank gespeichert.</p>
       </div>
     </section>
 
     <!-- ── 7. CI/CD & Tests ───────────────────────────────────────── -->
     <section id="ci-cd">
       <h2><span class="num">07</span> CI/CD &amp; Tests</h2>
-      <p>Jeder Code-Push durchl&auml;uft automatisch Qualit&auml;ts-Gates. Ein Vercel-Deployment erfolgt nur bei Pull Requests (Preview) oder Merge in <code>main</code> (Produktion).</p>
+      <p>Der Repository enth&auml;lt folgende Workflows. Ein automatisches Deployment bei Merge auf <code>main</code> findet nicht statt.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>Workflow</th><th>Trigger</th><th>Befehl</th></tr></thead>
+          <thead><tr><th>Workflow</th><th>Trigger</th><th>Befehl / Aufgabe</th></tr></thead>
           <tbody>
-            <!-- Copilot updates this table when GitHub Actions workflows change -->
-            <tr><td><code>deploy.yml</code></td><td>Manuell (workflow_dispatch)</td><td>Vercel Production/Preview Deploy</td></tr>
-            <tr><td><code>pr-pipeline.yml</code></td><td>Pull Request &rarr; main</td><td>Typecheck, Lint, Build, Tests</td></tr>
-            <tr><td><code>docs.yml</code></td><td>Push &rarr; main (docs/)</td><td>GitHub Pages (dieses Handbuch)</td></tr>
+            <tr><td><code>pr-pipeline.yml</code></td><td>Pull Request &rarr; <code>main</code>/<code>master</code> (oder manuell)</td><td>Auto-Fix, Typecheck, Lint, Build</td></tr>
+            <tr><td><code>deploy.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Vercel Production/Preview Deploy</td></tr>
+            <tr><td><code>launch-checklist.yml</code></td><td>Release ver&ouml;ffentlicht oder manuell</td><td>Go-Live-Checkliste (Vercel, Supabase, Handbuch)</td></tr>
+            <tr><td><code>lp-generator.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Generierung einer Landing-Page</td></tr>
           </tbody>
         </table>
       </div>
+      <p>Zus&auml;tzlich stehen lokale Tests bereit:</p>
+      <ul>
+        <li><code>npm run test</code> &ndash; Smoke-Test (<code>scripts/smoke-test.mjs</code>)</li>
+        <li><code>npm run test:e2e</code> &ndash; Playwright E2E-Suite</li>
+      </ul>
     </section>
 
     <!-- ── 8. DSGVO & Compliance ──────────────────────────────────── -->
     <section id="compliance">
       <h2><span class="num">08</span> DSGVO &amp; Compliance</h2>
-      <p>[APP_NAME] verarbeitet personenbezogene Daten ausschlie&szlig;lich in der EU (Supabase, Region Frankfurt). Alle Verarbeitungen sind nach DSGVO dokumentiert.</p>
+      <p>AgroPark Nekrasovo befindet sich im Demo-Betrieb. Die App zeigt rechtliche Seiten und ein Kontaktformular, speichert aber keine personenbezogenen Daten dauerhaft serverseitig. Demo-Buchungen und Kontaktanfragen werden nur lokal im Browser gespeichert. Es gibt kein echtes Zahlungs- oder E-Mail-Versand-Backend.</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>DSGVO-Anforderung</th><th>Umsetzung</th></tr></thead>
+          <thead><tr><th>DSGVO-Anforderung</th><th>Umsetzung im Demo-Betrieb</th></tr></thead>
           <tbody>
-            <tr><td>Recht auf Auskunft (Art. 15)</td><td>Profil-Seite zeigt alle gespeicherten Daten</td></tr>
-            <tr><td>Recht auf L&ouml;schung (Art. 17)</td><td>Konto-L&ouml;schung im Profil, sofortige Datenlöschung inkl. Stripe-K&uuml;ndigung</td></tr>
-            <tr><td>Datenportabilit&auml;t (Art. 20)</td><td>Datenexport (JSON) im Profil</td></tr>
-            <tr><td>Cookie-Einwilligung</td><td>Cookie-Banner mit Opt-in bei erstem Besuch</td></tr>
-            <tr><td>Datensicherheit (Art. 32)</td><td>RLS auf allen Supabase-Tabellen, HTTPS, kein Client-seitiges Secret</td></tr>
-            <tr><td>Impressum &amp; Datenschutzerkl&auml;rung</td><td>Verf&uuml;gbar unter <code>/[locale]/impressum</code> und <code>/[locale]/datenschutz</code></td></tr>
-            <tr><td>AGB</td><td>Verf&uuml;gbar unter <code>/[locale]/agb</code></td></tr>
+            <tr><td>Transparenz (Art. 12&ndash;14)</td><td>Impressum, Datenschutzerkl&auml;rung und AGB sind als statische Seiten verf&uuml;gbar.</td></tr>
+            <tr><td>Recht auf Auskunft (Art. 15)</td><td>Keine dauerhafte Speicherung personenbezogener Daten; Demo-Cookies sind rein sitzungsbasiert.</td></tr>
+            <tr><td>Recht auf L&ouml;schung (Art. 17)</td><td>Da keine Konten oder Daten persistiert werden, entf&auml;llt eine aktive L&ouml;schfunktion.</td></tr>
+            <tr><td>Datensicherheit (Art. 32)</td><td>HTTPS, kein Client-seitiges Secret, Demo-Cookies ohne Signatur.</td></tr>
+            <tr><td>Zahlungsverkehr</td><td>Keine Zahlungsabwicklung integriert; Buchungen werden vor Ort bezahlt.</td></tr>
+            <tr><td>Rechtliche Seiten</td><td><code>/impressum</code>, <code>/datenschutz</code> und <code>/agb</code></td></tr>
           </tbody>
         </table>
       </div>
@@ -636,13 +874,13 @@
         <table>
           <thead><tr><th>Begriff</th><th>Erkl&auml;rung</th></tr></thead>
           <tbody>
-            <!-- Copilot extends this glossary with domain-specific terms as features are added -->
-            <tr><td><strong>RLS</strong></td><td>Row Level Security &ndash; Datenbankebenen-Zugriffsschutz in Supabase/PostgreSQL</td></tr>
-            <tr><td><strong>SSR</strong></td><td>Server-Side Rendering &ndash; Seitenrendering auf dem Server (Next.js App Router Standard)</td></tr>
-            <tr><td><strong>SaaS</strong></td><td>Software as a Service &ndash; webbasierte Software, die als Abonnement bereitgestellt wird</td></tr>
-            <tr><td><strong>WAMOCON</strong></td><td>WAMOCON GmbH &ndash; Betreiber und Entwickler von [APP_NAME]</td></tr>
-            <tr><td><strong>Feature-Gate</strong></td><td>Serverseitiger Mechanismus, der Pro-Funktionen f&uuml;r Free-Nutzer sperrt</td></tr>
-            <tr><td><strong>CAC</strong></td><td>Customer Acquisition Cost &ndash; Kosten zur Gewinnung eines neuen Kunden</td></tr>
+            <tr><td><strong>App Router</strong></td><td>Das Routing-Modell von Next.js ab Version 13, basierend auf dem <code>app/</code>-Verzeichnis.</td></tr>
+            <tr><td><strong>Agritourismus</strong></td><td>Tourismus auf landwirtschaftlichen Betrieben &ndash; das Kernthema von AgroPark Nekrasovo.</td></tr>
+            <tr><td><strong>KPI</strong></td><td>Key Performance Indicator &ndash; Kennzahl zur Bewertung von Gesch&auml;ftsprozessen.</td></tr>
+            <tr><td><strong>QR-Code</strong></td><td>Zweidimensionaler Code zur schnellen Validierung von Buchungen vor Ort.</td></tr>
+            <tr><td><strong>RLS</strong></td><td>Row Level Security &ndash; Datenbankebenen-Zugriffsschutz in Supabase/PostgreSQL.</td></tr>
+            <tr><td><strong>SSR</strong></td><td>Server-Side Rendering &ndash; Seitenrendering auf dem Server (Next.js App Router Standard).</td></tr>
+            <tr><td><strong>WAMOCON</strong></td><td>WAMOCON GmbH &ndash; Betreiber und Entwickler von AgroPark Nekrasovo.</td></tr>
           </tbody>
         </table>
       </div>
@@ -654,7 +892,7 @@
 <!-- ── Footer ───────────────────────────────────────────────────────── -->
 <footer class="page-footer">
   <div>&copy; 2026 WAMOCON GmbH &ndash; Alle Rechte vorbehalten</div>
-  <div>[APP_NAME] Produkthandbuch v[APP_VERSION] &middot; Vertraulich &middot; [LAST_UPDATED]</div>
+  <div>AgroPark Nekrasovo Produkthandbuch v1.0.0 &middot; Vertraulich &middot; Juni 2026</div>
 </footer>
 
 <!-- ── Smooth active TOC highlighting ───────────────────────────────── -->

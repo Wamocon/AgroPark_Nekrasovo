@@ -15,6 +15,9 @@ const eslintConfig = defineConfig([
     ".venv/**",
     "node_modules/**",
     "qa_output/**",
+    ".tmp/**",
+    "test-results/**",
+    "playwright-report/**",
   ]),
 ]);
 

@@ -131,7 +131,7 @@ export function ConsultantFramework() {
   const [active, setActive] = useState(0);
 
   return (
-    <section className="relative overflow-hidden">
+    <section id="consultant-framework" className="relative overflow-hidden">
       <AmbientBackground variant="light" intensity="subtle" className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader

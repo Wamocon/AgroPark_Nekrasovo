@@ -5,11 +5,12 @@ import { SectionHeader } from "./section-header";
 import { AmbientBackground } from "@/components/ui/ambient-background";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const phases = [
   {
     phase: "Phase 1",
-    duration: "Monat 1–2",
+    duration: "Monat 1–3",
     title: "Quick Wins",
     color: "from-green-900 to-green-800",
     items: [
@@ -66,8 +67,10 @@ const phases = [
 ];
 
 export function Roadmap() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <section className="relative overflow-hidden">
+    <section id="roadmap" className="relative overflow-hidden">
       <AmbientBackground variant="neutral" intensity="subtle" className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -80,10 +83,10 @@ export function Roadmap() {
             {phases.map((p, i) => (
               <TiltCard key={p.phase} tiltAmount={6} className="group rounded-2xl">
                 <motion.div
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : i * 0.1 }}
                   whileHover={{ y: -8 }}
                   className={cn(
                     "relative h-full overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg",

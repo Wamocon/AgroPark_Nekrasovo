@@ -1,8 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export const runtime = "edge";
 
 const FALLBACK_ENABLED = true;
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 2_000;
 
 interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -11,6 +14,28 @@ interface ChatMessage {
 
 interface ChatRequest {
   messages: ChatMessage[];
+}
+
+function isChatMessage(value: unknown): value is ChatMessage {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<ChatMessage>;
+  const validRole =
+    candidate.role === "system" ||
+    candidate.role === "user" ||
+    candidate.role === "assistant";
+  return validRole && typeof candidate.content === "string" && candidate.content.trim().length > 0;
+}
+
+function normalizeMessages(messages: unknown): ChatMessage[] {
+  if (!Array.isArray(messages)) return [];
+
+  return messages
+    .filter(isChatMessage)
+    .slice(-MAX_MESSAGES)
+    .map((message) => ({
+      role: message.role,
+      content: message.content.trim().slice(0, MAX_MESSAGE_LENGTH),
+    }));
 }
 
 const SYSTEM_PROMPT = `Du bist der KI-Assistent von AgroPark Nekrasovo, einem saisonalen Agritourismus-Park in der Kaliningrader Oblast.
@@ -37,7 +62,7 @@ function buildFallbackResponse(userText: string): string {
     return "Der AgroPark Nekrasovo ist in der Saison von Mai bis September geöffnet. Die genauen Öffnungszeiten variieren je nach Monat – aktuelle Zeiten finden Sie auf unserer Website oder im Dashboard.";
   }
   if (lower.includes("ticket") || lower.includes("preis") || lower.includes("kosten")) {
-    return "Wir bieten verschiedene Tickets an: Erwachsene ab 4,50 $, Kinder 2,50 $, Familientickets und Gruppenführungen. Buchen können Sie direkt unter /buchung.";
+    return "Wir bieten verschiedene Tickets an: Erwachsene ab 4,50 €, Kinder 2,50 €, Familientickets und Gruppenführungen. Buchen können Sie direkt unter /buchung.";
   }
   if (lower.includes("buchung") || lower.includes("reservier")) {
     return "Sie können Tickets und Termine bequem online unter /buchung reservieren. Alternativ erreichen Sie uns per E-Mail unter info@agroparknp.ru oder telefonisch unter +7 (911) 474-30-04.";
@@ -108,8 +133,18 @@ async function streamRealResponse(
 
 export async function POST(req: NextRequest) {
   try {
-    const body = (await req.json()) as ChatRequest;
-    const userMessages = body.messages?.filter((m) => m.role === "user") ?? [];
+    let body: Partial<ChatRequest>;
+    try {
+      body = (await req.json()) as Partial<ChatRequest>;
+    } catch {
+      return NextResponse.json(
+        { error: "Ungültiges JSON im Anfragekörper." },
+        { status: 400 }
+      );
+    }
+
+    const normalizedMessages = normalizeMessages(body.messages);
+    const userMessages = normalizedMessages.filter((m) => m.role === "user");
 
     if (userMessages.length === 0) {
       return NextResponse.json(
@@ -140,7 +175,7 @@ export async function POST(req: NextRequest) {
 
     const messages: ChatMessage[] = [
       { role: "system", content: SYSTEM_PROMPT },
-      ...body.messages,
+      ...normalizedMessages,
     ];
 
     try {

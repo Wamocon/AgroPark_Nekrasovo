@@ -7,24 +7,27 @@ import { AmbientBackground } from "@/components/ui/ambient-background";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 const stats = [
-  { value: "22.4", suffix: " Mrd. $", label: "Globaler Agritech-Markt 2026" },
-  { value: "50", suffix: " Mrd. $", label: "Marktprognose 2033" },
-  { value: "10.8", suffix: "%", label: "CAGR 2026–2033" },
-  { value: "50", suffix: "%", label: "Buchungen nun online" },
+  { value: "10.3", suffix: " Mrd. €", label: "Globaler Agritourism-Markt 2026" },
+  { value: "22.4", suffix: " Mrd. €", label: "Marktprognose 2033" },
+  { value: "11.8", suffix: "%", label: "CAGR 2026–2033" },
+  { value: "75", suffix: "%", label: "Direktbuchungen im Agritourism" },
 ];
 
 const competitors = [
-  { name: "Lyman Orchards (USA)", digital: "VR-Touren, AI-Chatbot", tag: "Marktführer", tagVariant: "success" as const },
-  { name: "Great Canadian Farm Tour", digital: "Online-Booking, virtuelles Lernen", tag: "Innovator", tagVariant: "success" as const },
-  { name: "AgroPark Nekrasovo", digital: "Manuelle Buchung, statische Website", tag: "Verbesserungspotenzial", tagVariant: "accent" as const },
-  { name: "Lokale Parks (Kaliningrad)", digital: "Fragmentiert, niedrig", tag: "Peers", tagVariant: "outline" as const },
+  { name: "Lyman Orchards (USA)", digital: "VR-Touren, saisonaler Online-Shop", tag: "Internationaler Vorbild", tagVariant: "success" as const },
+  { name: "Great Canadian Farm Tour", digital: "Kostenloses Schul-Bildungsprogramm", tag: "Nicht kommerzieller Peer", tagVariant: "success" as const },
+  { name: "AgroPark Nekrasovo", digital: "Manuelle Buchung, begrenzte Digitalisierung", tag: "Verbesserungspotenzial", tagVariant: "accent" as const },
+  { name: "Lokale Parks (Kaliningrad)", digital: "Fragmentiert, niedrige Digitalisierung", tag: "Regionale Peers", tagVariant: "outline" as const },
 ];
 
 export function MarketAnalysis() {
+  const reducedMotion = useReducedMotion();
+
   return (
-    <section className="relative overflow-hidden">
+    <section id="market-analysis" className="relative overflow-hidden">
       <AmbientBackground variant="neutral" intensity="subtle" className="py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeader
@@ -37,10 +40,10 @@ export function MarketAnalysis() {
             {stats.map((stat, i) => (
               <TiltCard key={stat.label} tiltAmount={6} className="group rounded-2xl">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : i * 0.05 }}
                   className="relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-lg"
                 >
                   <div className="absolute left-0 top-0 h-1 w-full origin-left scale-x-0 rounded-t-2xl bg-gradient-to-r from-green-900 via-green-600 to-accent-500 transition-transform duration-500 group-hover:scale-x-100" />
@@ -60,13 +63,13 @@ export function MarketAnalysis() {
             <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
               <Image
                 src="/de_01_markt.svg"
-                alt="Globaler Agritech-Markt: historische Entwicklung und Prognose bis 2033"
+                alt="Globaler Agritourism-Markt: historische Entwicklung und Prognose bis 2033"
                 width={1200}
                 height={600}
                 className="w-full"
               />
               <p className="mt-3 text-center text-sm italic text-neutral-600">
-                Abb. 1: Globaler Agritech-Markt – historische Entwicklung und Prognose bis 2033.
+                Abb. 1: Globaler Agritourism-Markt – historische Entwicklung und Prognose bis 2033. Quelle: Coherent Market Insights (März 2026), Fortune Business Insights (Juni 2026), eigene Analyse.
               </p>
             </div>
           </TiltCard>
@@ -93,7 +96,7 @@ export function MarketAnalysis() {
               </h3>
               <p className="mb-6 leading-relaxed text-neutral-600">
                 AgroPark Nekrasovo befindet sich aktuell im Quadrant{" "}
-                <strong>»Niedrige Digitalisierung / Hoher Marktanteil«</strong> – eine
+                <strong>»Niedrige Digitalisierung / Bekannte Regionalmarke«</strong> – eine
                 Position mit hohem Disruptionsrisiko durch technologieaffine Wettbewerber.
               </p>
 

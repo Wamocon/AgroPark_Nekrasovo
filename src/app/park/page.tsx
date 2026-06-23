@@ -77,10 +77,12 @@ export default function ParkPage() {
               </p>
             </div>
             <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white p-4">
-              <div className="flex h-full min-h-[300px] items-center justify-center rounded-xl bg-neutral-100 text-neutral-500">
-                <span className="flex items-center gap-2">
-                  <MapPin className="size-5" />
-                  Parkgelände – Bild einfügen
+              <div className="relative flex h-full min-h-[300px] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-green-100 via-emerald-50 to-amber-50 text-green-900">
+                <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, #1B4332 0, transparent 25%), radial-gradient(circle at 80% 70%, #D4A373 0, transparent 25%)" }} />
+                <span className="relative flex flex-col items-center gap-2 text-center">
+                  <MapPin className="size-8" />
+                  <span className="font-semibold">AgroPark Nekrasovo</span>
+                  <span className="text-sm font-normal text-green-800">Kaliningrader Oblast</span>
                 </span>
               </div>
             </div>

@@ -38,6 +38,12 @@ export function ChatWidget() {
     }
   }, [messages, loading]);
 
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("agropark:open-chat", handler);
+    return () => window.removeEventListener("agropark:open-chat", handler);
+  }, []);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!input.trim() || loading) return;
@@ -136,6 +142,8 @@ export function ChatWidget() {
               {messages.map((msg) => (
                 <div
                   key={msg.id}
+                  data-testid="chat-message"
+                  data-role={msg.role}
                   className={cn(
                     "flex w-max max-w-[85%] items-start gap-2 rounded-2xl px-3 py-2 text-sm",
                     msg.role === "user"

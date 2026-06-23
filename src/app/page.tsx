@@ -7,6 +7,8 @@ import { TechArchitecture } from "@/components/sections/tech-architecture";
 import { MarketingStrategy } from "@/components/sections/marketing-strategy";
 import { Roadmap } from "@/components/sections/roadmap";
 import { Investment } from "@/components/sections/investment";
+import { ExecutiveSummary } from "@/components/sections/executive-summary";
+import { PlatformSnapshot } from "@/components/sections/platform-snapshot";
 import { CTASection } from "@/components/sections/cta-section";
 
 const structuredData = {
@@ -45,6 +47,8 @@ export default function HomePage() {
       />
       <PageShell>
         <Hero />
+        <ExecutiveSummary />
+        <PlatformSnapshot />
         <ConsultantFramework />
         <MarketAnalysis />
         <CustomerAnalysis />

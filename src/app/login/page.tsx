@@ -8,12 +8,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Leaf } from "lucide-react";
+import { Leaf, Info } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("admin@agropark.demo");
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -58,6 +58,17 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <div className="mb-4 rounded-lg bg-amber-50 p-3 text-xs text-amber-800">
+            <p className="flex items-start gap-2">
+              <Info className="mt-0.5 size-4 shrink-0" />
+              <span>
+                <strong>Demo-Zugang:</strong> Verwenden Sie einen der vier Test-Accounts
+                (admin, manager, staff, visitor) mit dem Passwort <strong>password</strong>.
+                Die Authentifizierung ist nur zur Demonstration und nicht produktiv sicher.
+              </span>
+            </p>
+          </div>
+
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="email">E-Mail</Label>
@@ -78,6 +89,7 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Passwort eingeben"
                 required
               />
             </div>
@@ -94,16 +106,6 @@ export default function LoginPage() {
               {loading ? "Wird angemeldet..." : "Anmelden"}
             </Button>
           </form>
-
-          <div className="mt-6 rounded-lg bg-neutral-50 p-4 text-xs text-neutral-600">
-            <p className="mb-2 font-semibold">Demo-Accounts:</p>
-            <ul className="space-y-1">
-              <li>admin@agropark.demo / password</li>
-              <li>manager@agropark.demo / password</li>
-              <li>staff@agropark.demo / password</li>
-              <li>visitor@agropark.demo / password</li>
-            </ul>
-          </div>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
             <Link href="/" className="text-green-700 hover:underline">

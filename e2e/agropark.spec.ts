@@ -5,8 +5,16 @@ import { join } from "path";
 const SCREENSHOTS = join(process.cwd(), "qa_output", "e2e");
 mkdirSync(SCREENSHOTS, { recursive: true });
 
-async function screenshot(page: Page, name: string) {
-  await page.screenshot({ path: join(SCREENSHOTS, `${name}.png`), fullPage: true });
+async function screenshot(page: Page, name: string, fullPage = true) {
+  await page.screenshot({ path: join(SCREENSHOTS, `${name}.png`), fullPage });
+}
+
+async function clickNavLink(page: Page, name: string) {
+  const menuButton = page.locator("button[aria-label='Menü öffnen']");
+  if (await menuButton.isVisible()) {
+    await menuButton.click({ force: true });
+  }
+  await page.getByRole("link", { name, exact: true }).first().click();
 }
 
 const roles = [
@@ -48,8 +56,10 @@ test.describe("Public pages", () => {
   test("Home page has all key sections", async ({ page }) => {
     await page.goto("/");
     await page.waitForLoadState("networkidle");
-    await expect(page.getByRole("heading", { name: /Weniger Aufwand/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /AgroPark Nekrasovo als buchbare/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Marktanalyse/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Ein Pitch, der sofort/ })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Buchung testen/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Technologie-Architektur/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Investition & Rendite/ })).toBeVisible();
     await expect(page.getByRole("heading", { name: /Bereit für die nächste Phase/ })).toBeVisible();
@@ -58,11 +68,11 @@ test.describe("Public pages", () => {
 
   test("Navigation links work", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: "Der Park" }).first().click();
+    await clickNavLink(page, "Der Park");
     await expect(page).toHaveURL(/\/park/);
-    await page.getByRole("link", { name: "Attraktionen" }).first().click();
+    await clickNavLink(page, "Attraktionen");
     await expect(page).toHaveURL(/\/attraktionen/);
-    await page.getByRole("link", { name: "Tickets" }).first().click();
+    await clickNavLink(page, "Tickets");
     await expect(page).toHaveURL(/\/buchung/);
   });
 
@@ -85,14 +95,14 @@ test.describe("AI Chat", () => {
     const chatButton = page.locator("button[aria-label='Chat öffnen']");
     await chatButton.click({ force: true });
     await expect(page.getByText("Hallo! Ich bin der KI-Assistent")).toBeVisible();
-    await screenshot(page, "03_chat_open");
+    await screenshot(page, "03_chat_open", false);
 
     const input = page.locator("input[placeholder='Nachricht schreiben...']");
     await input.fill("Wann ist der Park geöffnet?");
     await page.locator("button[type='submit']").last().click({ force: true });
 
     await expect(page.getByText("Mai bis September")).toBeVisible({ timeout: 10000 });
-    await screenshot(page, "04_chat_response");
+    await screenshot(page, "04_chat_response", false);
   });
 
   test("Chat widget responds to ticket pricing", async ({ page }) => {
@@ -101,7 +111,7 @@ test.describe("AI Chat", () => {
     const input = page.locator("input[placeholder='Nachricht schreiben...']");
     await input.fill("Wie viel kostet ein Ticket?");
     await page.locator("button[type='submit']").last().click({ force: true });
-    await expect(page.getByText(/4,50|Erwachsene/)).toBeVisible({ timeout: 10000 });
+    await expect(page.getByTestId("chat-message").filter({ hasText: /4,50 €/ })).toBeVisible({ timeout: 10000 });
   });
 });
 
@@ -114,9 +124,10 @@ test.describe("Authentication", () => {
 
       await page.fill("input[name='email']", role.email);
       await page.fill("input[name='password']", role.password);
-      await page.click("button[type='submit']");
-
-      await expect(page).toHaveURL(role.expectedPath);
+      await Promise.all([
+        page.waitForURL(`**${role.expectedPath}`, { timeout: 15000 }),
+        page.getByRole("button", { name: "Anmelden" }).click(),
+      ]);
       await expect(page.getByTestId("user-role-badge")).toHaveText(role.badge);
       await screenshot(page, `06_dashboard_${role.email.split("@")[0]}`);
 
@@ -160,17 +171,54 @@ test.describe("Booking flow", () => {
     await screenshot(page, "09_booking_step2");
 
     // Step 2: Add tickets (first two ticket cards)
-    await page.locator("button", { hasText: /^\+$/ }).first().click();
-    await page.locator("button", { hasText: /^\+$/ }).nth(1).click();
+    await page.getByRole("button", { name: "Erwachsener erhöhen" }).click();
+    await page.getByRole("button", { name: "Kind erhöhen" }).click();
     await page.fill("input#name", "Max Mustermann");
     await page.fill("input#email", "max@example.com");
     await screenshot(page, "10_booking_filled");
 
-    await page.click("button:has-text('Kostenlos reservieren')");
+    await page.click("button:has-text('Jetzt reservieren')");
 
     await expect(page.getByText("Buchung bestätigt!")).toBeVisible({ timeout: 10000 });
     await expect(page.getByText("Max Mustermann")).toBeVisible();
     await screenshot(page, "11_booking_confirmation");
+  });
+
+  test("Booking date and ticket controls guard invalid edge cases", async ({ page }) => {
+    await page.goto("/buchung");
+    const dateInput = page.locator("input[type='date']");
+    const minDate = await dateInput.getAttribute("min");
+    if (!minDate) throw new Error("Booking date input is missing a min date.");
+
+    await dateInput.fill(`${minDate.slice(0, 4)}-01-10`);
+    await expect(page.getByRole("button", { name: /Weiter/ })).toBeDisabled();
+    await expect(page.getByText(/innerhalb der Parksaison/)).toBeVisible();
+
+    await dateInput.fill(minDate);
+    await page.getByRole("button", { name: /Weiter/ }).click();
+
+    const adultMinus = page.getByRole("button", { name: "Erwachsener reduzieren" });
+    const adultPlus = page.getByRole("button", { name: "Erwachsener erhöhen" });
+    await expect(adultMinus).toBeDisabled();
+    for (let i = 0; i < 20; i++) {
+      await adultPlus.click();
+    }
+    await expect(adultPlus).toBeDisabled();
+  });
+});
+
+test.describe("ROI calculator", () => {
+  test("Calculator clamps extreme values without NaN or Infinity", async ({ page }) => {
+    await page.goto("/");
+    await page.locator("#investment").scrollIntoViewIfNeeded();
+
+    await page.locator("#visitors").fill("999999");
+    await expect(page.locator("#visitors")).toHaveValue("5000");
+    await page.locator("#ticket").fill("-99");
+    await expect(page.locator("#ticket")).toHaveValue("1");
+    await page.locator("#uplift").fill("0");
+
+    await expect(page.locator("body")).not.toContainText(/NaN|Infinity/);
   });
 });
 

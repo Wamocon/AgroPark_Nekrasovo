@@ -1,320 +1,260 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import {
+  Activity,
+  ArrowRight,
+  BarChart3,
+  Bot,
+  CalendarCheck,
+  CheckCircle2,
+  Gauge,
+  Route,
+  ShieldCheck,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { AmbientBackground } from "@/components/ui/ambient-background";
-import { TiltCard } from "@/components/ui/tilt-card";
-import { ArrowRight, Layers, Bot, Calendar, TrendingUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-function AnimatedCounter({
-  target,
-  suffix = "",
-  decimals = 0,
-}: {
-  target: number;
-  suffix?: string;
-  decimals?: number;
-}) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
+const proofPoints = [
+  { value: "3", label: "Schritte bis zur Buchung" },
+  { value: "4", label: "Demo-Rollen im Betrieb" },
+  { value: "24/7", label: "Chat mit Fallback" },
+  { value: "90", label: "Tage bis Phase-1-Livegang" },
+];
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+const flow = [
+  {
+    icon: CalendarCheck,
+    label: "Besucher",
+    title: "Bucht ein Erlebnis",
+    text: "Termin, Ticketmix und Kontaktdaten laufen durch einen geführten Reservierungsprozess.",
+  },
+  {
+    icon: Bot,
+    label: "KI",
+    title: "Beantwortet Fragen",
+    text: "Öffnungszeiten, Preise und Parkinfos bleiben erreichbar, auch wenn die externe API ausfällt.",
+  },
+  {
+    icon: BarChart3,
+    label: "Team",
+    title: "Steuert den Betrieb",
+    text: "Dashboard, Rollen, KPIs und Aktivitätsfeed zeigen, was heute passiert und wo Engpässe entstehen.",
+  },
+];
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          let start: number | null = null;
-          const duration = 2000;
-
-          const step = (timestamp: number) => {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setCount(eased * target);
-            if (progress < 1) requestAnimationFrame(step);
-          };
-
-          requestAnimationFrame(step);
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target]);
-
-  return (
-    <span ref={ref}>
-      {count.toLocaleString("de-DE", {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      })}
-      {suffix}
-    </span>
-  );
-}
+const opsRows = [
+  { label: "Heute Buchungen", value: "47", detail: "+12% vs. gestern" },
+  { label: "Offene Anfragen", value: "8", detail: "3 warten auf Antwort" },
+  { label: "Auslastung", value: "78%", detail: "+5% in Echtzeit" },
+];
 
 export function Hero() {
   return (
-    <section className="relative min-h-[92vh] overflow-hidden">
-      <AmbientBackground variant="accent" intensity="normal" className="h-full">
-        {/* Animated background orbs — preserved + extra slow orb */}
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <motion.div
-            animate={{
-              x: [0, 30, -20, 0],
-              y: [0, -40, 20, 0],
-              scale: [1, 1.05, 0.95, 1],
-            }}
-            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -right-20 -top-40 h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle,rgba(212,163,115,0.18),transparent_70%)]"
-          />
-          <motion.div
-            animate={{
-              x: [0, -20, 40, 0],
-              y: [0, 30, -30, 0],
-              scale: [1, 0.95, 1.05, 1],
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute -bottom-20 -left-40 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,rgba(82,183,136,0.18),transparent_70%)]"
-          />
-          <motion.div
-            animate={{
-              x: [0, 40, -30, 0],
-              y: [0, -20, 40, 0],
-              scale: [1, 1.08, 0.92, 1],
-            }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
-            className="absolute left-1/4 top-1/3 h-[300px] w-[300px] rounded-full bg-[radial-gradient(circle,rgba(212,163,115,0.12),transparent_70%)]"
-          />
-          <motion.div
-            animate={{
-              x: [0, -50, 30, 0],
-              y: [0, 20, -50, 0],
-              scale: [1, 1.1, 0.95, 1],
-            }}
-            transition={{ duration: 35, repeat: Infinity, ease: "easeInOut", delay: 8 }}
-            className="absolute bottom-1/4 right-1/4 h-[420px] w-[420px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.08),transparent_70%)]"
-          />
-        </div>
+    <section
+      id="top"
+      className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0b2118] text-white"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(115deg, rgba(9,31,22,0.98) 0%, rgba(18,65,45,0.94) 55%, rgba(79,93,68,0.88) 100%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-neutral-100 to-transparent"
+      />
 
-        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 lg:grid-cols-2 lg:gap-16 sm:py-32">
-          {/* Text content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-24 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          className="max-w-2xl"
+        >
+          <Badge
+            variant="outline"
+            className="mb-6 border-accent-500/45 bg-black/20 text-accent-500 backdrop-blur-sm"
           >
-            <Badge
-              variant="outline"
-              className="mb-6 border-accent-500/40 bg-accent-500/15 text-accent-500 backdrop-blur-sm"
+            <span className="mr-2 inline-block size-1.5 rounded-full bg-accent-500" />
+            Pitch Deck + Working Demo
+          </Badge>
+
+          <h1 className="max-w-3xl text-4xl font-black leading-[1.04] text-white sm:text-5xl lg:text-6xl">
+            AgroPark Nekrasovo als buchbare, messbare Demo-Plattform.
+          </h1>
+
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/78 sm:text-lg">
+            Aus Strategie wird ein nutzbarer Web-Prototyp: Besucher buchen Tickets,
+            der KI-Chat beantwortet Fragen, und das Team prüft Buchungen, Rollen und
+            operative Kennzahlen im Dashboard.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Button
+              asChild
+              size="lg"
+              className="bg-accent-500 text-white shadow-lg shadow-black/20 hover:bg-accent-600"
             >
-              <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-accent-500" />
-              Strategiepapier 2026
-            </Badge>
+              <Link href="/buchung">
+                Buchung testen <ArrowRight className="ml-2 size-4" />
+              </Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/25 bg-white/10 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
+            >
+              <Link href="/login">Demo-Login öffnen</Link>
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/20 bg-black/10 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
+            >
+              <Link href="/proposal.html">Pitch Deck</Link>
+            </Button>
+          </div>
 
-            <h1 className="text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Weniger Aufwand. Mehr Buchungen. Bessere Übersicht.{" "}
-              <span className="text-accent-500">AgroPark Nekrasovo</span>
-            </h1>
-
-            <p className="mt-6 max-w-lg text-base leading-relaxed text-white/75 sm:text-lg">
-              Ein pragmatischer Plan, Ihren Park effizienter zu führen: automatisierte
-              Buchungen, ein intelligenter Chatbot für Telegram und Web, sowie bessere
-              Sichtbarkeit bei Google und Yandex.
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button
-                asChild
-                size="lg"
-                className="bg-accent-500 text-white shadow-lg shadow-accent-500/25 hover:bg-accent-600"
+          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {proofPoints.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-lg border border-white/14 bg-white/[0.08] p-4 backdrop-blur"
               >
-                <Link href="/buchung">
-                  Ticket buchen <ArrowRight className="ml-2 size-4" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white/25 bg-white/10 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
-              >
-                <Link href="/dashboard">Dashboard öffnen</Link>
-              </Button>
+                <div className="text-2xl font-black text-accent-500">{item.value}</div>
+                <div className="mt-2 text-xs font-semibold uppercase leading-snug text-white/62">
+                  {item.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: 0.12 }}
+          className="relative"
+        >
+          <div className="rounded-lg border border-white/18 bg-white/[0.96] p-3 text-neutral-950 shadow-2xl shadow-black/35">
+            <div className="flex items-center justify-between gap-3 border-b border-neutral-200 px-3 py-2">
+              <div className="flex items-center gap-2">
+                <span className="size-2.5 rounded-full bg-red-400" />
+                <span className="size-2.5 rounded-full bg-amber-400" />
+                <span className="size-2.5 rounded-full bg-green-500" />
+                <span className="ml-2 text-xs font-bold text-neutral-700">
+                  AgroPark OS · Live Demo
+                </span>
+              </div>
+              <span className="rounded-md bg-green-900 px-2.5 py-1 text-[10px] font-black uppercase text-white">
+                Connected
+              </span>
             </div>
 
-            {/* Stats with TiltCard */}
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-              {[
-                { value: 22.4, suffix: " Mrd.", label: "Markt 2026" },
-                { value: 50, suffix: " Mrd.", label: "Prognose 2033" },
-                { value: 10.8, suffix: "%", label: "CAGR Wachstum", decimals: 1 },
-                { value: 200, suffix: "%", label: "Conversion-Ziel" },
-              ].map((stat) => (
-                <TiltCard
-                  key={stat.label}
-                  tiltAmount={8}
-                  scale={1.03}
-                  className="group rounded-xl"
-                >
-                  <div className="relative overflow-hidden rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur-md sm:p-4">
-                    <div className="absolute left-0 top-0 h-0.5 w-full origin-left scale-x-0 bg-gradient-to-r from-accent-500 to-green-400 transition-transform duration-500 group-hover:scale-x-100" />
-                    <div className="text-lg font-extrabold text-accent-500 sm:text-xl">
-                      <AnimatedCounter
-                        target={stat.value}
-                        suffix={stat.suffix}
-                        decimals={stat.decimals ?? 0}
-                      />
+            <div className="grid gap-3 p-3 lg:grid-cols-[0.82fr_1.18fr]">
+              <div className="space-y-3">
+                {opsRows.map((row) => (
+                  <div key={row.label} className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+                    <div className="text-[11px] font-bold uppercase text-neutral-600">
+                      {row.label}
                     </div>
-                    <div className="mt-1 text-[10px] uppercase tracking-wider text-white/60">
-                      {stat.label}
+                    <div className="mt-1 flex items-end justify-between gap-3">
+                      <span className="text-3xl font-black text-green-950">{row.value}</span>
+                      <span className="text-xs font-bold text-green-700">{row.detail}</span>
                     </div>
                   </div>
-                </TiltCard>
-              ))}
-            </div>
-          </motion.div>
+                ))}
 
-          {/* 3D Dashboard mockup wrapped in TiltCard */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="perspective-[1200px]"
-          >
-            <TiltCard tiltAmount={6} perspective={1200} scale={1.01} className="rounded-2xl">
-              <motion.div
-                animate={{
-                  rotateY: [-8, -6, -8],
-                  rotateX: [4, 3, 4],
-                  y: [0, -12, 0],
-                }}
-                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                style={{ transformStyle: "preserve-3d" }}
-                className="rounded-2xl border border-white/25 bg-white/95 shadow-2xl shadow-black/30"
-              >
-                <div className="flex items-center gap-2 border-b border-neutral-200 px-4 py-3">
-                  <div className="size-3 rounded-full bg-red-400" />
-                  <div className="size-3 rounded-full bg-amber-400" />
-                  <div className="size-3 rounded-full bg-green-400" />
-                  <span className="ml-3 text-xs font-semibold text-neutral-700">
-                    AgroPark OS – Live Dashboard
-                  </span>
+                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
+                  <div className="mb-3 flex items-center gap-2 text-sm font-black text-green-950">
+                    <ShieldCheck className="size-4" />
+                    Demo sicher begrenzt
+                  </div>
+                  <p className="text-sm leading-relaxed text-neutral-700">
+                    Keine echte Zahlung, saisonale Datumsprüfung, Mengenlimit und lokale
+                    Demo-Speicherung für Buchungs- und Kontaktflüsse.
+                  </p>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-neutral-200 bg-white p-4">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-xs font-bold uppercase text-neutral-500">
+                      Visitor-to-ops Journey
+                    </div>
+                    <div className="mt-1 text-lg font-black text-green-950">
+                      Ein Weg, drei verbundene Module
+                    </div>
+                  </div>
+                  <Gauge className="size-5 text-accent-600" />
                 </div>
 
-                <div className="grid p-4 sm:grid-cols-[64px_1fr]">
-                  <div className="hidden flex-col items-center gap-4 border-r border-neutral-200 pr-3 sm:flex">
-                    <div className="flex size-8 items-center justify-center rounded-lg bg-green-900 text-white">
-                      <Layers className="size-4" />
-                    </div>
-                    <div className="flex size-8 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600">
-                      <Calendar className="size-4" />
-                    </div>
-                    <div className="flex size-8 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600">
-                      <Bot className="size-4" />
-                    </div>
-                    <div className="flex size-8 items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-600">
-                      <TrendingUp className="size-4" />
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 sm:pl-4">
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { label: "Heute Buchungen", value: "47", change: "+12%" },
-                        { label: "Umsatz", value: "€2.840", change: "+€340" },
-                        { label: "Auslastung", value: "78%", change: "+5%" },
-                      ].map((kpi) => (
+                <div className="space-y-3">
+                  {flow.map((item, index) => (
+                    <div key={item.title} className="relative rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+                      {index < flow.length - 1 && (
                         <div
-                          key={kpi.label}
-                          className="rounded-lg border border-neutral-200 bg-white p-2 shadow-sm"
-                        >
-                          <div className="text-[9px] uppercase tracking-wider text-neutral-600">
-                            {kpi.label}
-                          </div>
-                          <div className="text-base font-extrabold text-green-900 sm:text-lg">
-                            {kpi.value}
-                          </div>
-                          <div className="text-[9px] font-semibold text-green-700">
-                            {kpi.change}
-                          </div>
+                          aria-hidden="true"
+                          className="absolute -bottom-4 left-8 h-5 w-px bg-green-800/35"
+                        />
+                      )}
+                      <div className="flex gap-3">
+                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-green-900 text-white">
+                          <item.icon className="size-5" />
                         </div>
-                      ))}
-                    </div>
-
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
-                        <div className="mb-2 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-neutral-600">
-                          Live Aktivität
-                          <span className="flex items-center gap-1 text-green-700">
-                            <span className="inline-block size-1.5 animate-pulse-dot rounded-full bg-green-600" />
-                            LIVE
-                          </span>
-                        </div>
-                        <ul className="space-y-2">
-                          {[
-                            { name: "Max K.", action: "buchte Familienticket", time: "vor 2 Min.", channel: "Stripe" },
-                            { name: "Anna L.", action: "reservierte Grillplatz", time: "vor 5 Min.", channel: "Telegram" },
-                            { name: "Sergej B.", action: "startete VR-Tour", time: "vor 8 Min.", channel: "Web" },
-                          ].map((item) => (
-                            <li
-                              key={item.name + item.action}
-                              className="flex items-center gap-2 rounded-lg bg-neutral-50 p-2 text-[11px]"
-                            >
-                              <div className="flex size-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-green-500 to-green-700 text-[9px] font-bold text-white">
-                                {item.name.split(" ").map((n) => n[0]).join("")}
-                              </div>
-                              <div>
-                                <strong>{item.name}</strong> {item.action}
-                                <div className="text-[9px] text-neutral-600">
-                                  {item.time} • {item.channel}
-                                </div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="rounded-xl border border-neutral-200 bg-white p-3 shadow-sm">
-                        <div className="mb-2 text-[10px] font-bold uppercase tracking-wider text-neutral-600">
-                          KI-Assistent
-                        </div>
-                        <div className="space-y-2">
-                          <div className="max-w-[90%] rounded-lg rounded-bl-none bg-neutral-100 p-2 text-[11px]">
-                            Hallo! Ich helfe Ihnen bei der Buchung. Welchen Termin möchten Sie?
+                        <div>
+                          <div className="text-[11px] font-black uppercase text-accent-600">
+                            {item.label}
                           </div>
-                          <div className="ml-auto max-w-[90%] rounded-lg rounded-br-none bg-green-900 p-2 text-[11px] text-white">
-                            Nächsten Samstag, 2 Erwachsene + 1 Kind
+                          <div className="mt-0.5 text-base font-black text-green-950">
+                            {item.title}
                           </div>
-                          <div className="max-w-[90%] rounded-lg rounded-bl-none bg-neutral-100 p-2 text-[11px]">
-                            Perfekt – Samstag ist verfügbar. Ticket für €34 hinzugefügt.
-                          </div>
+                          <p className="mt-1 text-sm leading-relaxed text-neutral-700">
+                            {item.text}
+                          </p>
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-neutral-50 p-2 text-[10px] font-semibold text-neutral-600">
-                      <span className="flex items-center gap-1"><span className="flex size-4 items-center justify-center rounded bg-green-700 text-white">S</span>Stripe</span>
-                      <span className="flex items-center gap-1"><span className="flex size-4 items-center justify-center rounded bg-green-700 text-white">G</span>Calendar</span>
-                      <span className="flex items-center gap-1"><span className="flex size-4 items-center justify-center rounded bg-green-700 text-white">T</span>Telegram</span>
-                      <span className="flex items-center gap-1"><span className="flex size-4 items-center justify-center rounded bg-green-700 text-white">W</span>WhatsApp</span>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              </motion.div>
-            </TiltCard>
-          </motion.div>
-        </div>
-      </AmbientBackground>
+
+                <div className="mt-4 grid gap-2 sm:grid-cols-3">
+                  {[
+                    { icon: CheckCircle2, label: "Buchung" },
+                    { icon: Activity, label: "Live Feed" },
+                    { icon: Route, label: "Roadmap" },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className="flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white px-3 py-2 text-xs font-black text-green-950"
+                    >
+                      <item.icon className="size-4 text-green-700" />
+                      {item.label}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }

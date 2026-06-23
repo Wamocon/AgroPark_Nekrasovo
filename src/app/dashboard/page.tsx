@@ -21,6 +21,7 @@ import {
   MessageSquare,
   Settings,
 } from "lucide-react";
+import { OpenChatButton } from "@/components/chat/open-chat-button";
 
 const kpiData = [
   { label: "Heute Buchungen", value: "47", change: "+12%", icon: Ticket },
@@ -74,6 +75,9 @@ export default async function DashboardPage() {
           <h1 className="text-3xl font-black text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">
             Übersicht über Buchungen, Umsatz und Aktivitäten
+          </p>
+          <p className="mt-2 text-xs text-neutral-500">
+            Rolle: <strong>{roleLabels[user.role]}</strong> · Alle Werte sind Demo-Daten, bis eine Datenbank angebunden ist.
           </p>
         </div>
 
@@ -215,19 +219,14 @@ export default async function DashboardPage() {
                     </Link>
                   </Button>
                   <Button asChild variant="outline" className="h-auto flex-col gap-2 py-4">
-                    <Link href="#">
+                    <Link href="/kontakt">
                       <Users className="size-5" />
                       <span className="text-xs">Kunden</span>
                     </Link>
                   </Button>
+                  <OpenChatButton />
                   <Button asChild variant="outline" className="h-auto flex-col gap-2 py-4">
-                    <Link href="#">
-                      <MessageSquare className="size-5" />
-                      <span className="text-xs">Chatbot</span>
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" className="h-auto flex-col gap-2 py-4">
-                    <Link href="#">
+                    <Link href="/dashboard">
                       <Settings className="size-5" />
                       <span className="text-xs">Einstellungen</span>
                     </Link>

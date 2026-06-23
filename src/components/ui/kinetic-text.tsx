@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
 interface KineticTextProps {
   children: string;
@@ -23,7 +24,16 @@ export function KineticText({
 }: KineticTextProps) {
   const ref = useRef<HTMLHeadingElement>(null);
   const isInView = useInView(ref, { once, margin: "-80px" });
+  const reducedMotion = useReducedMotion();
   const words = children.split(" ");
+
+  if (reducedMotion) {
+    return (
+      <Tag ref={ref as React.RefObject<HTMLHeadingElement>} className={cn(className)}>
+        {children}
+      </Tag>
+    );
+  }
 
   return (
     <Tag ref={ref as React.RefObject<HTMLHeadingElement>} className={cn(className)}>
