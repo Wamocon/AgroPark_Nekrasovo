@@ -1,919 +1,919 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--
-    HANDBOOK META - updated by Copilot on every relevant change
-    APP_NAME        : AgroPark Nekrasovo
-    APP_VERSION     : 1.0.0
-    LAST_UPDATED    : Juni 2026
-    PRIMARY_COLOR   : #1b4332
-    PRIMARY_DARK    : #0f2e1f
-    LOGO_EMOJI      : 🌾
-  -->
-  <title>AgroPark Nekrasovo &ndash; Produkthandbuch | WAMOCON</title>
-  <style>
-    /* ── Reset & Base ──────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      /* Brand colors - Copilot updates these to match the app */
-      --primary:      #1b4332;
-      --primary-dark: #0f2e1f;
-      --primary-glow: rgba(27,67,50,0.18);
-      --success:      #10b981;
-      --warning:      #f59e0b;
-      --danger:       #ef4444;
-
-      /* Dark-theme background layers */
-      --bg-page:   #0d1526;
-      --bg-card:   rgba(255,255,255,0.03);
-      --bg-code:   rgba(255,255,255,0.06);
-
-      /* Text hierarchy */
-      --text:       #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim:   #475569;
-
-      /* Borders */
-      --border: rgba(255,255,255,0.08);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--bg-page);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-
-    a { color: var(--primary); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── No-print utility ─────────────────────────────────────────── */
-    @media print {
-      .no-print { display: none !important; }
-      #toc-sidebar { display: none !important; }
-      .layout { display: block !important; }
-      main { padding: 2rem !important; max-width: 100% !important; }
-      .page-header { position: static !important; }
-      body { background: #fff !important; color: #000 !important; }
-      :root {
-        --text: #000; --text-muted: #333; --bg-page: #fff;
-        --bg-card: #f5f5f5; --border: #ddd; --primary: #0f2e1f;
-      }
-      .cover { background: #f0f7f4 !important; border-color: #0f2e1f !important; }
-      h2 { color: #0f2e1f !important; border-color: #0f2e1f !important; }
-      .page-footer { position: static !important; border-top: 1px solid #ddd; }
-    }
-
-    /* ── Header ───────────────────────────────────────────────────── */
-    .page-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      height: 70px;
-      background: rgba(13,21,38,0.95);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(12px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      gap: 1rem;
-    }
-
-    .brand { display: flex; align-items: center; gap: 0.75rem; }
-
-    .logo-mark {
-      width: 44px; height: 44px; border-radius: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px; font-weight: 900; color: #fff;
-      box-shadow: 0 4px 12px var(--primary-glow);
-      flex-shrink: 0;
-    }
-
-    .brand-name { color: #fff; font-weight: 800; font-size: 1.1rem; }
-    .brand-sub  { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.05em; font-weight: 600; }
-    .header-meta { color: var(--text-dim); font-size: 0.75rem; text-align: right; }
-
-    /* ── Header actions ───────────────────────────────────────────── */
-    .header-actions { display: flex; align-items: center; gap: 0.75rem; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem;
-      font-weight: 700; cursor: pointer; border: none; transition: 0.2s;
-      text-decoration: none; white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--primary); color: #fff;
-    }
-    .btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
-
-    .btn-outline {
-      background: transparent; color: var(--text-muted);
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { border-color: var(--primary); color: var(--primary); text-decoration: none; }
-
-    /* ── PDF download / OneDrive buttons ─────────────────────────── */
-    .download-bar {
-      display: flex; align-items: center; gap: 0.5rem;
-      background: rgba(27,67,50,0.06);
-      border: 1px solid rgba(27,67,50,0.2);
-      border-radius: 10px; padding: 0.5rem 1rem;
-      font-size: 0.8rem; color: var(--text-muted);
-    }
-    .download-bar strong { color: var(--text); }
-
-    /* ── Layout ───────────────────────────────────────────────────── */
-    .layout {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      min-height: calc(100vh - 70px);
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* ── Sidebar TOC ──────────────────────────────────────────────── */
-    #toc-sidebar {
-      position: sticky;
-      top: 70px;
-      height: calc(100vh - 70px);
-      overflow-y: auto;
-      padding: 2rem 1.5rem;
-      border-right: 1px solid var(--border);
-      background: rgba(13,21,38,0.4);
-    }
-
-    .toc-title {
-      font-size: 0.7rem; font-weight: 900;
-      text-transform: uppercase; letter-spacing: 0.15em;
-      color: var(--text-dim); margin-bottom: 1rem;
-    }
-
-    .toc-link {
-      display: block; padding: 0.5rem 0;
-      color: var(--text-muted); text-decoration: none;
-      font-size: 0.85rem; transition: 0.2s;
-    }
-    .toc-link:hover { color: var(--primary); transform: translateX(4px); text-decoration: none; }
-    .toc-link.l1 {
-      font-weight: 700; color: var(--text);
-      border-top: 1px solid var(--border);
-      margin-top: 1rem; padding-top: 1rem;
-    }
-    .toc-link.l2 { padding-left: 1rem; font-size: 0.8rem; }
-    .toc-link.l1:first-of-type { border-top: none; margin-top: 0; }
-
-    /* ── Main content ─────────────────────────────────────────────── */
-    main { padding: 3rem 4rem 6rem; max-width: 900px; }
-
-    /* ── Cover page ───────────────────────────────────────────────── */
-    .cover {
-      background: linear-gradient(160deg, rgba(27,67,50,0.2) 0%, rgba(13,21,38,0.9) 100%);
-      border: 1px solid rgba(27,67,50,0.25);
-      border-radius: 24px; padding: 4rem;
-      margin-bottom: 4rem; position: relative; overflow: hidden;
-    }
-    .cover::before {
-      content: '';
-      position: absolute; top: -40px; right: -40px;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(27,67,50,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .doc-type {
-      font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.2em; color: var(--primary); margin-bottom: 1rem;
-    }
-    .cover h1 { font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
-    .cover-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem; }
-    .cover-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; }
-    .meta-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; }
-    .meta-value { font-weight: 700; font-size: 1rem; }
-
-    /* ── Typography ───────────────────────────────────────────────── */
-    h2 {
-      font-size: 2rem; font-weight: 900; margin: 4rem 0 1.5rem;
-      border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem;
-      display: flex; align-items: center; gap: 0.8rem;
-    }
-    h2 .num { color: var(--primary); opacity: 0.5; font-size: 1.2rem; }
-    h3 { font-size: 1.3rem; font-weight: 800; margin: 2.5rem 0 1rem; color: var(--primary); }
-    p { margin-bottom: 1.2rem; }
-    ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
-    li { margin-bottom: 0.52rem; }
-    li::marker { color: var(--primary); }
-    strong { color: #fff; }
-    code {
-      background: var(--bg-code); border: 1px solid var(--border);
-      border-radius: 6px; padding: 0.15em 0.45em;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      font-size: 0.88em; color: var(--primary);
-    }
-
-    /* ── Cards & Blocks ───────────────────────────────────────────── */
-    .card {
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;
-    }
-
-    .badge {
-      display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px;
-      font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
-    }
-    .badge-success { background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
-    .badge-primary { background: var(--primary-glow); color: var(--primary); border: 1px solid rgba(27,67,50,0.2); }
-    .badge-warning { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
-    .badge-danger  { background: rgba(239,68,68,0.1); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
-
-    .info-box {
-      padding: 1.2rem 1.5rem; border-radius: 12px; margin: 2rem 0;
-      border-left: 4px solid var(--primary); background: rgba(27,67,50,0.05);
-    }
-    .info-box-title { font-weight: 900; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 0.5rem; }
-
-    .warn-box {
-      padding: 1.2rem 1.5rem; border-radius: 12px; margin: 2rem 0;
-      border-left: 4px solid var(--danger); background: rgba(239,68,68,0.05);
-    }
-    .warn-box-title { font-weight: 900; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--danger); margin-bottom: 0.5rem; }
-
-    /* ── Feature Grid ─────────────────────────────────────────────── */
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; }
-    .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
-    .feature-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
-    .feature-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 0.4rem; color: #fff; }
-    .feature-desc { font-size: 0.82rem; color: var(--text-muted); }
-
-    /* ── Table ────────────────────────────────────────────────────── */
-    .table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    th {
-      text-align: left; padding: 1rem;
-      background: rgba(255,255,255,0.02); color: var(--text-muted);
-      font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em;
-    }
-    td { padding: 1rem; border-top: 1px solid var(--border); vertical-align: top; }
-    tr:hover td { background: rgba(27,67,50,0.02); }
-
-    .yes { color: var(--success); font-weight: 700; }
-    .no  { color: var(--text-dim); }
-
-    /* ── Footer ───────────────────────────────────────────────────── */
-    .page-footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 4rem;
-      color: var(--text-dim);
-      font-size: 0.75rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* ── Responsive ───────────────────────────────────────────────── */
-    @media (max-width: 1000px) {
-      .layout { grid-template-columns: 1fr; }
-      #toc-sidebar { display: none; }
-      main { padding: 2rem 1.5rem 4rem; }
-      .cover { padding: 2rem; }
-      .cover h1 { font-size: 2rem; }
-      .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
-      .header-actions .download-bar { display: none; }
-    }
-
-    /* 2026 responsive polish layer */
-    body {
-      overflow-x: hidden;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px),
-        #0b1220;
-      background-size: 48px 48px, 48px 48px, auto;
-    }
-
-    .page-header {
-      min-height: 72px;
-      height: auto;
-      background: rgba(10,18,32,0.94);
-      box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-    }
-
-    .logo-mark {
-      border-radius: 8px;
-      background:
-        linear-gradient(135deg, rgba(212,163,115,0.92), rgba(16,185,129,0.82)),
-        var(--primary-dark);
-      color: #0b1220;
-    }
-
-    #toc-sidebar {
-      background: rgba(10,18,32,0.62);
-      box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
-    }
-
-    .toc-link {
-      border-radius: 8px;
-      padding-left: 0.9rem;
-    }
-
-    .toc-link:hover {
-      background: rgba(255,255,255,0.04);
-      transform: none;
-    }
-
-    main {
-      width: min(100%, 1040px);
-      max-width: 1040px;
-    }
-
-    .cover {
-      border-radius: 8px;
-      background:
-        linear-gradient(135deg, rgba(20,184,166,0.08), transparent 38%),
-        linear-gradient(160deg, rgba(27,67,50,0.35) 0%, rgba(10,18,32,0.96) 72%);
-      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
-    }
-
-    .cover::before {
-      inset: 0;
-      width: auto;
-      height: auto;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 54px 54px;
-      opacity: 0.28;
-    }
-
-    .cover h1 {
-      line-height: 1.02;
-      max-width: 760px;
-    }
-
-    h2 {
-      border-bottom-width: 1px;
-      border-image: linear-gradient(90deg, var(--primary), rgba(212,163,115,0.75), transparent) 1;
-      line-height: 1.08;
-    }
-
-    .card,
-    .feature-card,
-    .info-box,
-    .warn-box,
-    .table-wrap {
-      border-radius: 8px;
-      background: rgba(255,255,255,0.045);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
-    }
-
-    .feature-grid {
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    }
-
-    .feature-icon {
-      display: inline-flex;
-      width: 2.5rem;
-      height: 2.5rem;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.08);
-      font-size: 1.35rem;
-    }
-
-    table {
-      min-width: 680px;
-    }
-
-    code {
-      overflow-wrap: anywhere;
-    }
-
-    @media (max-width: 760px) {
-      html,
-      body {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: hidden;
-      }
-
-      .page-header {
-        align-items: flex-start;
-        padding: 0.75rem 1rem;
-      }
-
-      .brand {
-        min-width: 0;
-      }
-
-      .brand-name {
-        font-size: 0.95rem;
-        line-height: 1.12;
-      }
-
-      .brand-sub {
-        font-size: 0.66rem;
-      }
-
-      .logo-mark {
-        width: 40px;
-        height: 40px;
-      }
-
-      .header-actions {
-        margin-left: auto;
-        gap: 0.45rem;
-      }
-
-      .header-actions .btn-outline {
-        display: none;
-      }
-
-      .btn {
-        border-radius: 8px;
-        padding: 0.48rem 0.72rem;
-        font-size: 0.75rem;
-      }
-
-      .layout,
-      main,
-      .cover,
-      section {
-        width: 100%;
-        max-width: 100%;
-        min-width: 0;
-      }
-
-      main {
-        padding: 1.5rem 1rem 3rem;
-      }
-
-      .cover {
-        padding: 2rem 1.35rem;
-        margin-bottom: 3rem;
-      }
-
-      .cover * {
-        min-width: 0;
-      }
-
-      .doc-type {
-        font-size: 0.62rem;
-        line-height: 1.7;
-        overflow-wrap: anywhere;
-      }
-
-      .cover h1 {
-        font-size: clamp(1.8rem, 9vw, 2.35rem);
-        line-height: 1.08;
-        overflow-wrap: anywhere;
-      }
-
-      .cover-sub {
-        font-size: 1rem;
-        overflow-wrap: anywhere;
-      }
-
-      .cover-meta {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-
-      h2 {
-        align-items: flex-start;
-        font-size: clamp(1.7rem, 9vw, 2.2rem);
-      }
-
-      h3 {
-        font-size: 1.08rem;
-      }
-
-      p,
-      li {
-        font-size: 0.96rem;
-      }
-
-      .feature-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .table-wrap {
-        max-width: 100%;
-        min-width: 0;
-        width: 100%;
-      }
-
-      .page-footer {
-        padding: 1.25rem 1rem;
-      }
-    }
-  </style>
+ <meta charset="UTF-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+ <!--
+ HANDBOOK META - updated by Copilot on every relevant change
+ APP_NAME : Некрасово поле AgroPark
+ APP_VERSION : 1.0.0
+ LAST_UPDATED : Juni 2026
+ PRIMARY_COLOR : #1b4332
+ PRIMARY_DARK : #0f2e1f
+ LOGO_EMOJI : leaf
+ -->
+ <title>Некрасово поле AgroPark &ndash; Produkthandbuch | WAMOCON</title>
+ <style>
+ /* ── Reset & Base ──────────────────────────────────────────────── */
+ *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+ :root {
+ /* Brand colors - Copilot updates these to match the app */
+ --primary: #1b4332;
+ --primary-dark: #0f2e1f;
+ --primary-glow: rgba(27,67,50,0.18);
+ --success: #10b981;
+ --warning: #f59e0b;
+ --danger: #ef4444;
+
+ /* Dark-theme background layers */
+ --bg-page: #0d1526;
+ --bg-card: rgba(255,255,255,0.03);
+ --bg-code: rgba(255,255,255,0.06);
+
+ /* Text hierarchy */
+ --text: #f1f5f9;
+ --text-muted: #94a3b8;
+ --text-dim: #475569;
+
+ /* Borders */
+ --border: rgba(255,255,255,0.08);
+ }
+
+ html { scroll-behavior: smooth; }
+
+ body {
+ font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+ background: var(--bg-page);
+ color: var(--text);
+ line-height: 1.7;
+ min-height: 100vh;
+ }
+
+ a { color: var(--primary); text-decoration: none; }
+ a:hover { text-decoration: underline; }
+
+ /* ── No-print utility ─────────────────────────────────────────── */
+ @media print {
+ .no-print { display: none !important; }
+ #toc-sidebar { display: none !important; }
+ .layout { display: block !important; }
+ main { padding: 2rem !important; max-width: 100% !important; }
+ .page-header { position: static !important; }
+ body { background: #fff !important; color: #000 !important; }
+ :root {
+ --text: #000; --text-muted: #333; --bg-page: #fff;
+ --bg-card: #f5f5f5; --border: #ddd; --primary: #0f2e1f;
+ }
+ .cover { background: #f0f7f4 !important; border-color: #0f2e1f !important; }
+ h2 { color: #0f2e1f !important; border-color: #0f2e1f !important; }
+ .page-footer { position: static !important; border-top: 1px solid #ddd; }
+ }
+
+ /* ── Header ───────────────────────────────────────────────────── */
+ .page-header {
+ position: sticky;
+ top: 0;
+ z-index: 100;
+ height: 70px;
+ background: rgba(13,21,38,0.95);
+ border-bottom: 1px solid var(--border);
+ backdrop-filter: blur(12px);
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ padding: 0 2rem;
+ gap: 1rem;
+ }
+
+ .brand { display: flex; align-items: center; gap: 0.75rem; }
+
+ .logo-mark {
+ width: 44px; height: 44px; border-radius: 12px;
+ background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+ display: flex; align-items: center; justify-content: center;
+ font-size: 22px; font-weight: 900; color: #fff;
+ box-shadow: 0 4px 12px var(--primary-glow);
+ flex-shrink: 0;
+ }
+
+ .brand-name { color: #fff; font-weight: 800; font-size: 1.1rem; }
+ .brand-sub { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.05em; font-weight: 600; }
+ .header-meta { color: var(--text-dim); font-size: 0.75rem; text-align: right; }
+
+ /* ── Header actions ───────────────────────────────────────────── */
+ .header-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+ .btn {
+ display: inline-flex; align-items: center; gap: 0.5rem;
+ padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.82rem;
+ font-weight: 700; cursor: pointer; border: none; transition: 0.2s;
+ text-decoration: none; white-space: nowrap;
+ }
+
+ .btn-primary {
+ background: var(--primary); color: #fff;
+ }
+ .btn-primary:hover { background: var(--primary-dark); text-decoration: none; }
+
+ .btn-outline {
+ background: transparent; color: var(--text-muted);
+ border: 1px solid var(--border);
+ }
+ .btn-outline:hover { border-color: var(--primary); color: var(--primary); text-decoration: none; }
+
+ /* ── PDF download / OneDrive buttons ─────────────────────────── */
+ .download-bar {
+ display: flex; align-items: center; gap: 0.5rem;
+ background: rgba(27,67,50,0.06);
+ border: 1px solid rgba(27,67,50,0.2);
+ border-radius: 10px; padding: 0.5rem 1rem;
+ font-size: 0.8rem; color: var(--text-muted);
+ }
+ .download-bar strong { color: var(--text); }
+
+ /* ── Layout ───────────────────────────────────────────────────── */
+ .layout {
+ display: grid;
+ grid-template-columns: 280px 1fr;
+ min-height: calc(100vh - 70px);
+ max-width: 1400px;
+ margin: 0 auto;
+ }
+
+ /* ── Sidebar TOC ──────────────────────────────────────────────── */
+ #toc-sidebar {
+ position: sticky;
+ top: 70px;
+ height: calc(100vh - 70px);
+ overflow-y: auto;
+ padding: 2rem 1.5rem;
+ border-right: 1px solid var(--border);
+ background: rgba(13,21,38,0.4);
+ }
+
+ .toc-title {
+ font-size: 0.7rem; font-weight: 900;
+ text-transform: uppercase; letter-spacing: 0.15em;
+ color: var(--text-dim); margin-bottom: 1rem;
+ }
+
+ .toc-link {
+ display: block; padding: 0.5rem 0;
+ color: var(--text-muted); text-decoration: none;
+ font-size: 0.85rem; transition: 0.2s;
+ }
+ .toc-link:hover { color: var(--primary); transform: translateX(4px); text-decoration: none; }
+ .toc-link.l1 {
+ font-weight: 700; color: var(--text);
+ border-top: 1px solid var(--border);
+ margin-top: 1rem; padding-top: 1rem;
+ }
+ .toc-link.l2 { padding-left: 1rem; font-size: 0.8rem; }
+ .toc-link.l1:first-of-type { border-top: none; margin-top: 0; }
+
+ /* ── Main content ─────────────────────────────────────────────── */
+ main { padding: 3rem 4rem 6rem; max-width: 900px; }
+
+ /* ── Cover page ───────────────────────────────────────────────── */
+ .cover {
+ background: linear-gradient(160deg, rgba(27,67,50,0.2) 0%, rgba(13,21,38,0.9) 100%);
+ border: 1px solid rgba(27,67,50,0.25);
+ border-radius: 24px; padding: 4rem;
+ margin-bottom: 4rem; position: relative; overflow: hidden;
+ }
+ .cover::before {
+ content: '';
+ position: absolute; top: -40px; right: -40px;
+ width: 300px; height: 300px;
+ background: radial-gradient(circle, rgba(27,67,50,0.08) 0%, transparent 70%);
+ pointer-events: none;
+ }
+
+ .doc-type {
+ font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+ letter-spacing: 0.2em; color: var(--primary); margin-bottom: 1rem;
+ }
+ .cover h1 { font-size: 3rem; font-weight: 900; margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+ .cover-sub { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 3rem; }
+ .cover-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 2rem; }
+ .meta-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 0.3rem; }
+ .meta-value { font-weight: 700; font-size: 1rem; }
+
+ /* ── Typography ───────────────────────────────────────────────── */
+ h2 {
+ font-size: 2rem; font-weight: 900; margin: 4rem 0 1.5rem;
+ border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem;
+ display: flex; align-items: center; gap: 0.8rem;
+ }
+ h2 .num { color: var(--primary); opacity: 0.5; font-size: 1.2rem; }
+ h3 { font-size: 1.3rem; font-weight: 800; margin: 2.5rem 0 1rem; color: var(--primary); }
+ p { margin-bottom: 1.2rem; }
+ ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+ li { margin-bottom: 0.52rem; }
+ li::marker { color: var(--primary); }
+ strong { color: #fff; }
+ code {
+ background: var(--bg-code); border: 1px solid var(--border);
+ border-radius: 6px; padding: 0.15em 0.45em;
+ font-family: 'JetBrains Mono', 'Fira Code', monospace;
+ font-size: 0.88em; color: var(--primary);
+ }
+
+ /* ── Cards & Blocks ───────────────────────────────────────────── */
+ .card {
+ background: var(--bg-card); border: 1px solid var(--border);
+ border-radius: 16px; padding: 1.5rem; margin: 1.5rem 0;
+ }
+
+ .badge {
+ display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px;
+ font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em;
+ }
+ .badge-success { background: rgba(16,185,129,0.1); color: var(--success); border: 1px solid rgba(16,185,129,0.2); }
+ .badge-primary { background: var(--primary-glow); color: var(--primary); border: 1px solid rgba(27,67,50,0.2); }
+ .badge-warning { background: rgba(245,158,11,0.1); color: var(--warning); border: 1px solid rgba(245,158,11,0.2); }
+ .badge-danger { background: rgba(239,68,68,0.1); color: var(--danger); border: 1px solid rgba(239,68,68,0.2); }
+
+ .info-box {
+ padding: 1.2rem 1.5rem; border-radius: 12px; margin: 2rem 0;
+ border-left: 4px solid var(--primary); background: rgba(27,67,50,0.05);
+ }
+ .info-box-title { font-weight: 900; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary); margin-bottom: 0.5rem; }
+
+ .warn-box {
+ padding: 1.2rem 1.5rem; border-radius: 12px; margin: 2rem 0;
+ border-left: 4px solid var(--danger); background: rgba(239,68,68,0.05);
+ }
+ .warn-box-title { font-weight: 900; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--danger); margin-bottom: 0.5rem; }
+
+ /* ── Feature Grid ─────────────────────────────────────────────── */
+ .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 2rem 0; }
+ .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; }
+ .feature-icon { font-size: 1.8rem; margin-bottom: 0.7rem; }
+ .feature-title { font-weight: 800; font-size: 0.95rem; margin-bottom: 0.4rem; color: #fff; }
+ .feature-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+ /* ── Table ────────────────────────────────────────────────────── */
+ .table-wrap { overflow-x: auto; margin: 2rem 0; border-radius: 12px; border: 1px solid var(--border); }
+ table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+ th {
+ text-align: left; padding: 1rem;
+ background: rgba(255,255,255,0.02); color: var(--text-muted);
+ font-weight: 800; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em;
+ }
+ td { padding: 1rem; border-top: 1px solid var(--border); vertical-align: top; }
+ tr:hover td { background: rgba(27,67,50,0.02); }
+
+ .yes { color: var(--success); font-weight: 700; }
+ .no { color: var(--text-dim); }
+
+ /* ── Footer ───────────────────────────────────────────────────── */
+ .page-footer {
+ border-top: 1px solid var(--border);
+ padding: 2rem 4rem;
+ color: var(--text-dim);
+ font-size: 0.75rem;
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ max-width: 1400px;
+ margin: 0 auto;
+ }
+
+ /* ── Responsive ───────────────────────────────────────────────── */
+ @media (max-width: 1000px) {
+ .layout { grid-template-columns: 1fr; }
+ #toc-sidebar { display: none; }
+ main { padding: 2rem 1.5rem 4rem; }
+ .cover { padding: 2rem; }
+ .cover h1 { font-size: 2rem; }
+ .page-footer { flex-direction: column; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+ .header-actions .download-bar { display: none; }
+ }
+
+ /* 2026 responsive polish layer */
+ body {
+ overflow-x: hidden;
+ background:
+ linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+ linear-gradient(0deg, rgba(255,255,255,0.018) 1px, transparent 1px),
+ #0b1220;
+ background-size: 48px 48px, 48px 48px, auto;
+ }
+
+ .page-header {
+ min-height: 72px;
+ height: auto;
+ background: rgba(10,18,32,0.94);
+ box-shadow: 0 14px 40px rgba(0,0,0,0.18);
+ }
+
+ .logo-mark {
+ border-radius: 8px;
+ background:
+ linear-gradient(135deg, rgba(212,163,115,0.92), rgba(16,185,129,0.82)),
+ var(--primary-dark);
+ color: #0b1220;
+ }
+
+ #toc-sidebar {
+ background: rgba(10,18,32,0.62);
+ box-shadow: inset -1px 0 0 rgba(255,255,255,0.04);
+ }
+
+ .toc-link {
+ border-radius: 8px;
+ padding-left: 0.9rem;
+ }
+
+ .toc-link:hover {
+ background: rgba(255,255,255,0.04);
+ transform: none;
+ }
+
+ main {
+ width: min(100%, 1040px);
+ max-width: 1040px;
+ }
+
+ .cover {
+ border-radius: 8px;
+ background:
+ linear-gradient(135deg, rgba(20,184,166,0.08), transparent 38%),
+ linear-gradient(160deg, rgba(27,67,50,0.35) 0%, rgba(10,18,32,0.96) 72%);
+ box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+ }
+
+ .cover::before {
+ inset: 0;
+ width: auto;
+ height: auto;
+ background:
+ linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+ linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+ background-size: 54px 54px;
+ opacity: 0.28;
+ }
+
+ .cover h1 {
+ line-height: 1.02;
+ max-width: 760px;
+ }
+
+ h2 {
+ border-bottom-width: 1px;
+ border-image: linear-gradient(90deg, var(--primary), rgba(212,163,115,0.75), transparent) 1;
+ line-height: 1.08;
+ }
+
+ .card,
+ .feature-card,
+ .info-box,
+ .warn-box,
+ .table-wrap {
+ border-radius: 8px;
+ background: rgba(255,255,255,0.045);
+ box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+ }
+
+ .feature-grid {
+ grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+ }
+
+ .feature-icon {
+ display: inline-flex;
+ width: 2.5rem;
+ height: 2.5rem;
+ align-items: center;
+ justify-content: center;
+ border-radius: 8px;
+ background: rgba(255,255,255,0.08);
+ font-size: 1.35rem;
+ }
+
+ table {
+ min-width: 680px;
+ }
+
+ code {
+ overflow-wrap: anywhere;
+ }
+
+ @media (max-width: 760px) {
+ html,
+ body {
+ width: 100%;
+ max-width: 100%;
+ overflow-x: hidden;
+ }
+
+ .page-header {
+ align-items: flex-start;
+ padding: 0.75rem 1rem;
+ }
+
+ .brand {
+ min-width: 0;
+ }
+
+ .brand-name {
+ font-size: 0.95rem;
+ line-height: 1.12;
+ }
+
+ .brand-sub {
+ font-size: 0.66rem;
+ }
+
+ .logo-mark {
+ width: 40px;
+ height: 40px;
+ }
+
+ .header-actions {
+ margin-left: auto;
+ gap: 0.45rem;
+ }
+
+ .header-actions .btn-outline {
+ display: none;
+ }
+
+ .btn {
+ border-radius: 8px;
+ padding: 0.48rem 0.72rem;
+ font-size: 0.75rem;
+ }
+
+ .layout,
+ main,
+ .cover,
+ section {
+ width: 100%;
+ max-width: 100%;
+ min-width: 0;
+ }
+
+ main {
+ padding: 1.5rem 1rem 3rem;
+ }
+
+ .cover {
+ padding: 2rem 1.35rem;
+ margin-bottom: 3rem;
+ }
+
+ .cover * {
+ min-width: 0;
+ }
+
+ .doc-type {
+ font-size: 0.62rem;
+ line-height: 1.7;
+ overflow-wrap: anywhere;
+ }
+
+ .cover h1 {
+ font-size: clamp(1.8rem, 9vw, 2.35rem);
+ line-height: 1.08;
+ overflow-wrap: anywhere;
+ }
+
+ .cover-sub {
+ font-size: 1rem;
+ overflow-wrap: anywhere;
+ }
+
+ .cover-meta {
+ grid-template-columns: 1fr;
+ gap: 1.2rem;
+ }
+
+ h2 {
+ align-items: flex-start;
+ font-size: clamp(1.7rem, 9vw, 2.2rem);
+ }
+
+ h3 {
+ font-size: 1.08rem;
+ }
+
+ p,
+ li {
+ font-size: 0.96rem;
+ }
+
+ .feature-grid {
+ grid-template-columns: 1fr;
+ }
+
+ .table-wrap {
+ max-width: 100%;
+ min-width: 0;
+ width: 100%;
+ }
+
+ .page-footer {
+ padding: 1.25rem 1rem;
+ }
+ }
+ </style>
 </head>
 <body>
 
 <!-- ── Header ──────────────────────────────────────────────────────── -->
 <header class="page-header no-print">
-  <div class="brand">
-    <!-- LOGO: Copilot updates the emoji/letter and gradient to match the app -->
-    <div class="logo-mark" aria-label="App logo">🌾</div>
-    <div>
-      <div class="brand-name">AgroPark Nekrasovo</div>
-      <div class="brand-sub">WAMOCON &middot; Produkthandbuch</div>
-    </div>
-  </div>
+ <div class="brand">
+ <!-- LOGO: Copilot updates the emoji/letter and gradient to match the app -->
+ <div class="logo-mark" aria-label="App logo">&#127793;</div>
+ <div>
+ <div class="brand-name">Некрасово поле AgroPark</div>
+ <div class="brand-sub">WAMOCON &middot; Produkthandbuch</div>
+ </div>
+ </div>
 
-  <div class="header-actions">
-    <div class="download-bar">
-      <strong>PDF &amp; OneDrive:</strong>&nbsp;Drucken &rarr; Als PDF speichern &rarr; In OneDrive ablegen
-    </div>
-    <!-- PDF Download button - uses browser print dialog (Save as PDF) -->
-    <button class="btn btn-primary" onclick="window.print()" title="Als PDF speichern (Drucken &rarr; Als PDF speichern)">
-      &#128196; PDF speichern
-    </button>
-    <!-- OneDrive save - opens instructions modal -->
-    <button class="btn btn-outline" onclick="document.getElementById('onedrive-modal').style.display='flex'" title="In OneDrive speichern">
-      &#9729; OneDrive
-    </button>
-  </div>
+ <div class="header-actions">
+ <div class="download-bar">
+ <strong>PDF &amp; OneDrive:</strong>&nbsp;Drucken &rarr; Als PDF speichern &rarr; In OneDrive ablegen
+ </div>
+ <!-- PDF Download button - uses browser print dialog (Save as PDF) -->
+ <button class="btn btn-primary" onclick="window.print()" title="Als PDF speichern (Drucken &rarr; Als PDF speichern)">
+ &#128196; PDF speichern
+ </button>
+ <!-- OneDrive save - opens instructions modal -->
+ <button class="btn btn-outline" onclick="document.getElementById('onedrive-modal').style.display='flex'" title="In OneDrive speichern">
+ &#9729; OneDrive
+ </button>
+ </div>
 </header>
 
 <!-- ── OneDrive instructions modal ─────────────────────────────────── -->
 <div id="onedrive-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; align-items:center; justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
-  <div style="background:#1e2a42; border:1px solid var(--border); border-radius:20px; padding:2.5rem; max-width:480px; width:90%;">
-    <h3 style="color:var(--primary); margin-bottom:1rem;">&#9729; In OneDrive speichern</h3>
-    <ol style="color:var(--text-muted); font-size:0.9rem; line-height:1.8;">
-      <li>Klicke auf <strong style="color:#fff;">&#128196; PDF speichern</strong></li>
-      <li>Im Druckdialog: Drucker auf <strong style="color:#fff;">"Als PDF speichern"</strong> stellen</li>
-      <li>Speicherort: <strong style="color:#fff;">OneDrive-Ordner</strong> ausw&auml;hlen</li>
-      <li><strong style="color:#fff;">Speichern</strong> klicken &mdash; fertig</li>
-    </ol>
-    <p style="color:var(--text-dim); font-size:0.8rem; margin-top:1.5rem;">
-      Alternativ: Datei herunterladen und per <strong>OneDrive Sync-Client</strong>
-      oder <strong>onedrive.live.com</strong> hochladen.
-    </p>
-    <button class="btn btn-primary" style="margin-top:1.5rem; width:100%;" onclick="document.getElementById('onedrive-modal').style.display='none'">
-      Verstanden
-    </button>
-  </div>
+ <div style="background:#1e2a42; border:1px solid var(--border); border-radius:20px; padding:2.5rem; max-width:480px; width:90%;">
+ <h3 style="color:var(--primary); margin-bottom:1rem;">&#9729; In OneDrive speichern</h3>
+ <ol style="color:var(--text-muted); font-size:0.9rem; line-height:1.8;">
+ <li>Klicke auf <strong style="color:#fff;">&#128196; PDF speichern</strong></li>
+ <li>Im Druckdialog: Drucker auf <strong style="color:#fff;">"Als PDF speichern"</strong> stellen</li>
+ <li>Speicherort: <strong style="color:#fff;">OneDrive-Ordner</strong> ausw&auml;hlen</li>
+ <li><strong style="color:#fff;">Speichern</strong> klicken &mdash; fertig</li>
+ </ol>
+ <p style="color:var(--text-dim); font-size:0.8rem; margin-top:1.5rem;">
+ Alternativ: Datei herunterladen und per <strong>OneDrive Sync-Client</strong>
+ oder <strong>onedrive.live.com</strong> hochladen.
+ </p>
+ <button class="btn btn-primary" style="margin-top:1.5rem; width:100%;" onclick="document.getElementById('onedrive-modal').style.display='none'">
+ Verstanden
+ </button>
+ </div>
 </div>
 
 <!-- ── Main layout ──────────────────────────────────────────────────── -->
 <div class="layout">
 
-  <!-- ── Sidebar TOC ─────────────────────────────────────────────── -->
-  <nav id="toc-sidebar" class="no-print" aria-label="Inhaltsverzeichnis">
-    <div class="toc-title">Inhalt</div>
-    <a class="toc-link l1" href="#uebersicht">01 &Uuml;bersicht</a>
-    <a class="toc-link l1" href="#features">02 Funktionen</a>
-    <a class="toc-link l2" href="#feature-list">2.1 Feature-Liste</a>
-    <a class="toc-link l2" href="#demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</a>
-    <a class="toc-link l1" href="#tutorials">03 Erste Schritte</a>
-    <a class="toc-link l2" href="#tut-login">3.1 Demo-Login</a>
-    <a class="toc-link l2" href="#tut-buchung">3.2 Erste Buchung</a>
-    <a class="toc-link l2" href="#tut-dashboard">3.3 Dashboard-&Uuml;bersicht</a>
-    <a class="toc-link l1" href="#howto">04 How-to Guides</a>
-    <a class="toc-link l2" href="#ht-buchung">4.1 Buchung durchf&uuml;hren</a>
-    <a class="toc-link l2" href="#ht-chat">4.2 KI-Chat nutzen</a>
-    <a class="toc-link l1" href="#referenz">05 Funktionsreferenz</a>
-    <a class="toc-link l2" href="#routen">5.1 Routen</a>
-    <a class="toc-link l2" href="#api">5.2 API &amp; Hooks</a>
-    <a class="toc-link l1" href="#tech">06 Technische Architektur</a>
-    <a class="toc-link l2" href="#tech-stack">6.1 Stack</a>
-    <a class="toc-link l2" href="#tech-schema">6.2 Datenbank-Schema</a>
-    <a class="toc-link l1" href="#ci-cd">07 CI/CD &amp; Tests</a>
-    <a class="toc-link l1" href="#compliance">08 DSGVO &amp; Compliance</a>
-    <a class="toc-link l1" href="#glossar">09 Glossar</a>
-  </nav>
+ <!-- ── Sidebar TOC ─────────────────────────────────────────────── -->
+ <nav id="toc-sidebar" class="no-print" aria-label="Inhaltsverzeichnis">
+ <div class="toc-title">Inhalt</div>
+ <a class="toc-link l1" href="#uebersicht">01 &Uuml;bersicht</a>
+ <a class="toc-link l1" href="#features">02 Funktionen</a>
+ <a class="toc-link l2" href="#feature-list">2.1 Feature-Liste</a>
+ <a class="toc-link l2" href="#demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</a>
+ <a class="toc-link l1" href="#tutorials">03 Erste Schritte</a>
+ <a class="toc-link l2" href="#tut-login">3.1 Demo-Login</a>
+ <a class="toc-link l2" href="#tut-buchung">3.2 Erste Buchung</a>
+ <a class="toc-link l2" href="#tut-dashboard">3.3 Dashboard-&Uuml;bersicht</a>
+ <a class="toc-link l1" href="#howto">04 How-to Guides</a>
+ <a class="toc-link l2" href="#ht-buchung">4.1 Buchung durchf&uuml;hren</a>
+ <a class="toc-link l2" href="#ht-chat">4.2 KI-Chat nutzen</a>
+ <a class="toc-link l1" href="#referenz">05 Funktionsreferenz</a>
+ <a class="toc-link l2" href="#routen">5.1 Routen</a>
+ <a class="toc-link l2" href="#api">5.2 API &amp; Hooks</a>
+ <a class="toc-link l1" href="#tech">06 Technische Architektur</a>
+ <a class="toc-link l2" href="#tech-stack">6.1 Stack</a>
+ <a class="toc-link l2" href="#tech-schema">6.2 Datenbank-Schema</a>
+ <a class="toc-link l1" href="#ci-cd">07 CI/CD &amp; Tests</a>
+ <a class="toc-link l1" href="#compliance">08 DSGVO &amp; Compliance</a>
+ <a class="toc-link l1" href="#glossar">09 Glossar</a>
+ </nav>
 
-  <!-- ── Main ────────────────────────────────────────────────────── -->
-  <main>
+ <!-- ── Main ────────────────────────────────────────────────────── -->
+ <main>
 
-    <!-- ── Cover ─────────────────────────────────────────────────── -->
-    <div class="cover">
-      <div class="doc-type">Offizielles Produkthandbuch &middot; WAMOCON GmbH</div>
-      <h1>AgroPark Nekrasovo</h1>
-      <div class="cover-sub">Digitale Transformation f&uuml;r Agritourismus</div>
-      <div class="cover-meta">
-        <div><div class="meta-label">Version</div><div class="meta-value">1.0.0</div></div>
-        <div><div class="meta-label">Status</div><div class="meta-value"><span class="badge badge-success">Produktiv</span></div></div>
-        <div><div class="meta-label">URL</div><div class="meta-value"><a href="https://agroparknekrasovo.vercel.app" target="_blank" rel="noopener">agropark-nekrasovo.vercel.app</a></div></div>
-        <div><div class="meta-label">Datum</div><div class="meta-value">Juni 2026</div></div>
-      </div>
-    </div>
+ <!-- ── Cover ─────────────────────────────────────────────────── -->
+ <div class="cover">
+ <div class="doc-type">Offizielles Produkthandbuch &middot; WAMOCON GmbH</div>
+ <h1>Некрасово поле AgroPark</h1>
+ <div class="cover-sub">Client-facing park website, booking demo and premium pitch system</div>
+ <div class="cover-meta">
+ <div><div class="meta-label">Version</div><div class="meta-value">1.0.0</div></div>
+ <div><div class="meta-label">Status</div><div class="meta-value"><span class="badge badge-success">Produktiv</span></div></div>
+ <div><div class="meta-label">URL</div><div class="meta-value"><a href="https://agroparknekrasovo.vercel.app" target="_blank" rel="noopener">agropark-nekrasovo.vercel.app</a></div></div>
+ <div><div class="meta-label">Datum</div><div class="meta-value">Juni 2026</div></div>
+ </div>
+ </div>
 
-    <!-- ── 1. Uebersicht ──────────────────────────────────────────── -->
-    <section id="uebersicht">
-      <h2><span class="num">01</span> &Uuml;bersicht</h2>
-      <p>
-        AgroPark Nekrasovo ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Sie transformiert das urspr&uuml;ngliche statische Strategiepapier in eine interaktive, KI-gest&uuml;tzte Plattform mit Buchungssystem, Dashboard, Multi-Role-Login und einer verbundenen Startseiten-Erfahrung f&uuml;r Buchung, Chat, Betrieb und Roadmap.
-      </p>
-      <div class="card">
-        <strong>Was AgroPark Nekrasovo l&ouml;st:</strong> Saisonale Attraktionen wie Agrar-Parks verlieren Buchungen und Anfragen durch starre, statische Webseiten. Die App schafft eine zentrale digitale Anlaufstelle, reduziert administrativen Aufwand und gibt Besuchern eine durchg&auml;ngige Online-Erfahrung.
-      </div>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon">🌐</div>
-          <div class="feature-title">Marketing-Site &amp; Inhalt</div>
-          <div class="feature-desc">Animierter Hero, verbundene Plattform-Br&uuml;cke, Marktanalyse, Strategie, Roadmap, Investition und rechtliche Unterseiten mit SEO-Grundlagen.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🤖</div>
-          <div class="feature-title">KI-Chatbot</div>
-          <div class="feature-desc">Floating-Chat-Widget auf allen Seiten mit serverseitigem Proxy und Fallback-Modus f&uuml;r Demos.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🔐</div>
-          <div class="feature-title">Rollen &amp; Dashboard</div>
-          <div class="feature-desc">Demo-Login mit vier Rollen und gesch&uuml;tztem Dashboard mit KPIs, Charts und Aktivit&auml;tsfeed.</div>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🎟️</div>
-          <div class="feature-title">Buchungssystem</div>
-          <div class="feature-desc">3-Schritt-Ticketbuchung f&uuml;r Erwachsene, Kinder, Familien und Gruppenf&uuml;hrungen inklusive Saisonpr&uuml;fung, Mengenbegrenzung und QR-Code.</div>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Nutzerrolle</th><th>Beschreibung</th></tr></thead>
-          <tbody>
-            <tr><td><strong>Administrator</strong></td><td>Voller Zugriff auf Dashboard und Inhalte.</td></tr>
-            <tr><td><strong>Park Manager</strong></td><td>Betriebliche &Uuml;bersicht, Buchungen, KPIs.</td></tr>
-            <tr><td><strong>Mitarbeiter</strong></td><td>Eingeschr&auml;nkter Zugriff, Check-in-&auml;hnliche Ansicht.</td></tr>
-            <tr><td><strong>Besucher</strong></td><td>&Ouml;ffentliche Seiten, Buchung, Chat.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+ <!-- ── 1. Uebersicht ──────────────────────────────────────────── -->
+ <section id="uebersicht">
+ <h2><span class="num">01</span> &Uuml;bersicht</h2>
+ <p>
+ Некрасово поле AgroPark ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Die Startseite ist jetzt bewusst als kundennahe Park-Homepage aufgebaut: russische Kerninhalte, Buchung, Kontakt, Grill-Dom-Angebote, mehrsprachiger KI-Chat und ein separater Premium-Pitch unter <code>/proposal.html</code>.
+ </p>
+ <div class="card">
+ <strong>Was die App l&ouml;st:</strong> Die &ouml;ffentliche Website verkauft den Park und nicht mehr das interne Strategiepapier. Das Pitch Deck bleibt separat, kann vom Footer oder der Navigation ge&ouml;ffnet werden und f&uuml;hrt zur&uuml;ck in die Live-Demo.
+ </div>
+ <div class="feature-grid">
+ <div class="feature-card">
+ <div class="feature-icon">🌐</div>
+ <div class="feature-title">Client-Homepage &amp; Inhalt</div>
+ <div class="feature-desc">Animierter Hero, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, mehrsprachige Besucherlogik und klar getrennte Pitch-Deck-Verlinkung.</div>
+ </div>
+ <div class="feature-card">
+ <div class="feature-icon">🤖</div>
+ <div class="feature-title">Mehrsprachiger KI-Chat</div>
+ <div class="feature-desc">Floating-Chat-Widget auf allen Seiten mit serverseitigem Proxy und Fallback-Modus f&uuml;r Russisch, Deutsch und T&uuml;rkisch.</div>
+ </div>
+ <div class="feature-card">
+ <div class="feature-icon">🔐</div>
+ <div class="feature-title">Rollen &amp; Dashboard</div>
+ <div class="feature-desc">Demo-Login mit vier Rollen und gesch&uuml;tztem Dashboard mit KPIs, Charts und Aktivit&auml;tsfeed.</div>
+ </div>
+ <div class="feature-card">
+ <div class="feature-icon">🎟️</div>
+ <div class="feature-title">Buchungssystem</div>
+ <div class="feature-desc">3-Schritt-Ticketbuchung f&uuml;r Erwachsene, Kinder, Familien und Gruppenf&uuml;hrungen inklusive Saisonpr&uuml;fung, Mengenbegrenzung und QR-Code.</div>
+ </div>
+ </div>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Nutzerrolle</th><th>Beschreibung</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Administrator</strong></td><td>Voller Zugriff auf Dashboard und Inhalte.</td></tr>
+ <tr><td><strong>Park Manager</strong></td><td>Betriebliche &Uuml;bersicht, Buchungen, KPIs.</td></tr>
+ <tr><td><strong>Mitarbeiter</strong></td><td>Eingeschr&auml;nkter Zugriff, Check-in-&auml;hnliche Ansicht.</td></tr>
+ <tr><td><strong>Besucher</strong></td><td>&Ouml;ffentliche Seiten, Buchung, Chat.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-    <!-- ── 2. Funktionen ──────────────────────────────────────────── -->
-    <section id="features">
-      <h2><span class="num">02</span> Funktionen</h2>
+ <!-- ── 2. Funktionen ──────────────────────────────────────────── -->
+ <section id="features">
+ <h2><span class="num">02</span> Funktionen</h2>
 
-      <h3 id="feature-list">2.1 Feature-Liste</h3>
-      <p>Die App ist in folgende Funktionsbereiche unterteilt:</p>
-      <ol>
-        <li><strong>Marketing-Site</strong> &ndash; Animierter Hero, verbundene Plattform-Br&uuml;cke, Marktanalyse, Kundenanalyse, Tech-Architektur, Marketingstrategie, Roadmap und Investition. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
-        <li><strong>KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Demos.</li>
-        <li><strong>Demo-Authentifizierung &amp; Rollen</strong> &ndash; Login mit vier Rollen (Administrator, Park Manager, Mitarbeiter, Besucher) und gesch&uuml;tztem Dashboard.</li>
-        <li><strong>Dashboard</strong> &ndash; KPI-Karten, Buchungs- und Umsatz-Charts, Kanal-Attribution, Aktivit&auml;tsfeed und Schnellzugriffe.</li>
-        <li><strong>Buchungssystem</strong> &ndash; 3-Schritt-Buchung (Termin &rarr; Tickets &rarr; Best&auml;tigung), saisonale Datumspr&uuml;fung, begrenzte Ticketmengen, Tickettypen Erwachsene/Kinder/Familie/Gruppenf&uuml;hrung, Buchungsreferenz mit QR-Code, Zahlung vor Ort.</li>
-        <li><strong>Coming Soon</strong> &ndash; Seiten unter <code>/membership</code>, <code>/vr-tour</code>, <code>/iot</code>, <code>/shop</code> und <code>/workshops</code> mit Waitlist-Formular.</li>
-      </ol>
-      <div class="info-box">
-        <div class="info-box-title">Hinweis</div>
-        <p>Diese Liste wird von Copilot automatisch aktualisiert, wenn neue Features implementiert werden.</p>
-      </div>
+ <h3 id="feature-list">2.1 Feature-Liste</h3>
+ <p>Die App ist in folgende Funktionsbereiche unterteilt:</p>
+ <ol>
+ <li><strong>Client-Homepage</strong> &ndash; Animierter Hero f&uuml;r Некрасово поле, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, Premium-Vertrauensargumente und klare Verlinkung zum separaten Pitch Deck. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
+ <li><strong>Mehrsprachiger KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Russisch, Deutsch und T&uuml;rkisch.</li>
+ <li><strong>Demo-Authentifizierung &amp; Rollen</strong> &ndash; Login mit vier Rollen (Administrator, Park Manager, Mitarbeiter, Besucher) und gesch&uuml;tztem Dashboard.</li>
+ <li><strong>Dashboard</strong> &ndash; KPI-Karten, Buchungs- und Umsatz-Charts, Kanal-Attribution, Aktivit&auml;tsfeed und Schnellzugriffe.</li>
+ <li><strong>Buchungssystem</strong> &ndash; 3-Schritt-Buchung (Termin &rarr; Tickets &rarr; Best&auml;tigung), saisonale Datumspr&uuml;fung, begrenzte Ticketmengen, Tickettypen Erwachsene/Kinder/Familie/Gruppenf&uuml;hrung, Buchungsreferenz mit QR-Code, Zahlung vor Ort.</li>
+ <li><strong>Coming Soon</strong> &ndash; Seiten unter <code>/membership</code>, <code>/vr-tour</code>, <code>/iot</code>, <code>/shop</code> und <code>/workshops</code> mit Waitlist-Formular.</li>
+ </ol>
+ <div class="info-box">
+ <div class="info-box-title">Hinweis</div>
+ <p>Diese Liste wird von Copilot automatisch aktualisiert, wenn neue Features implementiert werden.</p>
+ </div>
 
-      <h3 id="demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</h3>
-      <p>Die App verwendet Demo-Login-Rollen. Nicht alle Funktionen sind f&uuml;r jede Rolle verf&uuml;gbar:</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Funktion</th><th>Administrator</th><th>Park Manager</th><th>Mitarbeiter</th><th>Besucher</th></tr></thead>
-          <tbody>
-            <tr><td>Marketing-Seiten &amp; Inhalte</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>KI-Chat</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>Ticketbuchung</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
-            <tr><td>Dashboard</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">eingeschr&auml;nkt</td><td class="no">&#10007;</td></tr>
-            <tr><td>Admin-Funktionen</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="no">&#10007;</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+ <h3 id="demo-zugaenge">2.2 Demo-Zug&auml;nge &amp; Berechtigungen</h3>
+ <p>Die App verwendet Demo-Login-Rollen. Nicht alle Funktionen sind f&uuml;r jede Rolle verf&uuml;gbar:</p>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Funktion</th><th>Administrator</th><th>Park Manager</th><th>Mitarbeiter</th><th>Besucher</th></tr></thead>
+ <tbody>
+ <tr><td>Client-Homepage &amp; Pitch Deck</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+ <tr><td>KI-Chat</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="yes">&#10003;</td></tr>
+ <tr><td>Ticketbuchung</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td></tr>
+ <tr><td>Dashboard</td><td class="yes">&#10003;</td><td class="yes">&#10003;</td><td class="yes">eingeschr&auml;nkt</td><td class="no">&#10007;</td></tr>
+ <tr><td>Admin-Funktionen</td><td class="yes">&#10003;</td><td class="no">&#10007;</td><td class="no">&#10007;</td><td class="no">&#10007;</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-    <!-- ── 3. Erste Schritte (Tutorials) ─────────────────────────── -->
-    <section id="tutorials">
-      <h2><span class="num">03</span> Erste Schritte</h2>
+ <!-- ── 3. Erste Schritte (Tutorials) ─────────────────────────── -->
+ <section id="tutorials">
+ <h2><span class="num">03</span> Erste Schritte</h2>
 
-      <h3 id="tut-login">3.1 Demo-Login</h3>
-      <ol>
-        <li><code>/login</code> aufrufen</li>
-        <li>Eine der vier Demo-Rollen w&auml;hlen: <strong>Administrator</strong>, <strong>Park Manager</strong>, <strong>Mitarbeiter</strong> oder <strong>Besucher</strong></li>
-        <li><strong>&bdquo;Anmelden&ldquo;</strong> klicken</li>
-        <li>Bei internen Rollen erfolgt die Weiterleitung zum Dashboard; Besucher bleiben auf den &ouml;ffentlichen Seiten</li>
-      </ol>
+ <h3 id="tut-login">3.1 Demo-Login</h3>
+ <ol>
+ <li><code>/login</code> aufrufen</li>
+ <li>Eine der vier Demo-Rollen w&auml;hlen: <strong>Administrator</strong>, <strong>Park Manager</strong>, <strong>Mitarbeiter</strong> oder <strong>Besucher</strong></li>
+ <li><strong>&bdquo;Anmelden&ldquo;</strong> klicken</li>
+ <li>Bei internen Rollen erfolgt die Weiterleitung zum Dashboard; Besucher bleiben auf den &ouml;ffentlichen Seiten</li>
+ </ol>
 
-      <h3 id="tut-buchung">3.2 Erste Buchung</h3>
-      <ol>
-        <li><code>/buchung</code> aufrufen</li>
-        <li>Ein Besuchsdatum innerhalb der Saison (Mai bis September) im Kalender w&auml;hlen</li>
-        <li>Tickettypen und Anzahl ausw&auml;hlen (Erwachsene, Kinder, Familie, Gruppenf&uuml;hrung; maximal 20 je Tickettyp)</li>
-        <li>Kontaktdaten eingeben</li>
-        <li>Die Buchung mit einer eindeutigen <strong>Buchungsreferenz</strong> und einem <strong>QR-Code</strong> best&auml;tigen</li>
-        <li>Die Zahlung erfolgt vor Ort am Park</li>
-      </ol>
+ <h3 id="tut-buchung">3.2 Erste Buchung</h3>
+ <ol>
+ <li><code>/buchung</code> aufrufen</li>
+ <li>Ein Besuchsdatum innerhalb der Saison (Mai bis September) im Kalender w&auml;hlen</li>
+ <li>Tickettypen und Anzahl ausw&auml;hlen (Erwachsene, Kinder, Familie, Gruppenf&uuml;hrung; maximal 20 je Tickettyp)</li>
+ <li>Kontaktdaten eingeben</li>
+ <li>Die Buchung mit einer eindeutigen <strong>Buchungsreferenz</strong> und einem <strong>QR-Code</strong> best&auml;tigen</li>
+ <li>Die Zahlung erfolgt vor Ort am Park</li>
+ </ol>
 
-      <h3 id="tut-dashboard">3.3 Dashboard-&Uuml;bersicht</h3>
-      <ol>
-        <li>Nach dem Demo-Login wird das Dashboard geladen</li>
-        <li>KPI-Karten zeigen Besucherzahlen, Umsatz und offene Buchungen</li>
-        <li>Buchungs- und Umsatz-Charts visualisieren Trends</li>
-        <li>Der Aktivit&auml;tsfeed listet j&uuml;ngste Ereignisse</li>
-        <li>Schnellzugriffe f&uuml;hren zur Buchung, zum Chat und zu Coming-Soon-Bereichen</li>
-      </ol>
-    </section>
+ <h3 id="tut-dashboard">3.3 Dashboard-&Uuml;bersicht</h3>
+ <ol>
+ <li>Nach dem Demo-Login wird das Dashboard geladen</li>
+ <li>KPI-Karten zeigen Besucherzahlen, Umsatz und offene Buchungen</li>
+ <li>Buchungs- und Umsatz-Charts visualisieren Trends</li>
+ <li>Der Aktivit&auml;tsfeed listet j&uuml;ngste Ereignisse</li>
+ <li>Schnellzugriffe f&uuml;hren zur Buchung, zum Chat und zu Coming-Soon-Bereichen</li>
+ </ol>
+ </section>
 
-    <!-- ── 4. How-to Guides ───────────────────────────────────────── -->
-    <section id="howto">
-      <h2><span class="num">04</span> How-to Guides</h2>
+ <!-- ── 4. How-to Guides ───────────────────────────────────────── -->
+ <section id="howto">
+ <h2><span class="num">04</span> How-to Guides</h2>
 
-      <h3 id="ht-buchung">4.1 Buchung durchf&uuml;hren</h3>
-      <ol>
-        <li>&Uuml;ber das Men&uuml; oder die Startseite zu <code>/buchung</code> navigieren</li>
-        <li>Den gew&uuml;nschten Besuchstermin innerhalb der Parksaison ausw&auml;hlen</li>
-        <li>Die gew&uuml;nschten Ticketkategorien und Mengen hinzuf&uuml;gen</li>
-        <li>Vor- und Nachname sowie E-Mail-Adresse eingeben</li>
-        <li>Die Zusammenfassung pr&uuml;fen und <strong>&bdquo;Jetzt reservieren&ldquo;</strong> klicken</li>
-        <li>Die Best&auml;tigungsseite mit Buchungsreferenz und QR-Code speichern oder ausdrucken</li>
-      </ol>
+ <h3 id="ht-buchung">4.1 Buchung durchf&uuml;hren</h3>
+ <ol>
+ <li>&Uuml;ber das Men&uuml; oder die Startseite zu <code>/buchung</code> navigieren</li>
+ <li>Den gew&uuml;nschten Besuchstermin innerhalb der Parksaison ausw&auml;hlen</li>
+ <li>Die gew&uuml;nschten Ticketkategorien und Mengen hinzuf&uuml;gen</li>
+ <li>Vor- und Nachname sowie E-Mail-Adresse eingeben</li>
+ <li>Die Zusammenfassung pr&uuml;fen und <strong>&bdquo;Jetzt reservieren&ldquo;</strong> klicken</li>
+ <li>Die Best&auml;tigungsseite mit Buchungsreferenz und QR-Code speichern oder ausdrucken</li>
+ </ol>
 
-      <h3 id="ht-chat">4.2 KI-Chat nutzen</h3>
-      <ol>
-        <li>Das Chat-Icon in der unteren rechten Ecke &ouml;ffnen</li>
-        <li>Eine Frage zu &Ouml;ffnungszeiten, Ticketpreisen oder dem Park stellen</li>
-        <li>Der serverseitige Proxy leitet die Anfrage an ein OpenAI-kompatibles Modell weiter</li>
-        <li>Ist die KI-Schnittstelle nicht erreichbar, antwortet der integrierte Fallback-Modus mit allgemeinen Informationen</li>
-      </ol>
-      <div class="info-box">
-        <div class="info-box-title">Demo-Hinweis</div>
-        <p>Der Chat dient der Demonstration. Antworten k&ouml;nnen bei Nichtverf&uuml;gbarkeit der externen API auf vorbereitete Fallback-Inhalte zur&uuml;ckgreifen.</p>
-      </div>
-    </section>
+ <h3 id="ht-chat">4.2 KI-Chat nutzen</h3>
+ <ol>
+ <li>Das Chat-Icon in der unteren rechten Ecke &ouml;ffnen</li>
+ <li>Eine Frage zu &Ouml;ffnungszeiten, Grill-Dom-Angeboten, Tickets oder dem Park stellen</li>
+ <li>Der serverseitige Proxy leitet die Anfrage an ein OpenAI-kompatibles Modell weiter</li>
+ <li>Ist die KI-Schnittstelle nicht erreichbar, antwortet der integrierte Fallback-Modus mit Informationen in Russisch, Deutsch oder T&uuml;rkisch</li>
+ </ol>
+ <div class="info-box">
+ <div class="info-box-title">Demo-Hinweis</div>
+ <p>Der Chat dient der Demonstration. Antworten k&ouml;nnen bei Nichtverf&uuml;gbarkeit der externen API auf vorbereitete Fallback-Inhalte zu Besuch, Buchung, &Ouml;ffnungszeiten und Grill-Dom-Anfragen zur&uuml;ckgreifen.</p>
+ </div>
+ </section>
 
-    <!-- ── 5. Funktionsreferenz ───────────────────────────────────── -->
-    <section id="referenz">
-      <h2><span class="num">05</span> Funktionsreferenz</h2>
+ <!-- ── 5. Funktionsreferenz ───────────────────────────────────── -->
+ <section id="referenz">
+ <h2><span class="num">05</span> Funktionsreferenz</h2>
 
-      <h3 id="routen">5.1 Routen-&Uuml;bersicht</h3>
-      <p>Die App verwendet keine <code>[locale]</code>-Pr&auml;fixe. Alle Routen sind einstufig.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Route</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
-          <tbody>
-            <tr><td><code>/</code></td><td>Startseite / Marketing mit verbundener Plattform-Br&uuml;cke</td><td>Alle</td></tr>
-            <tr><td><code>/login</code></td><td>Demo-Login</td><td>&Ouml;ffentlich</td></tr>
-            <tr><td><code>/dashboard</code></td><td>Gesch&uuml;tztes Dashboard</td><td>Eingeloggt</td></tr>
-            <tr><td><code>/buchung</code></td><td>Ticketbuchung</td><td>Alle</td></tr>
-            <tr><td><code>/park</code></td><td>Park-Informationen</td><td>Alle</td></tr>
-            <tr><td><code>/attraktionen</code></td><td>Attraktionen</td><td>Alle</td></tr>
-            <tr><td><code>/kontakt</code></td><td>Kontaktformular</td><td>Alle</td></tr>
-            <tr><td><code>/membership</code></td><td>Coming Soon &ndash; Mitgliedschaft</td><td>Alle</td></tr>
-            <tr><td><code>/vr-tour</code></td><td>Coming Soon &ndash; VR-Tour</td><td>Alle</td></tr>
-            <tr><td><code>/iot</code></td><td>Coming Soon &ndash; IoT</td><td>Alle</td></tr>
-            <tr><td><code>/shop</code></td><td>Coming Soon &ndash; Shop</td><td>Alle</td></tr>
-            <tr><td><code>/workshops</code></td><td>Coming Soon &ndash; Workshops</td><td>Alle</td></tr>
-            <tr><td><code>/impressum</code></td><td>Impressum</td><td>Alle</td></tr>
-            <tr><td><code>/datenschutz</code></td><td>Datenschutzerkl&auml;rung</td><td>Alle</td></tr>
-            <tr><td><code>/agb</code></td><td>AGB</td><td>Alle</td></tr>
-          </tbody>
-        </table>
-      </div>
+ <h3 id="routen">5.1 Routen-&Uuml;bersicht</h3>
+ <p>Die App verwendet keine <code>[locale]</code>-Pr&auml;fixe. Alle Routen sind einstufig.</p>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Route</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
+ <tbody>
+ <tr><td><code>/</code></td><td>Client-Homepage f&uuml;r Некрасово поле mit Parkinhalten, Buchung, KI-Chat, Premium-Vertrauensargumenten und Link zum separaten Pitch Deck</td><td>Alle</td></tr>
+ <tr><td><code>/login</code></td><td>Demo-Login</td><td>&Ouml;ffentlich</td></tr>
+ <tr><td><code>/dashboard</code></td><td>Gesch&uuml;tztes Dashboard</td><td>Eingeloggt</td></tr>
+ <tr><td><code>/buchung</code></td><td>Ticketbuchung</td><td>Alle</td></tr>
+ <tr><td><code>/park</code></td><td>Park-Informationen</td><td>Alle</td></tr>
+ <tr><td><code>/attraktionen</code></td><td>Attraktionen</td><td>Alle</td></tr>
+ <tr><td><code>/kontakt</code></td><td>Kontaktformular</td><td>Alle</td></tr>
+ <tr><td><code>/membership</code></td><td>Coming Soon &ndash; Mitgliedschaft</td><td>Alle</td></tr>
+ <tr><td><code>/vr-tour</code></td><td>Coming Soon &ndash; VR-Tour</td><td>Alle</td></tr>
+ <tr><td><code>/iot</code></td><td>Coming Soon &ndash; IoT</td><td>Alle</td></tr>
+ <tr><td><code>/shop</code></td><td>Coming Soon &ndash; Shop</td><td>Alle</td></tr>
+ <tr><td><code>/workshops</code></td><td>Coming Soon &ndash; Workshops</td><td>Alle</td></tr>
+ <tr><td><code>/impressum</code></td><td>Impressum</td><td>Alle</td></tr>
+ <tr><td><code>/datenschutz</code></td><td>Datenschutzerkl&auml;rung</td><td>Alle</td></tr>
+ <tr><td><code>/agb</code></td><td>AGB</td><td>Alle</td></tr>
+ </tbody>
+ </table>
+ </div>
 
-      <h3 id="api">5.2 API &amp; Hooks</h3>
-      <div class="info-box">
-        <div class="info-box-title">Lebende Dokumentation</div>
-        <p>Copilot erg&auml;nzt diese Tabelle automatisch, wenn neue API-Routen oder Hooks hinzugef&uuml;gt werden.</p>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Endpunkt / Hook</th><th>Methode</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
-          <tbody>
-            <tr><td><code>/api/chat</code></td><td>POST</td><td>KI-Chat Proxy mit Payload-Validierung und Fallback</td><td>Alle</td></tr>
-            <tr><td><code>/api/login</code></td><td>POST</td><td>Demo-Login API</td><td>&Ouml;ffentlich</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+ <h3 id="api">5.2 API &amp; Hooks</h3>
+ <div class="info-box">
+ <div class="info-box-title">Lebende Dokumentation</div>
+ <p>Copilot erg&auml;nzt diese Tabelle automatisch, wenn neue API-Routen oder Hooks hinzugef&uuml;gt werden.</p>
+ </div>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Endpunkt / Hook</th><th>Methode</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
+ <tbody>
+ <tr><td><code>/api/chat</code></td><td>POST</td><td>Mehrsprachiger KI-Chat Proxy mit Payload-Validierung und Fallback f&uuml;r RU / DE / TR</td><td>Alle</td></tr>
+ <tr><td><code>/api/login</code></td><td>POST</td><td>Demo-Login API</td><td>&Ouml;ffentlich</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-    <!-- ── 6. Technische Architektur ──────────────────────────────── -->
-    <section id="tech">
-      <h2><span class="num">06</span> Technische Architektur</h2>
+ <!-- ── 6. Technische Architektur ──────────────────────────────── -->
+ <section id="tech">
+ <h2><span class="num">06</span> Technische Architektur</h2>
 
-      <h3 id="tech-stack">6.1 Stack</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Schicht</th><th>Technologie</th><th>Aufgabe</th></tr></thead>
-          <tbody>
-            <tr><td>Frontend &amp; Backend</td><td>Next.js 16 (App Router), React 19, TypeScript strict</td><td>SSR, API-Routen, Middleware</td></tr>
-            <tr><td>Styling</td><td>Tailwind CSS v4, shadcn/ui (manuelles Setup)</td><td>Utility-First, Komponenten-Bibliothek</td></tr>
-            <tr><td>Animation &amp; Icons</td><td>Framer Motion, Lucide React</td><td>Motion &amp; Iconografie</td></tr>
-            <tr><td>Charts</td><td>Original-SVGs f&uuml;r Marketing-Charts; Recharts in Abh&auml;ngigkeiten, aktuell nicht genutzt</td><td>Visualisierung</td></tr>
-            <tr><td>KI</td><td>OpenAI-compatible API &uuml;ber serverseitigen Proxy mit Fallback</td><td>KI-Chatbot</td></tr>
-            <tr><td>Auth</td><td>Demo-Cookie-Sessions (keine Signatur &ndash; nur Demo)</td><td>Rollen-basierter Login</td></tr>
-            <tr><td>Datenbank</td><td>Supabase Client konfiguriert, optional f&uuml;r diese Demo</td><td>Persistenz vorbereitet</td></tr>
-            <tr><td>Tests</td><td>Playwright E2E + Smoke-Test (<code>scripts/smoke-test.mjs</code>)</td><td>End-to-End-Validierung</td></tr>
-            <tr><td>CI/CD</td><td>GitHub Actions</td><td>Qualit&auml;ts-Gates und Deployments</td></tr>
-            <tr><td>Hosting</td><td>Vercel</td><td>Frontend-Bereitstellung</td></tr>
-          </tbody>
-        </table>
-      </div>
+ <h3 id="tech-stack">6.1 Stack</h3>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Schicht</th><th>Technologie</th><th>Aufgabe</th></tr></thead>
+ <tbody>
+ <tr><td>Frontend &amp; Backend</td><td>Next.js 16 (App Router), React 19, TypeScript strict</td><td>SSR, API-Routen, Middleware</td></tr>
+ <tr><td>Styling</td><td>Tailwind CSS v4, shadcn/ui (manuelles Setup)</td><td>Utility-First, Komponenten-Bibliothek</td></tr>
+ <tr><td>Animation &amp; Icons</td><td>Framer Motion, Lucide React</td><td>Motion &amp; Iconografie</td></tr>
+ <tr><td>Charts</td><td>Original-SVGs f&uuml;r Marketing-Charts; Recharts in Abh&auml;ngigkeiten, aktuell nicht genutzt</td><td>Visualisierung</td></tr>
+ <tr><td>KI</td><td>OpenAI-compatible API &uuml;ber serverseitigen Proxy mit RU / DE / TR Fallback</td><td>Mehrsprachiger Besucher-Chatbot</td></tr>
+ <tr><td>Auth</td><td>Demo-Cookie-Sessions (keine Signatur &ndash; nur Demo)</td><td>Rollen-basierter Login</td></tr>
+ <tr><td>Datenbank</td><td>Supabase Client konfiguriert, optional f&uuml;r diese Demo</td><td>Persistenz vorbereitet</td></tr>
+ <tr><td>Tests</td><td>Playwright E2E + Smoke-Test (<code>scripts/smoke-test.mjs</code>)</td><td>End-to-End-Validierung</td></tr>
+ <tr><td>CI/CD</td><td>GitHub Actions</td><td>Qualit&auml;ts-Gates und Deployments</td></tr>
+ <tr><td>Hosting</td><td>Vercel</td><td>Frontend-Bereitstellung</td></tr>
+ </tbody>
+ </table>
+ </div>
 
-      <h3 id="tech-schema">6.2 Datenbank-Schema</h3>
-      <p>Die aktuelle Demo arbeitet mit Mock- und Demo-Daten sowie Cookie-Sessions. Es sind keine Supabase-Migrationen angewendet worden.</p>
-      <div class="warn-box">
-        <div class="warn-box-title">Hinweis zur Persistenz</div>
-        <p>Row Level Security (RLS) wird erst relevant, sobald persistente Tabellen angelegt werden. F&uuml;r den Demo-Betrieb werden keine personenbezogenen Daten in der Datenbank gespeichert.</p>
-      </div>
-    </section>
+ <h3 id="tech-schema">6.2 Datenbank-Schema</h3>
+ <p>Die aktuelle Demo arbeitet mit Mock- und Demo-Daten sowie Cookie-Sessions. Es sind keine Supabase-Migrationen angewendet worden.</p>
+ <div class="warn-box">
+ <div class="warn-box-title">Hinweis zur Persistenz</div>
+ <p>Row Level Security (RLS) wird erst relevant, sobald persistente Tabellen angelegt werden. F&uuml;r den Demo-Betrieb werden keine personenbezogenen Daten in der Datenbank gespeichert.</p>
+ </div>
+ </section>
 
-    <!-- ── 7. CI/CD & Tests ───────────────────────────────────────── -->
-    <section id="ci-cd">
-      <h2><span class="num">07</span> CI/CD &amp; Tests</h2>
-      <p>Der Repository enth&auml;lt folgende Workflows. Ein automatisches Deployment bei Merge auf <code>main</code> findet nicht statt.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Workflow</th><th>Trigger</th><th>Befehl / Aufgabe</th></tr></thead>
-          <tbody>
-            <tr><td><code>pr-pipeline.yml</code></td><td>Pull Request &rarr; <code>main</code>/<code>master</code> (oder manuell)</td><td>Auto-Fix, Typecheck, Lint, Build</td></tr>
-            <tr><td><code>deploy.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Vercel Production/Preview Deploy</td></tr>
-            <tr><td><code>launch-checklist.yml</code></td><td>Release ver&ouml;ffentlicht oder manuell</td><td>Go-Live-Checkliste (Vercel, Supabase, Handbuch)</td></tr>
-            <tr><td><code>lp-generator.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Generierung einer Landing-Page</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>Zus&auml;tzlich stehen lokale Tests bereit:</p>
-      <ul>
-        <li><code>npm run test</code> &ndash; Smoke-Test (<code>scripts/smoke-test.mjs</code>)</li>
-        <li><code>npm run test:e2e</code> &ndash; Playwright E2E-Suite</li>
-      </ul>
-    </section>
+ <!-- ── 7. CI/CD & Tests ───────────────────────────────────────── -->
+ <section id="ci-cd">
+ <h2><span class="num">07</span> CI/CD &amp; Tests</h2>
+ <p>Der Repository enth&auml;lt folgende Workflows. Ein automatisches Deployment bei Merge auf <code>main</code> findet nicht statt.</p>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Workflow</th><th>Trigger</th><th>Befehl / Aufgabe</th></tr></thead>
+ <tbody>
+ <tr><td><code>pr-pipeline.yml</code></td><td>Pull Request &rarr; <code>main</code>/<code>master</code> (oder manuell)</td><td>Auto-Fix, Typecheck, Lint, Build</td></tr>
+ <tr><td><code>deploy.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Vercel Production/Preview Deploy</td></tr>
+ <tr><td><code>launch-checklist.yml</code></td><td>Release ver&ouml;ffentlicht oder manuell</td><td>Go-Live-Checkliste (Vercel, Supabase, Handbuch)</td></tr>
+ <tr><td><code>lp-generator.yml</code></td><td>Nur manuell (<code>workflow_dispatch</code>)</td><td>Generierung einer Landing-Page</td></tr>
+ </tbody>
+ </table>
+ </div>
+ <p>Zus&auml;tzlich stehen lokale Tests bereit:</p>
+ <ul>
+ <li><code>npm run test</code> &ndash; Smoke-Test (<code>scripts/smoke-test.mjs</code>)</li>
+ <li><code>npm run test:e2e</code> &ndash; Playwright E2E-Suite</li>
+ </ul>
+ </section>
 
-    <!-- ── 8. DSGVO & Compliance ──────────────────────────────────── -->
-    <section id="compliance">
-      <h2><span class="num">08</span> DSGVO &amp; Compliance</h2>
-      <p>AgroPark Nekrasovo befindet sich im Demo-Betrieb. Die App zeigt rechtliche Seiten und ein Kontaktformular, speichert aber keine personenbezogenen Daten dauerhaft serverseitig. Demo-Buchungen und Kontaktanfragen werden nur lokal im Browser gespeichert. Es gibt kein echtes Zahlungs- oder E-Mail-Versand-Backend.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>DSGVO-Anforderung</th><th>Umsetzung im Demo-Betrieb</th></tr></thead>
-          <tbody>
-            <tr><td>Transparenz (Art. 12&ndash;14)</td><td>Impressum, Datenschutzerkl&auml;rung und AGB sind als statische Seiten verf&uuml;gbar.</td></tr>
-            <tr><td>Recht auf Auskunft (Art. 15)</td><td>Keine dauerhafte Speicherung personenbezogener Daten; Demo-Cookies sind rein sitzungsbasiert.</td></tr>
-            <tr><td>Recht auf L&ouml;schung (Art. 17)</td><td>Da keine Konten oder Daten persistiert werden, entf&auml;llt eine aktive L&ouml;schfunktion.</td></tr>
-            <tr><td>Datensicherheit (Art. 32)</td><td>HTTPS, kein Client-seitiges Secret, Demo-Cookies ohne Signatur.</td></tr>
-            <tr><td>Zahlungsverkehr</td><td>Keine Zahlungsabwicklung integriert; Buchungen werden vor Ort bezahlt.</td></tr>
-            <tr><td>Rechtliche Seiten</td><td><code>/impressum</code>, <code>/datenschutz</code> und <code>/agb</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+ <!-- ── 8. DSGVO & Compliance ──────────────────────────────────── -->
+ <section id="compliance">
+ <h2><span class="num">08</span> DSGVO &amp; Compliance</h2>
+ <p>Некрасово поле AgroPark befindet sich im Demo-Betrieb. Die App zeigt rechtliche Seiten, Kontaktformular, Buchungsdemo und mehrsprachigen KI-Chat, speichert aber keine personenbezogenen Daten dauerhaft serverseitig. Demo-Buchungen und Kontaktanfragen werden nur lokal im Browser gespeichert. Es gibt kein echtes Zahlungs- oder E-Mail-Versand-Backend.</p>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>DSGVO-Anforderung</th><th>Umsetzung im Demo-Betrieb</th></tr></thead>
+ <tbody>
+ <tr><td>Transparenz (Art. 12&ndash;14)</td><td>Impressum, Datenschutzerkl&auml;rung und AGB sind als statische Seiten verf&uuml;gbar.</td></tr>
+ <tr><td>Recht auf Auskunft (Art. 15)</td><td>Keine dauerhafte Speicherung personenbezogener Daten; Demo-Cookies sind rein sitzungsbasiert.</td></tr>
+ <tr><td>Recht auf L&ouml;schung (Art. 17)</td><td>Da keine Konten oder Daten persistiert werden, entf&auml;llt eine aktive L&ouml;schfunktion.</td></tr>
+ <tr><td>Datensicherheit (Art. 32)</td><td>HTTPS, kein Client-seitiges Secret, Demo-Cookies ohne Signatur, KI-Fallback ohne externe API-Pflicht.</td></tr>
+ <tr><td>Zahlungsverkehr</td><td>Keine Zahlungsabwicklung integriert; Buchungen werden vor Ort bezahlt.</td></tr>
+ <tr><td>Rechtliche Seiten</td><td><code>/impressum</code>, <code>/datenschutz</code> und <code>/agb</code></td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-    <!-- ── 9. Glossar ─────────────────────────────────────────────── -->
-    <section id="glossar">
-      <h2><span class="num">09</span> Glossar</h2>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Begriff</th><th>Erkl&auml;rung</th></tr></thead>
-          <tbody>
-            <tr><td><strong>App Router</strong></td><td>Das Routing-Modell von Next.js ab Version 13, basierend auf dem <code>app/</code>-Verzeichnis.</td></tr>
-            <tr><td><strong>Agritourismus</strong></td><td>Tourismus auf landwirtschaftlichen Betrieben &ndash; das Kernthema von AgroPark Nekrasovo.</td></tr>
-            <tr><td><strong>KPI</strong></td><td>Key Performance Indicator &ndash; Kennzahl zur Bewertung von Gesch&auml;ftsprozessen.</td></tr>
-            <tr><td><strong>QR-Code</strong></td><td>Zweidimensionaler Code zur schnellen Validierung von Buchungen vor Ort.</td></tr>
-            <tr><td><strong>RLS</strong></td><td>Row Level Security &ndash; Datenbankebenen-Zugriffsschutz in Supabase/PostgreSQL.</td></tr>
-            <tr><td><strong>SSR</strong></td><td>Server-Side Rendering &ndash; Seitenrendering auf dem Server (Next.js App Router Standard).</td></tr>
-            <tr><td><strong>WAMOCON</strong></td><td>WAMOCON GmbH &ndash; Betreiber und Entwickler von AgroPark Nekrasovo.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+ <!-- ── 9. Glossar ─────────────────────────────────────────────── -->
+ <section id="glossar">
+ <h2><span class="num">09</span> Glossar</h2>
+ <div class="table-wrap">
+ <table>
+ <thead><tr><th>Begriff</th><th>Erkl&auml;rung</th></tr></thead>
+ <tbody>
+ <tr><td><strong>App Router</strong></td><td>Das Routing-Modell von Next.js ab Version 13, basierend auf dem <code>app/</code>-Verzeichnis.</td></tr>
+ <tr><td><strong>Agritourismus</strong></td><td>Tourismus auf landwirtschaftlichen Betrieben &ndash; das Kernthema von AgroPark Nekrasovo.</td></tr>
+ <tr><td><strong>KPI</strong></td><td>Key Performance Indicator &ndash; Kennzahl zur Bewertung von Gesch&auml;ftsprozessen.</td></tr>
+ <tr><td><strong>QR-Code</strong></td><td>Zweidimensionaler Code zur schnellen Validierung von Buchungen vor Ort.</td></tr>
+ <tr><td><strong>RLS</strong></td><td>Row Level Security &ndash; Datenbankebenen-Zugriffsschutz in Supabase/PostgreSQL.</td></tr>
+ <tr><td><strong>SSR</strong></td><td>Server-Side Rendering &ndash; Seitenrendering auf dem Server (Next.js App Router Standard).</td></tr>
+ <tr><td><strong>WAMOCON</strong></td><td>WAMOCON GmbH &ndash; Betreiber und Entwickler der Некрасово поле AgroPark Demo.</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </section>
 
-  </main>
+ </main>
 </div>
 
 <!-- ── Footer ───────────────────────────────────────────────────────── -->
 <footer class="page-footer">
-  <div>&copy; 2026 WAMOCON GmbH &ndash; Alle Rechte vorbehalten</div>
-  <div>AgroPark Nekrasovo Produkthandbuch v1.0.0 &middot; Vertraulich &middot; Juni 2026</div>
+ <div>&copy; 2026 WAMOCON GmbH &ndash; Alle Rechte vorbehalten</div>
+ <div>Некрасово поле AgroPark Produkthandbuch v1.0.0 &middot; Vertraulich &middot; Juni 2026</div>
 </footer>
 
 <!-- ── Smooth active TOC highlighting ───────────────────────────────── -->
 <script>
-  (function () {
-    const links = document.querySelectorAll('.toc-link');
-    const sections = document.querySelectorAll('section[id], .cover');
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            links.forEach((l) => l.style.removeProperty('color'));
-            const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
-            if (active) active.style.color = 'var(--primary)';
-          }
-        });
-      },
-      { rootMargin: '-20% 0px -70% 0px' }
-    );
-    sections.forEach((s) => observer.observe(s));
-  })();
+ (function () {
+ const links = document.querySelectorAll('.toc-link');
+ const sections = document.querySelectorAll('section[id], .cover');
+ const observer = new IntersectionObserver(
+ (entries) => {
+ entries.forEach((entry) => {
+ if (entry.isIntersecting) {
+ links.forEach((l) => l.style.removeProperty('color'));
+ const active = document.querySelector('.toc-link[href="#' + entry.target.id + '"]');
+ if (active) active.style.color = 'var(--primary)';
+ }
+ });
+ },
+ { rootMargin: '-20% 0px -70% 0px' }
+ );
+ sections.forEach((s) => observer.observe(s));
+ })();
 </script>
 
 </body>

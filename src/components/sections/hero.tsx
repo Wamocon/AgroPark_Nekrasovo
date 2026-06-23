@@ -2,259 +2,284 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Activity,
-  ArrowRight,
-  BarChart3,
-  Bot,
-  CalendarCheck,
-  CheckCircle2,
-  Gauge,
-  Route,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight, CheckCircle2, CircleDot, Navigation, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+ demoAccounts,
+ heroActions,
+ parkZones,
+ productModules,
+ recentActivity,
+} from "@/data/agropark";
 
-const proofPoints = [
-  { value: "3", label: "Schritte bis zur Buchung" },
-  { value: "4", label: "Demo-Rollen im Betrieb" },
-  { value: "24/7", label: "Chat mit Fallback" },
-  { value: "90", label: "Tage bis Phase-1-Livegang" },
-];
+function ParkMap() {
+ const shortZoneLabel: Record<string, string> = {
+  Maislabyrinth: "Labyrinth",
+  Tierbereich: "Tiere",
+  Maschinenmuseum: "Museum",
+  Restaurant: "Cafe",
+  Grillkuppeln: "Grill",
+ };
 
-const flow = [
-  {
-    icon: CalendarCheck,
-    label: "Besucher",
-    title: "Bucht ein Erlebnis",
-    text: "Termin, Ticketmix und Kontaktdaten laufen durch einen geführten Reservierungsprozess.",
-  },
-  {
-    icon: Bot,
-    label: "KI",
-    title: "Beantwortet Fragen",
-    text: "Öffnungszeiten, Preise und Parkinfos bleiben erreichbar, auch wenn die externe API ausfällt.",
-  },
-  {
-    icon: BarChart3,
-    label: "Team",
-    title: "Steuert den Betrieb",
-    text: "Dashboard, Rollen, KPIs und Aktivitätsfeed zeigen, was heute passiert und wo Engpässe entstehen.",
-  },
-];
-
-const opsRows = [
-  { label: "Heute Buchungen", value: "47", detail: "+12% vs. gestern" },
-  { label: "Offene Anfragen", value: "8", detail: "3 warten auf Antwort" },
-  { label: "Auslastung", value: "78%", detail: "+5% in Echtzeit" },
-];
+ return (
+ <div className="rounded-lg border border-emerald-900/10 bg-[#f9f8f1] p-4 shadow-sm">
+ <div className="mb-4 flex items-center justify-between gap-3">
+ <div>
+ <p className="text-[11px] font-black uppercase text-neutral-500">Offline Parkkarte</p>
+ <h3 className="text-lg font-black text-neutral-950">Besucherfluss und Zonen</h3>
+ </div>
+ <span className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-900">
+ <CircleDot className="size-3" />
+ Live Demo
+ </span>
+ </div>
+ <svg viewBox="0 0 100 100" role="img" aria-label="Schematische Parkkarte" className="h-64 w-full">
+ <defs>
+ <pattern id="field-lines" width="8" height="8" patternUnits="userSpaceOnUse">
+ <path d="M 0 8 L 8 0" stroke="#d8d4c7" strokeWidth="0.7" />
+ </pattern>
+ </defs>
+ <rect x="2" y="2" width="96" height="96" rx="5" fill="url(#field-lines)" stroke="#e2ded0" />
+ <path d="M8 84 C22 68, 35 72, 48 50 S72 32, 90 16" fill="none" stroke="#315b47" strokeWidth="2.4" strokeLinecap="round" strokeDasharray="4 4" />
+ {parkZones.map((zone) => (
+ <g key={zone.name}>
+ <rect
+ x={zone.x}
+ y={zone.y}
+ width={zone.w}
+ height={zone.h}
+ rx="3"
+ fill={zone.tone}
+ stroke="#315b47"
+ strokeOpacity="0.22"
+ />
+ <text
+ x={zone.x + zone.w / 2}
+ y={zone.y + zone.h / 2}
+ textAnchor="middle"
+ dominantBaseline="middle"
+ fill="#173426"
+ fontSize="3.2"
+ fontWeight="800"
+ >
+ {shortZoneLabel[zone.name] ?? zone.name}
+ </text>
+ </g>
+ ))}
+ <circle cx="8" cy="84" r="3.5" fill="#0f766e" />
+ <circle cx="90" cy="16" r="3.5" fill="#d97706" />
+ </svg>
+ <div className="mt-3 grid gap-2 sm:grid-cols-2">
+ {parkZones.slice(0, 4).map((zone) => (
+ <div key={zone.name} className="flex items-center gap-2 text-xs font-bold text-neutral-700">
+ <span className="size-2 rounded-full" style={{ background: zone.tone }} />
+ {zone.name}
+ </div>
+ ))}
+ </div>
+ </div>
+ );
+}
 
 export function Hero() {
-  return (
-    <section
-      id="top"
-      className="relative isolate min-h-[calc(100vh-4rem)] overflow-hidden bg-[#0b2118] text-white"
-    >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(115deg, rgba(9,31,22,0.98) 0%, rgba(18,65,45,0.94) 55%, rgba(79,93,68,0.88) 100%)",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 opacity-20"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(0deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-neutral-100 to-transparent"
-      />
+ return (
+ <section
+ id="top"
+ className="relative isolate overflow-hidden bg-[#f7f6ef] text-neutral-950"
+ >
+ <div
+ aria-hidden="true"
+ className="absolute inset-0 opacity-70"
+ style={{
+ background:
+ "radial-gradient(circle at 18% 20%, rgba(16, 185, 129, 0.11), transparent 30%), radial-gradient(circle at 82% 18%, rgba(217, 119, 6, 0.1), transparent 28%), linear-gradient(180deg, #fbfaf5 0%, #f3f1e7 100%)",
+ }}
+ />
+ <div
+ aria-hidden="true"
+ className="absolute inset-0 opacity-[0.42]"
+ style={{
+ backgroundImage:
+ "linear-gradient(90deg, rgba(27,67,50,0.07) 1px, transparent 1px), linear-gradient(0deg, rgba(27,67,50,0.05) 1px, transparent 1px)",
+ backgroundSize: "64px 64px",
+ }}
+ />
 
-      <div className="relative z-10 mx-auto grid max-w-7xl gap-10 px-4 pb-20 pt-16 sm:px-6 sm:pb-24 sm:pt-24 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55 }}
-          className="max-w-2xl"
-        >
-          <Badge
-            variant="outline"
-            className="mb-6 border-accent-500/45 bg-black/20 text-accent-500 backdrop-blur-sm"
-          >
-            <span className="mr-2 inline-block size-1.5 rounded-full bg-accent-500" />
-            Pitch Deck + Working Demo
-          </Badge>
+ <div className="relative z-10 mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 sm:pb-20 sm:pt-24 lg:px-8">
+ <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+ <motion.div
+ initial={{ opacity: 0, y: 18 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.45 }}
+ className="max-w-2xl"
+ >
+ <Badge
+ variant="outline"
+ className="mb-6 border-emerald-900/15 bg-white/80 text-emerald-900 shadow-sm backdrop-blur"
+ >
+ Besucherwebsite, CRM und Pitch Demo
+ </Badge>
 
-          <h1 className="max-w-3xl text-4xl font-black leading-[1.04] text-white sm:text-5xl lg:text-6xl">
-            AgroPark Nekrasovo als buchbare, messbare Demo-Plattform.
-          </h1>
+ <h1 className="max-w-3xl text-4xl font-black leading-[1.02] tracking-[-0.01em] text-neutral-950 sm:text-5xl lg:text-6xl">
+ AgroPark Nekrasovo
+ </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/78 sm:text-lg">
-            Aus Strategie wird ein nutzbarer Web-Prototyp: Besucher buchen Tickets,
-            der KI-Chat beantwortet Fragen, und das Team prüft Buchungen, Rollen und
-            operative Kennzahlen im Dashboard.
-          </p>
+ <p className="mt-6 max-w-xl text-base leading-relaxed text-neutral-700 sm:text-lg">
+ Ein moderner Erlebnispark für Familien, Gruppen und Events in der
+ Kaliningrader Oblast - mit Online-Buchung, mehrsprachigem AI-Chat,
+ Parkinformationen und einem separaten Premium Pitch Deck.
+ </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              className="bg-accent-500 text-white shadow-lg shadow-black/20 hover:bg-accent-600"
-            >
-              <Link href="/buchung">
-                Buchung testen <ArrowRight className="ml-2 size-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white/25 bg-white/10 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
-            >
-              <Link href="/login">Demo-Login öffnen</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-white/20 bg-black/10 text-white backdrop-blur-sm hover:bg-white/15 hover:text-white"
-            >
-              <Link href="/proposal.html">Pitch Deck</Link>
-            </Button>
-          </div>
+ <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+ {heroActions.map((action, index) => (
+ <Button
+ key={action.href}
+ asChild
+ size="lg"
+ variant={index === 0 ? "default" : "outline"}
+ className={
+ index === 0
+ ? "bg-emerald-900 text-white shadow-lg shadow-emerald-900/15 hover:bg-emerald-800"
+ : "border-neutral-200 bg-white/80 text-neutral-950 hover:bg-white"
+ }
+ >
+ <Link href={action.href}>
+ <action.icon className="size-4" />
+ {action.label}
+ </Link>
+ </Button>
+ ))}
+ </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {proofPoints.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-lg border border-white/14 bg-white/[0.08] p-4 backdrop-blur"
-              >
-                <div className="text-2xl font-black text-accent-500">{item.value}</div>
-                <div className="mt-2 text-xs font-semibold uppercase leading-snug text-white/62">
-                  {item.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+ <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-4">
+ {[
+ { label: "Erlebniszonen", value: "5", change: "Park, Tiere, Museum" },
+ { label: "Buchung", value: "3", change: "Datum, Ticket, QR" },
+ { label: "AI-Antworten", value: "24/7", change: "RU / DE / TR" },
+ { label: "Saison", value: "Mai-Sep", change: "10:00-19:00" },
+ ].map((item) => (
+ <div
+ key={item.label}
+ className="rounded-lg border border-white bg-white/82 p-4 shadow-sm backdrop-blur"
+ >
+ <div className="text-2xl font-black text-neutral-950">{item.value}</div>
+ <div className="mt-1 text-xs font-bold text-emerald-800">{item.change}</div>
+ <div className="mt-2 text-[11px] font-semibold uppercase leading-snug text-neutral-500">
+ {item.label}
+ </div>
+ </div>
+ ))}
+ </div>
+ </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, delay: 0.12 }}
-          className="relative"
-        >
-          <div className="rounded-lg border border-white/18 bg-white/[0.96] p-3 text-neutral-950 shadow-2xl shadow-black/35">
-            <div className="flex items-center justify-between gap-3 border-b border-neutral-200 px-3 py-2">
-              <div className="flex items-center gap-2">
-                <span className="size-2.5 rounded-full bg-red-400" />
-                <span className="size-2.5 rounded-full bg-amber-400" />
-                <span className="size-2.5 rounded-full bg-green-500" />
-                <span className="ml-2 text-xs font-bold text-neutral-700">
-                  AgroPark OS · Live Demo
-                </span>
-              </div>
-              <span className="rounded-md bg-green-900 px-2.5 py-1 text-[10px] font-black uppercase text-white">
-                Connected
-              </span>
-            </div>
+ <motion.div
+ initial={{ opacity: 0, y: 18 }}
+ animate={{ opacity: 1, y: 0 }}
+ transition={{ duration: 0.45, delay: 0.08 }}
+ className="min-w-0"
+ >
+ <div className="rounded-[1.35rem] border border-white bg-white/84 p-3 shadow-2xl shadow-emerald-950/10 backdrop-blur">
+ <div className="flex flex-col gap-3 border-b border-neutral-200 px-3 py-3 sm:flex-row sm:items-center sm:justify-between">
+ <div>
+ <p className="text-[11px] font-black uppercase text-neutral-500">Live visitor journey</p>
+ <h2 className="text-lg font-black text-neutral-950">Ein Besuch, klar geführt</h2>
+ </div>
+ <div className="flex flex-wrap gap-2">
+ {demoAccounts.slice(0, 3).map((account) => (
+ <span key={account.role} className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-1 text-xs font-bold text-neutral-700">
+ {account.role}
+ </span>
+ ))}
+ </div>
+ </div>
 
-            <div className="grid gap-3 p-3 lg:grid-cols-[0.82fr_1.18fr]">
-              <div className="space-y-3">
-                {opsRows.map((row) => (
-                  <div key={row.label} className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                    <div className="text-[11px] font-bold uppercase text-neutral-600">
-                      {row.label}
-                    </div>
-                    <div className="mt-1 flex items-end justify-between gap-3">
-                      <span className="text-3xl font-black text-green-950">{row.value}</span>
-                      <span className="text-xs font-bold text-green-700">{row.detail}</span>
-                    </div>
-                  </div>
-                ))}
+ <div className="grid gap-3 p-3 xl:grid-cols-[0.95fr_1.05fr]">
+ <div className="space-y-3">
+ <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+ <div className="mb-4 flex items-center justify-between">
+ <p className="text-xs font-black uppercase text-neutral-500">Live Aktivität</p>
+ <span className="rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-black uppercase text-emerald-900">
+ Synchron
+ </span>
+ </div>
+ <div className="space-y-3">
+ {recentActivity.slice(0, 3).map((item) => (
+ <div key={item.user + item.time} className="flex items-start gap-3 rounded-lg bg-white p-3">
+ <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-emerald-900 text-xs font-black text-white">
+ {item.user.split(" ").map((n) => n[0]).join("")}
+ </div>
+ <div className="min-w-0 flex-1">
+ <p className="text-sm font-semibold text-neutral-900">
+ {item.user} <span className="font-normal text-neutral-600">{item.action}</span>
+ </p>
+ <p className="text-xs text-neutral-500">{item.time} · {item.amount}</p>
+ </div>
+ </div>
+ ))}
+ </div>
+ </div>
 
-                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                  <div className="mb-3 flex items-center gap-2 text-sm font-black text-green-950">
-                    <ShieldCheck className="size-4" />
-                    Demo sicher begrenzt
-                  </div>
-                  <p className="text-sm leading-relaxed text-neutral-700">
-                    Keine echte Zahlung, saisonale Datumsprüfung, Mengenlimit und lokale
-                    Demo-Speicherung für Buchungs- und Kontaktflüsse.
-                  </p>
-                </div>
-              </div>
+ <div className="grid gap-3 sm:grid-cols-2">
+ {productModules.slice(0, 2).map((module) => (
+ <Link
+ key={module.title}
+ href={module.href}
+ className="group rounded-lg border border-neutral-200 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-lg"
+ >
+ <module.icon className="mb-3 size-5 text-emerald-800" />
+ <div className="text-sm font-black text-neutral-950">{module.title}</div>
+ <p className="mt-1 text-xs text-neutral-600">{module.metric}</p>
+ <span className="mt-3 inline-flex items-center gap-1 text-xs font-black text-emerald-900">
+ {module.action}
+ <ArrowRight className="size-3 transition group-hover:translate-x-1" />
+ </span>
+ </Link>
+ ))}
+ </div>
+ </div>
 
-              <div className="rounded-lg border border-neutral-200 bg-white p-4">
-                <div className="mb-4 flex items-center justify-between gap-3">
-                  <div>
-                    <div className="text-xs font-bold uppercase text-neutral-500">
-                      Visitor-to-ops Journey
-                    </div>
-                    <div className="mt-1 text-lg font-black text-green-950">
-                      Ein Weg, drei verbundene Module
-                    </div>
-                  </div>
-                  <Gauge className="size-5 text-accent-600" />
-                </div>
+ <div className="space-y-3">
+ <ParkMap />
+ <div className="grid gap-3 sm:grid-cols-2">
+ <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4">
+ <ShieldCheck className="mb-3 size-5 text-emerald-900" />
+ <h3 className="text-sm font-black text-emerald-950">Demo sicher begrenzt</h3>
+ <p className="mt-2 text-xs leading-relaxed text-emerald-900/75">
+ Keine echte Zahlung. Lokale Speicherung für Demo-Buchungen und Anfragen.
+ </p>
+ </div>
+ <div className="rounded-lg border border-amber-200 bg-amber-50 p-4">
+ <Navigation className="mb-3 size-5 text-amber-800" />
+ <h3 className="text-sm font-black text-amber-950">Mobile-first Flow</h3>
+ <p className="mt-2 text-xs leading-relaxed text-amber-900/75">
+ Buchung, Chat, CRM und Pitch bleiben auf kleinen Screens erreichbar.
+ </p>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </motion.div>
+ </div>
 
-                <div className="space-y-3">
-                  {flow.map((item, index) => (
-                    <div key={item.title} className="relative rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                      {index < flow.length - 1 && (
-                        <div
-                          aria-hidden="true"
-                          className="absolute -bottom-4 left-8 h-5 w-px bg-green-800/35"
-                        />
-                      )}
-                      <div className="flex gap-3">
-                        <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-green-900 text-white">
-                          <item.icon className="size-5" />
-                        </div>
-                        <div>
-                          <div className="text-[11px] font-black uppercase text-accent-600">
-                            {item.label}
-                          </div>
-                          <div className="mt-0.5 text-base font-black text-green-950">
-                            {item.title}
-                          </div>
-                          <p className="mt-1 text-sm leading-relaxed text-neutral-700">
-                            {item.text}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                  {[
-                    { icon: CheckCircle2, label: "Buchung" },
-                    { icon: Activity, label: "Live Feed" },
-                    { icon: Route, label: "Roadmap" },
-                  ].map((item) => (
-                    <div
-                      key={item.label}
-                      className="flex items-center justify-center gap-2 rounded-md border border-neutral-200 bg-white px-3 py-2 text-xs font-black text-green-950"
-                    >
-                      <item.icon className="size-4 text-green-700" />
-                      {item.label}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-  );
+ <div className="mt-10 grid gap-3 md:grid-cols-4">
+ {productModules.map((module) => (
+ <Link
+ key={module.title}
+ href={module.href}
+ className="group rounded-lg border border-white bg-white/75 p-5 shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white hover:shadow-lg"
+ >
+ <div className="flex items-center justify-between gap-3">
+ <module.icon className="size-5 text-emerald-800" />
+ <CheckCircle2 className="size-4 text-emerald-700" />
+ </div>
+ <h3 className="mt-4 text-base font-black">{module.title}</h3>
+ <p className="mt-2 text-sm leading-relaxed text-neutral-600">{module.text}</p>
+ </Link>
+ ))}
+ </div>
+ </div>
+ </section>
+ );
 }

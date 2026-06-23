@@ -1,12 +1,5 @@
 import { PageShell } from "@/components/layout/page-shell";
 import { Hero } from "@/components/sections/hero";
-import { ConsultantFramework } from "@/components/sections/consultant-framework";
-import { MarketAnalysis } from "@/components/sections/market-analysis";
-import { CustomerAnalysis } from "@/components/sections/customer-analysis";
-import { TechArchitecture } from "@/components/sections/tech-architecture";
-import { MarketingStrategy } from "@/components/sections/marketing-strategy";
-import { Roadmap } from "@/components/sections/roadmap";
-import { Investment } from "@/components/sections/investment";
 import { ExecutiveSummary } from "@/components/sections/executive-summary";
 import { PlatformSnapshot } from "@/components/sections/platform-snapshot";
 import { CTASection } from "@/components/sections/cta-section";
@@ -16,7 +9,7 @@ const structuredData = {
   "@type": "TouristAttraction",
   name: "AgroPark Nekrasovo",
   description:
-    "Saisonaler Agritourismus-Park in der Kaliningrader Oblast mit Maisfeld-Labyrinth, Maschinenmuseum, Tierbereichen, Restaurant und Grillkuppeln.",
+    "Saisonaler Agritourismus-Park in der Kaliningrader Oblast mit Maisfeld-Labyrinth, Maschinenmuseum, Tierbereichen, Restaurant, Grillkuppeln und digitaler Buchungsdemo.",
   url: "https://agroparknekrasovo.ru",
   address: {
     "@type": "PostalAddress",
@@ -31,8 +24,8 @@ const structuredData = {
   },
   openingHoursSpecification: {
     "@type": "OpeningHoursSpecification",
-    opens: "09:00",
-    closes: "18:00",
+    opens: "10:00",
+    closes: "19:00",
     validFrom: "2026-05-01",
     validThrough: "2026-09-30",
   },
@@ -49,13 +42,6 @@ export default function HomePage() {
         <Hero />
         <ExecutiveSummary />
         <PlatformSnapshot />
-        <ConsultantFramework />
-        <MarketAnalysis />
-        <CustomerAnalysis />
-        <TechArchitecture />
-        <MarketingStrategy />
-        <Roadmap />
-        <Investment />
         <CTASection />
       </PageShell>
     </>

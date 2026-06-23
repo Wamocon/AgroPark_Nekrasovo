@@ -32,7 +32,7 @@ export default defineConfig({
   webServer: {
     command: `npm run build && npm run start -- --hostname 127.0.0.1 --port ${e2ePort}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: process.env.PLAYWRIGHT_REUSE_SERVER === "1",
     timeout: 300 * 1000,
     env: {
       NODE_OPTIONS: "--max-old-space-size=4096",
