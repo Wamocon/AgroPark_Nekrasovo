@@ -627,6 +627,485 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .product-theatre {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 22px;
+      padding: 22px;
+      min-height: 680px;
+      perspective: 1800px;
+    }
+
+    .product-theatre .live-top {
+      grid-column: 1 / -1;
+      margin: -4px -4px 0;
+    }
+
+    .theatre-rail {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      align-content: start;
+      gap: 12px;
+    }
+
+    .scene-tab {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 20px;
+      background: rgba(255, 253, 247, 0.08);
+      color: rgba(255, 255, 255, 0.74);
+      padding: 16px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .scene-tab:hover,
+    .scene-tab.is-active {
+      transform: translate3d(8px, 0, 0);
+      border-color: rgba(255, 207, 47, 0.44);
+      background: rgba(255, 253, 247, 0.96);
+      color: var(--ink);
+    }
+
+    .scene-tab span {
+      display: block;
+      color: var(--sun);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .scene-tab.is-active span,
+    .scene-tab:hover span { color: var(--green); }
+
+    .scene-tab b {
+      display: block;
+      margin-top: 8px;
+      font-size: 16px;
+      line-height: 1.16;
+    }
+
+    .scene-tab small {
+      display: block;
+      margin-top: 8px;
+      color: inherit;
+      font-size: 13px;
+      line-height: 1.35;
+      opacity: 0.78;
+    }
+
+    .theatre-stage {
+      --rx: 0deg;
+      --ry: 0deg;
+      position: relative;
+      min-height: 630px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 80% 10%, rgba(255, 207, 47, 0.18), transparent 30%),
+        radial-gradient(circle at 18% 85%, rgba(124, 244, 164, 0.16), transparent 28%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.035));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 32px 90px rgba(0, 0, 0, 0.24);
+      transform: rotateX(var(--rx)) rotateY(var(--ry));
+      transform-style: preserve-3d;
+      transition: transform 0.22s ease;
+    }
+
+    .theatre-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 46px 46px;
+      opacity: 0.4;
+      transform: translateZ(-50px);
+    }
+
+    .stage-floor {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 48px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255, 207, 47, 0.22), rgba(124, 244, 164, 0.08) 45%, transparent 70%);
+      filter: blur(2px);
+      transform: rotateX(74deg) translateZ(-80px);
+      transform-origin: center;
+    }
+
+    .stage-chip {
+      position: absolute;
+      z-index: 6;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: rgba(9, 38, 26, 0.74);
+      color: #fff;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 950;
+      backdrop-filter: blur(12px);
+    }
+
+    .stage-chip::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: #7cf4a4;
+      box-shadow: 0 0 0 7px rgba(124, 244, 164, 0.12);
+    }
+
+    .stage-chip.one { top: 26px; left: 28px; }
+    .stage-chip.two { top: 26px; right: 28px; }
+
+    .app-window {
+      position: absolute;
+      z-index: 3;
+      border: 1px solid rgba(16, 37, 27, 0.13);
+      border-radius: 24px;
+      background: rgba(255, 253, 247, 0.96);
+      color: var(--ink);
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.22);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .window-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .window-dots {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .window-dots i {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #ff6b6b;
+    }
+
+    .window-dots i:nth-child(2) { background: var(--sun); }
+    .window-dots i:nth-child(3) { background: #43d17d; }
+
+    .window-body { padding: 16px; }
+
+    .booking-window {
+      top: 92px;
+      left: 34px;
+      width: min(520px, 58%);
+      transform: translateZ(44px) rotateY(8deg) rotateX(2deg);
+    }
+
+    .booking-hero {
+      display: grid;
+      grid-template-columns: 1fr 125px;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .park-preview {
+      min-height: 156px;
+      overflow: hidden;
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(18, 63, 44, 0.08), rgba(255, 207, 47, 0.16));
+    }
+
+    .park-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(1.08) contrast(1.02);
+    }
+
+    .booking-fields {
+      display: grid;
+      gap: 9px;
+    }
+
+    .field-pill,
+    .summary-pill {
+      border-radius: 14px;
+      background: rgba(18, 63, 44, 0.08);
+      padding: 11px 12px;
+      color: rgba(16, 37, 27, 0.72);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .field-pill b,
+    .summary-pill b {
+      display: block;
+      color: var(--green);
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .booking-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      border-radius: 16px;
+      background: var(--sun);
+      padding: 14px;
+      color: var(--ink);
+      font-weight: 950;
+    }
+
+    .booking-total span {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .ai-phone {
+      top: 72px;
+      right: 42px;
+      width: min(325px, 34%);
+      min-height: 470px;
+      overflow: hidden;
+      transform: translateZ(105px) rotateY(-15deg) rotateX(4deg);
+    }
+
+    .phone-notch {
+      width: 88px;
+      height: 18px;
+      margin: 12px auto 0;
+      border-radius: 999px;
+      background: var(--ink);
+      opacity: 0.9;
+    }
+
+    .phone-screen {
+      display: grid;
+      gap: 11px;
+      padding: 14px;
+    }
+
+    .phone-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--green);
+      font-weight: 950;
+    }
+
+    .typing {
+      display: inline-flex;
+      gap: 5px;
+      align-items: center;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .typing i {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: currentColor;
+      animation: blink 1s ease-in-out infinite;
+    }
+
+    .typing i:nth-child(2) { animation-delay: 0.16s; }
+    .typing i:nth-child(3) { animation-delay: 0.32s; }
+
+    .message {
+      border-radius: 17px;
+      padding: 12px 13px;
+      font-size: 13px;
+      line-height: 1.38;
+    }
+
+    .message.user {
+      margin-left: 22px;
+      background: var(--green);
+      color: #fff;
+    }
+
+    .message.ai {
+      margin-right: 16px;
+      background: #edf7ee;
+      color: var(--ink);
+    }
+
+    .message.system {
+      border: 1px solid rgba(215, 164, 94, 0.32);
+      background: rgba(255, 207, 47, 0.18);
+      color: var(--ink);
+    }
+
+    .crm-window {
+      left: 17%;
+      right: 6%;
+      bottom: 44px;
+      transform: translateZ(70px) rotateX(11deg) rotateY(-2deg);
+    }
+
+    .crm-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .crm-tile {
+      border-radius: 16px;
+      background: rgba(18, 63, 44, 0.08);
+      padding: 13px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      min-height: 88px;
+    }
+
+    .crm-tile b {
+      display: block;
+      color: var(--green);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .crm-feed {
+      display: grid;
+      gap: 9px;
+      margin-top: 13px;
+    }
+
+    .feed-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border-radius: 14px;
+      background: rgba(18, 63, 44, 0.06);
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .feed-row::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #23b36d;
+      box-shadow: 0 0 0 7px rgba(35, 179, 109, 0.1);
+    }
+
+    .feed-row b { color: var(--green); }
+
+    .flow-token {
+      position: absolute;
+      z-index: 5;
+      width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--sun);
+      color: var(--ink);
+      font-weight: 950;
+      box-shadow: 0 18px 40px rgba(255, 207, 47, 0.22);
+      transform: translateZ(135px);
+      animation: floatToken 5.5s ease-in-out infinite;
+    }
+
+    .flow-token.one { left: 50%; top: 180px; animation-delay: 0s; }
+    .flow-token.two { right: 30%; bottom: 210px; animation-delay: 1.1s; }
+    .flow-token.three { left: 38%; bottom: 115px; animation-delay: 2.2s; }
+
+    .scene-caption {
+      position: absolute;
+      z-index: 7;
+      left: 28px;
+      right: 28px;
+      bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 20px;
+      background: rgba(9, 38, 26, 0.78);
+      color: #fff;
+      padding: 14px 16px;
+      backdrop-filter: blur(14px);
+      transform: translateZ(150px);
+    }
+
+    .scene-caption b {
+      display: block;
+      color: var(--sun);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .scene-caption p {
+      margin: 4px 0 0;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 14px;
+    }
+
+    .scene-progress {
+      flex: 0 0 150px;
+      height: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    .scene-progress i {
+      display: block;
+      width: 33%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sun), #7cf4a4);
+      transition: transform 0.35s ease;
+      transform: translateX(var(--progress, 0%));
+    }
+
+    .scene-two .scene-progress i { --progress: 100%; }
+    .scene-three .scene-progress i { --progress: 200%; }
+
+    .scene-two .booking-window { transform: translateZ(105px) rotateY(4deg) rotateX(1deg) translate3d(18px, -8px, 0); }
+    .scene-two .ai-phone { transform: translateZ(72px) rotateY(-10deg) rotateX(3deg) translate3d(-22px, 14px, 0); }
+    .scene-two .crm-window { transform: translateZ(82px) rotateX(8deg) rotateY(-1deg) translate3d(0, -10px, 0); }
+    .scene-three .booking-window { transform: translateZ(58px) rotateY(9deg) rotateX(2deg) translate3d(-12px, 8px, 0); }
+    .scene-three .ai-phone { transform: translateZ(66px) rotateY(-16deg) rotateX(4deg) translate3d(-12px, 12px, 0); }
+    .scene-three .crm-window { transform: translateZ(120px) rotateX(7deg) rotateY(-2deg) translate3d(0, -22px, 0); }
+
+    @keyframes blink {
+      0%, 80%, 100% { opacity: 0.35; transform: translateY(0); }
+      40% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    @keyframes floatToken {
+      0%, 100% { transform: translate3d(0, 0, 135px) rotate(0deg); }
+      50% { transform: translate3d(18px, -18px, 135px) rotate(8deg); }
+    }
+
     .section {
       position: relative;
       padding: 92px 0;
@@ -882,6 +1361,7 @@
       .hero-grid,
       .split,
       .live-grid,
+      .product-theatre,
       .loss-model,
       .grid-2 { grid-template-columns: 1fr; }
       .device { transform: none; }
@@ -923,6 +1403,59 @@
         flex-direction: column;
       }
       .scenario-card { min-height: auto; }
+      .product-theatre {
+        min-height: 0;
+        padding: 14px;
+      }
+      .theatre-rail {
+        grid-template-columns: 1fr;
+      }
+      .scene-tab:hover,
+      .scene-tab.is-active {
+        transform: none;
+      }
+      .theatre-stage {
+        min-height: 0;
+        display: grid;
+        gap: 14px;
+        padding: 14px;
+        transform: none !important;
+      }
+      .theatre-stage::before,
+      .stage-floor,
+      .flow-token,
+      .scene-caption {
+        display: none;
+      }
+      .stage-chip {
+        position: relative;
+        inset: auto;
+        width: max-content;
+        max-width: 100%;
+      }
+      .app-window,
+      .booking-window,
+      .ai-phone,
+      .crm-window {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-height: 0;
+        transform: none !important;
+      }
+      .booking-hero,
+      .crm-grid {
+        grid-template-columns: 1fr;
+      }
+      .ai-phone {
+        order: -1;
+      }
+      .message.user {
+        margin-left: 0;
+      }
+      .message.ai {
+        margin-right: 0;
+      }
       .bar { grid-template-columns: 1fr; gap: 6px; }
       .step { grid-template-columns: 1fr; }
       .step .tag { width: max-content; max-width: 100%; }
@@ -1116,53 +1649,99 @@
             Так проще понять ценность, скорость внедрения и следующий коммерческий шаг.
           </p>
         </div>
-        <div class="live-demo" aria-label="Симуляция AgroPark OS">
+        <div class="live-demo product-theatre" id="productTheatre" aria-label="Симуляция AgroPark OS">
           <div class="live-top">
             <span>AgroPark OS - live product simulation</span>
             <span class="live-badge">AI, бронь и CRM связаны</span>
           </div>
-          <div class="live-grid">
-            <article class="scenario-card">
-              <div>
-                <strong>Сценарий для звонка</strong>
-                <h3>Вы показываете, как гость проходит путь без звонка администратору.</h3>
-                <p class="muted">Смысл демонстрации: не обещать “когда-нибудь”, а показать рабочий поток здесь и сейчас.</p>
-              </div>
-              <div class="scenario-steps">
-                <span>Гость выбирает формат <b>1 мин</b></span>
-                <span>AI отвечает на вопрос <b>24/7</b></span>
-                <span>Заявка попадает в CRM <b>сразу</b></span>
-                <span>Команда видит следующий шаг <b>KPI</b></span>
-              </div>
-            </article>
+          <div class="theatre-rail" aria-label="Сценарии демонстрации">
+            <button class="scene-tab is-active" type="button" data-scene="one">
+              <span>01. AI принимает спрос</span>
+              <b>Гость спрашивает на своем языке</b>
+              <small>AI объясняет цену, формат, маршрут и следующий шаг.</small>
+            </button>
+            <button class="scene-tab" type="button" data-scene="two">
+              <span>02. Бронь собирается</span>
+              <b>Форма превращает интерес в заявку</b>
+              <small>Дата, гости, формат, контакт и комментарий становятся структурой.</small>
+            </button>
+            <button class="scene-tab" type="button" data-scene="three">
+              <span>03. CRM закрывает цикл</span>
+              <b>Команда видит, кому отвечать</b>
+              <small>Роли, KPI, активность и follow-up остаются в одном рабочем месте.</small>
+            </button>
+          </div>
 
-            <article class="chat-stack" aria-label="AI чат">
-              <div class="chat-head">
-                <span>AI-помощник</span>
-                <div class="lang-pills"><span>RU</span><span>EN</span><span>DE</span><span>TR</span></div>
-              </div>
-              <div class="chat-bubble user">Хотим купол на субботу для 8 гостей. Сколько стоит и как добраться?</div>
-              <div class="chat-bubble ai">Большой гриль-купол подходит для группы. Я покажу свободные форматы, маршрут, контакты и помогу оставить заявку без платежных данных.</div>
-              <div class="chat-bubble note">AI формирует краткую сводку для команды: дата, формат, гости, вопрос, язык и срочность ответа.</div>
-            </article>
+          <div class="theatre-stage scene-one" id="theatreStage">
+            <div class="stage-floor"></div>
+            <span class="stage-chip one">живой демо-сценарий</span>
+            <span class="stage-chip two">RU / EN / DE / TR</span>
 
-            <div class="sim-side">
-              <article class="booking-sim">
-                <strong>Бронирование</strong>
-                <h3>Заявка собрана в понятной форме</h3>
-                <div class="ticket-row"><span class="signal"></span><span>Суббота, гриль-купол, 8 гостей</span><b>новая</b></div>
-                <div class="ticket-row"><span class="signal"></span><span>Контакт и комментарий готовы</span><b>CRM</b></div>
-              </article>
-              <article class="crm-sim">
-                <strong>Панель команды</strong>
-                <h3>Руководитель видит, где деньги и действия</h3>
-                <div class="mini-kpis">
-                  <span><b>47</b>заявок</span>
-                  <span><b>8</b>открыто</span>
-                  <span><b>78%</b>загрузка</span>
+            <article class="app-window booking-window" aria-label="Симуляция бронирования">
+              <div class="window-top">
+                <span>Booking flow</span>
+                <span class="window-dots"><i></i><i></i><i></i></span>
+              </div>
+              <div class="window-body">
+                <div class="booking-hero">
+                  <div class="park-preview">
+                    <img src="/client-assets/agropark/grill-dome.jpg" alt="Гриль-купол AgroPark">
+                  </div>
+                  <div class="booking-fields">
+                    <div class="field-pill">Формат <b>Гриль-купол</b></div>
+                    <div class="field-pill">Дата <b>Суббота, 14:00</b></div>
+                    <div class="field-pill">Гости <b>8 человек</b></div>
+                  </div>
                 </div>
-                <div class="crm-row"><span class="signal"></span><span>Следующее действие назначено менеджеру</span><b>сегодня</b></div>
-              </article>
+                <div class="booking-total">
+                  <span>готово к заявке</span>
+                  <strong>4 600-8 000 ₽</strong>
+                </div>
+              </div>
+            </article>
+
+            <article class="app-window ai-phone" aria-label="Симуляция AI чата">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-title">
+                  <span>AgroPark AI</span>
+                  <span class="typing"><i></i><i></i><i></i></span>
+                </div>
+                <div class="message user">Хотим купол на субботу для 8 гостей. Сколько стоит и как добраться?</div>
+                <div class="message ai">Подходит большой гриль-купол. Я покажу свободный слот, маршрут и помогу оставить заявку без платежных данных.</div>
+                <div class="message system">Сводка для CRM: дата, гости, формат, язык, вопрос и срочность ответа.</div>
+              </div>
+            </article>
+
+            <article class="app-window crm-window" aria-label="Симуляция CRM панели">
+              <div class="window-top">
+                <span>CRM control room</span>
+                <span class="status">connected beta</span>
+              </div>
+              <div class="window-body">
+                <div class="crm-grid">
+                  <div class="crm-tile"><b>47</b>заявок сегодня</div>
+                  <div class="crm-tile"><b>8</b>ожидают ответа</div>
+                  <div class="crm-tile"><b>78%</b>загрузка зон</div>
+                </div>
+                <div class="crm-feed">
+                  <div class="feed-row"><span>Купол, 8 гостей, суббота</span><b>новая</b></div>
+                  <div class="feed-row"><span>AI подготовил краткую сводку</span><b>готово</b></div>
+                  <div class="feed-row"><span>Менеджеру назначен follow-up</span><b>сегодня</b></div>
+                </div>
+              </div>
+            </article>
+
+            <span class="flow-token one">AI</span>
+            <span class="flow-token two">QR</span>
+            <span class="flow-token three">KPI</span>
+
+            <div class="scene-caption">
+              <div>
+                <b id="sceneTitle">AI фиксирует спрос</b>
+                <p id="sceneCopy">Владелец видит, как повторяющиеся вопросы перестают зависеть от ручного ответа администратора.</p>
+              </div>
+              <span class="scene-progress" aria-hidden="true"><i></i></span>
             </div>
           </div>
         </div>
@@ -1305,6 +1884,56 @@
       const x = (event.clientX / window.innerWidth - 0.5) * 10;
       const y = (event.clientY / window.innerHeight - 0.5) * -8;
       device.style.transform = `rotateX(${9 + y}deg) rotateY(${-13 + x}deg)`;
+    });
+
+    const theatre = document.getElementById("productTheatre");
+    const theatreStage = document.getElementById("theatreStage");
+    const sceneTitle = document.getElementById("sceneTitle");
+    const sceneCopy = document.getElementById("sceneCopy");
+    const sceneTabs = Array.from(document.querySelectorAll(".scene-tab"));
+    const sceneContent = {
+      one: {
+        title: "AI фиксирует спрос",
+        copy: "Владелец видит, как повторяющиеся вопросы перестают зависеть от ручного ответа администратора.",
+      },
+      two: {
+        title: "Бронь становится структурой",
+        copy: "Сценарий показывает, как дата, формат, гости и контакт превращаются в понятную заявку для команды.",
+      },
+      three: {
+        title: "CRM закрывает цикл",
+        copy: "Руководитель видит поток заявок, открытые ответы, загрузку зон и следующее действие менеджера.",
+      },
+    };
+
+    function setScene(scene) {
+      if (!theatreStage || !sceneContent[scene]) return;
+      theatreStage.classList.remove("scene-one", "scene-two", "scene-three");
+      theatreStage.classList.add(`scene-${scene}`);
+      sceneTabs.forEach((tab) => {
+        tab.classList.toggle("is-active", tab.dataset.scene === scene);
+      });
+      sceneTitle.textContent = sceneContent[scene].title;
+      sceneCopy.textContent = sceneContent[scene].copy;
+    }
+
+    sceneTabs.forEach((tab) => {
+      tab.addEventListener("click", () => setScene(tab.dataset.scene));
+    });
+
+    theatre?.addEventListener("pointermove", (event) => {
+      if (!theatreStage || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+      const rect = theatre.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 7;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+      theatreStage.style.setProperty("--rx", `${y}deg`);
+      theatreStage.style.setProperty("--ry", `${x}deg`);
+    });
+
+    theatre?.addEventListener("pointerleave", () => {
+      theatreStage?.style.setProperty("--rx", "0deg");
+      theatreStage?.style.setProperty("--ry", "0deg");
     });
   </script>
 </body>
