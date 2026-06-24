@@ -3,9 +3,9 @@ import { BarChart3, Bot, CalendarCheck, CheckCircle2, FileText, Gauge, Home, Lan
 export const agroparkBrand = { name: "Некрасово поле", legalName: "АгроПарк Некрасово поле", tagline: "семейный агропарк, события, гриль-купола и цифровое бронирование", audience: "семьи, туристы, школы, компании и команда парка" };
 export const agroparkContact = { phone: "+7 (911) 474-30-04", phoneHref: "tel:+79114743004", email: "info@agroparknp.ru", emailHref: "mailto:info@agroparknp.ru", region: "поселок Некрасово, Гурьевский муниципальный округ, Калининградская область", season: "май-сентябрь", hours: "вторник-воскресенье, 10:00-19:00; понедельник закрыто", telegram: "@adm_agropark39", whatsapp: "+7 (905) 243-27-39", vk: "vk.com/agropark39" };
 export const demoAccounts = [
-  { role: "Директор", email: "admin@agropark.demo", scope: "полный доступ к KPI, заявкам, AI и demo-операциям" },
+  { role: "Директор", email: "admin@agropark.demo", scope: "полный доступ к KPI, заявкам, AI и операциям" },
   { role: "Менеджер", email: "manager@agropark.demo", scope: "бронирования, календарь, ответы гостям, события и загрузка зон" },
-  { role: "Администратор", email: "staff@agropark.demo", scope: "ежедневные заявки, контактные формы, подтверждения и activity feed" },
+  { role: "Администратор", email: "staff@agropark.demo", scope: "ежедневные заявки, контактные формы, подтверждения и лента активности" },
   { role: "Гость", email: "visitor@agropark.demo", scope: "просмотр брони, вопросы AI, цены, маршрут и статус обращения" },
 ];
 export const operationsKpis = [
@@ -21,9 +21,9 @@ export const recentActivity = [
   { user: "CRM", action: "выделила пиковые часы по куполам и экскурсиям", time: "21 мин назад", amount: "аналитика" },
 ];
 export const productModules = [
-  { title: "Онлайн-бронирование", metric: "3 шага", text: "Гость выбирает формат отдыха, дату, контактные данные и получает понятное demo-подтверждение.", href: "/buchung", action: "Открыть бронь", icon: Ticket },
+  { title: "Онлайн-бронирование", metric: "3 шага", text: "Гость выбирает формат отдыха, дату, контактные данные и получает понятное подтверждение заявки.", href: "/buchung", action: "Открыть бронь", icon: Ticket },
   { title: "AI-помощник", metric: "24/7", text: "Ассистент отвечает о часах работы, ценах, маршруте, гриль-куполах и событиях на русском, немецком, турецком и английском.", href: "/kontakt", action: "Задать вопрос", icon: Sparkles },
-  { title: "Операционная CRM", metric: "4 роли", text: "Команда видит заявки, загрузку, KPI, активность и быстрые действия в beta-интерфейсе.", href: "/login", action: "Войти в демо", icon: Gauge },
+  { title: "Операционная CRM", metric: "4 роли", text: "Команда видит заявки, загрузку, KPI, активность и быстрые действия в рабочем интерфейсе.", href: "/login", action: "Вход для команды", icon: Gauge },
 ];
 export const heroActions = [
   { label: "Забронировать отдых", href: "/buchung", icon: Ticket },
@@ -33,8 +33,8 @@ export const heroActions = [
 export const aiAutomations = [
   { title: "Ответы гостям", detail: "Система объясняет часы работы, цены, сезонность, маршрут и условия бронирования.", status: "Активно", icon: Bot },
   { title: "Сводка заявки", detail: "AI превращает сообщение гостя в карточку: формат отдыха, дата, гости и следующий шаг.", status: "Активно", icon: FileText },
-  { title: "Follow-up команды", detail: "Администратор получает готовый текст для WhatsApp, Telegram или e-mail.", status: "Beta", icon: MessageSquareText },
-  { title: "Безопасный демо-контур", detail: "Платформа не проводит реальные платежи и не запрашивает чувствительные данные.", status: "Контроль", icon: ShieldCheck },
+  { title: "Повторный контакт", detail: "Администратор получает готовый текст для WhatsApp, Telegram или e-mail.", status: "Beta", icon: MessageSquareText },
+  { title: "Безопасный контур", detail: "Платформа не проводит реальные платежи и не запрашивает чувствительные данные.", status: "Контроль", icon: ShieldCheck },
 ];
 export const parkOffers = [
   { title: "Гриль-купола", type: "бронирование зоны", city: "Некрасово", budget: "от 2 300 ₽", score: 96, tags: ["семьи", "компании", "выходные"] },

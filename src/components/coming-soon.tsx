@@ -46,7 +46,7 @@ export function ComingSoon({ title, description, eta }: ComingSoonProps) {
           {status === "success" ? (
             <div className="mx-auto mt-8 flex max-w-md items-center justify-center gap-2 rounded-xl bg-green-50 p-4 text-green-900">
               <Check className="size-5" />
-              <span>Заявка сохранена. Команда сможет использовать ее в demo-списке интереса.</span>
+              <span>Заявка сохранена. Команда сможет использовать ее в списке интереса.</span>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">

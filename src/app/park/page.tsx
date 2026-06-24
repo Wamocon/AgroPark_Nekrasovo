@@ -31,7 +31,7 @@ export default function ParkPage() {
 
       <section className="py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader title="Зоны и сценарии посещения" description="Ключевые акценты клиента: мероприятия, корпоративы, детские активности, фотолокации, музей техники, ресторан и аренда гриль-куполов." />
+          <SectionHeader title="Зоны и сценарии посещения" description="Ключевые акценты парка: мероприятия, корпоративы, детские активности, фотолокации, музей техники, ресторан и аренда гриль-куполов." />
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.map((h) => (

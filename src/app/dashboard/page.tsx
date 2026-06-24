@@ -51,7 +51,7 @@ export default async function DashboardPage() {
           <div>
             <Badge className="mb-3 bg-emerald-100 text-emerald-950 hover:bg-emerald-100">Операционный центр</Badge>
             <h1 className="text-3xl font-black text-foreground sm:text-4xl">AgroPark OS Dashboard</h1>
-            <p className="mt-2 max-w-2xl text-muted-foreground">Заявки, бронь, AI-поддержка, загрузка зон и активность команды в одном beta-интерфейсе. Активная роль: <strong>{roleLabels[user.role]}</strong>.</p>
+            <p className="mt-2 max-w-2xl text-muted-foreground">Заявки, бронь, AI-поддержка, загрузка зон и активность команды в одном рабочем интерфейсе. Активная роль: <strong>{roleLabels[user.role]}</strong>.</p>
           </div>
           <div className="grid gap-2 sm:grid-cols-3">
             {["Сегодня", "Все зоны", "Сезон"].map((item) => (
@@ -76,7 +76,7 @@ export default async function DashboardPage() {
         <div className="grid gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
             <Card className="bg-white/94">
-              <CardHeader><CardTitle>Брони и выручка demo</CardTitle><CardDescription>Сигналы недели без реальных платежей</CardDescription></CardHeader>
+              <CardHeader><CardTitle>Брони и расчет выручки</CardTitle><CardDescription>Сигналы недели без реальных онлайн-списаний</CardDescription></CardHeader>
               <CardContent><div className="flex h-64 items-end justify-between gap-2">{chartData.map((d) => <div key={d.day} className="flex flex-1 flex-col items-center gap-2"><div className="flex w-full items-end gap-1"><div className="w-1/2 rounded-t bg-emerald-800/90" style={{ height: `${(d.bookings / 60) * 160}px` }} /><div className="w-1/2 rounded-t bg-amber-500/90" style={{ height: `${(d.revenue / 100) * 160}px` }} /></div><span className="text-xs font-medium text-emerald-950/64">{d.day}</span></div>)}</div></CardContent>
             </Card>
 
@@ -99,7 +99,7 @@ export default async function DashboardPage() {
 
             <Card className="bg-white/94"><CardHeader><CardTitle>Активность</CardTitle></CardHeader><CardContent><ul className="space-y-4">{recentActivity.map((item) => <li key={item.user + item.action} className="flex items-start gap-3"><div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-emerald-700 to-amber-500 text-xs font-bold text-white">{item.user.slice(0, 2).toUpperCase()}</div><div className="flex-1"><p className="text-sm"><strong>{item.user}</strong> {item.action}</p><p className="text-xs text-emerald-950/54">{item.time} · {item.amount}</p></div></li>)}</ul></CardContent></Card>
 
-            <Card className="bg-white/94"><CardHeader><CardTitle>Быстрый доступ</CardTitle><CardDescription>Все кнопки ведут в рабочие demo-модули.</CardDescription></CardHeader><CardContent><div className="grid grid-cols-2 gap-3">{quickActions.map((action) => <Button key={action.href} asChild variant="outline" className="h-auto flex-col gap-2 bg-white py-4"><Link href={action.href}><action.icon className="size-5" /><span className="text-xs">{action.label}</span></Link></Button>)}<OpenChatButton className="col-span-2 bg-white" label="Открыть AI-чат" /></div></CardContent></Card>
+            <Card className="bg-white/94"><CardHeader><CardTitle>Быстрый доступ</CardTitle><CardDescription>Все кнопки ведут в рабочие модули платформы.</CardDescription></CardHeader><CardContent><div className="grid grid-cols-2 gap-3">{quickActions.map((action) => <Button key={action.href} asChild variant="outline" className="h-auto flex-col gap-2 bg-white py-4"><Link href={action.href}><action.icon className="size-5" /><span className="text-xs">{action.label}</span></Link></Button>)}<OpenChatButton className="col-span-2 bg-white" label="Открыть AI-чат" /></div></CardContent></Card>
           </div>
         </div>
       </main>

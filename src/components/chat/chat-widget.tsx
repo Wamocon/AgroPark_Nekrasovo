@@ -19,7 +19,7 @@ export function ChatWidget() {
       id: "welcome",
       role: "assistant",
       content:
-        "Здравствуйте. Я AgroPark AI Assist. Могу подсказать часы работы, цены гриль-куполов, маршрут, бронирование и demo-вход в CRM. Отвечаю также на Deutsch, Türkçe and English.",
+        "Здравствуйте. Я AgroPark AI Assist. Могу подсказать часы работы, цены гриль-куполов, маршрут, бронирование, роли команды и доступные языки. Отвечаю также на Deutsch, Türkçe and English.",
     },
   ]);
   const endRef = useRef<HTMLDivElement | null>(null);

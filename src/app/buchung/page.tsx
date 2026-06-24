@@ -110,7 +110,7 @@ export default function BookingPage() {
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <Badge className="mb-4 bg-white/10 text-white hover:bg-white/20">Онлайн-бронь</Badge>
           <h1 className="text-4xl font-black tracking-tight sm:text-5xl">Забронировать отдых</h1>
-          <p className="mx-auto mt-4 max-w-2xl text-white/80">Выберите дату и формат посещения. В demo-режиме создается подтверждение с QR-кодом; оплата и финальное согласование проходят отдельно с командой парка.</p>
+          <p className="mx-auto mt-4 max-w-2xl text-white/80">Выберите дату и формат посещения. Сейчас создается подтверждение с QR-кодом; оплата и финальное согласование проходят отдельно с командой парка.</p>
         </div>
       </section>
 
@@ -157,7 +157,7 @@ export default function BookingPage() {
                       <div className="space-y-2"><Label htmlFor="name">Имя</Label><Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Иван Петров" required /></div>
                       <div className="space-y-2"><Label htmlFor="email">E-mail</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="ivan@example.com" required /></div>
                     </div>
-                    <div className="rounded-xl bg-neutral-100 p-4"><div className="flex items-center justify-between"><span className="font-bold">Итого</span><span className="text-2xl font-black text-emerald-900">{formatRubles(total)}</span></div><p className="mt-1 flex items-center gap-1 text-xs text-neutral-600"><CreditCard className="size-3" /> Оплата не списывается: это beta-demo бронирования.</p></div>
+                    <div className="rounded-xl bg-neutral-100 p-4"><div className="flex items-center justify-between"><span className="font-bold">Итого</span><span className="text-2xl font-black text-emerald-900">{formatRubles(total)}</span></div><p className="mt-1 flex items-center gap-1 text-xs text-neutral-600"><CreditCard className="size-3" /> Онлайн-оплата пока не списывается; команда подтверждает детали отдельно.</p></div>
                     <div className="flex gap-3"><Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1">Назад</Button><Button type="submit" disabled={!hasTickets || !name.trim() || !email.trim()} className="flex-1 bg-emerald-900 hover:bg-emerald-800">Забронировать</Button></div>
                   </form>
                 </CardContent>
@@ -169,7 +169,7 @@ export default function BookingPage() {
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="text-center">
               <Card className="border-emerald-200 bg-emerald-50">
                 <CardHeader><div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-900 text-white"><Check className="size-8" /></div><CardTitle className="text-2xl text-emerald-900">Бронь подтверждена</CardTitle><CardDescription>Мы получили вашу заявку на {date}. Команда сможет уточнить детали перед визитом.</CardDescription></CardHeader>
-                <CardContent className="space-y-6"><div className="mx-auto h-48 w-48 rounded-xl border-4 border-white bg-white p-2 shadow-sm"><SimpleQR value={bookingRef || "AP-DEMO"} /></div><p className="font-mono text-sm font-bold text-emerald-900">{bookingRef}</p><div className="rounded-xl bg-white p-4 text-left text-sm"><p><strong>Имя:</strong> {name}</p><p><strong>E-mail:</strong> {email}</p><p><strong>Дата:</strong> {date}</p><p><strong>Итого:</strong> {formatRubles(total)}</p><p><strong>Оплата:</strong> финальное согласование с командой парка</p></div><div className="flex flex-wrap justify-center gap-3"><Button asChild variant="outline"><Link href="/">На главную</Link></Button><Button asChild className="bg-emerald-900 hover:bg-emerald-800"><Link href="/dashboard">В CRM</Link></Button></div></CardContent>
+                <CardContent className="space-y-6"><div className="mx-auto h-48 w-48 rounded-xl border-4 border-white bg-white p-2 shadow-sm"><SimpleQR value={bookingRef || "AP-DEMO"} /></div><p className="font-mono text-sm font-bold text-emerald-900">{bookingRef}</p><div className="rounded-xl bg-white p-4 text-left text-sm"><p><strong>Имя:</strong> {name}</p><p><strong>E-mail:</strong> {email}</p><p><strong>Дата:</strong> {date}</p><p><strong>Итого:</strong> {formatRubles(total)}</p><p><strong>Оплата:</strong> финальное согласование с командой парка</p></div><div className="flex flex-wrap justify-center gap-3"><Button asChild variant="outline"><Link href="/">На главную</Link></Button><Button asChild className="bg-emerald-900 hover:bg-emerald-800"><Link href="/dashboard">В панель</Link></Button></div></CardContent>
               </Card>
             </motion.div>
           )}

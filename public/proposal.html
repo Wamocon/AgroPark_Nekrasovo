@@ -3,21 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>АгроПарк Некрасово поле | Премиальная презентация</title>
-  <meta name="description" content="Премиальная презентация digital beta-платформы АгроПарка Некрасово поле: сайт, бронь, AI-чат, CRM, аналитика и roadmap.">
+  <title>AgroPark OS | Коммерческая презентация</title>
+  <meta name="description" content="Коммерческая презентация state-of-the-art digital-платформы для АгроПарка Некрасово поле: продажи, бронь, AI, CRM, языки, KPI и roadmap.">
   <style>
     :root {
-      --paper: #f6f3ea;
-      --paper-2: #eeeadf;
+      --paper: #f5f1e7;
+      --paper-2: #ebe5d7;
       --ink: #10251b;
       --muted: #667369;
       --green: #123f2c;
       --green-2: #1f6d4c;
-      --gold: #d8a66d;
-      --line: rgba(16, 37, 27, 0.12);
+      --mint: #ccebd2;
+      --gold: #d7a45e;
+      --sun: #ffcf2f;
+      --line: rgba(16, 37, 27, 0.13);
       --white: #fffdf7;
       --shadow: 0 30px 90px rgba(16, 37, 27, 0.16);
-      font-family: "Avenir Next", "Inter", "Segoe UI", Arial, sans-serif;
+      --radius: 24px;
+      font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
       color: var(--ink);
       background: var(--paper);
     }
@@ -27,12 +30,13 @@
     body {
       margin: 0;
       min-width: 320px;
+      overflow-x: hidden;
       background:
-        radial-gradient(circle at 18% 8%, rgba(151, 214, 128, 0.28), transparent 28%),
-        radial-gradient(circle at 88% 10%, rgba(216, 166, 109, 0.22), transparent 24%),
-        linear-gradient(180deg, #fbfaf4 0%, var(--paper) 46%, #f2eee4 100%);
+        radial-gradient(circle at 12% 8%, rgba(140, 208, 126, 0.28), transparent 30%),
+        radial-gradient(circle at 88% 4%, rgba(215, 164, 94, 0.18), transparent 25%),
+        linear-gradient(180deg, #fbfaf4 0%, var(--paper) 42%, #f0eadc 100%);
       color: var(--ink);
-      line-height: 1.58;
+      line-height: 1.56;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -41,22 +45,25 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      opacity: 0.38;
+      opacity: 0.36;
       background-image:
         linear-gradient(90deg, rgba(18, 63, 44, 0.08) 1px, transparent 1px),
         linear-gradient(0deg, rgba(18, 63, 44, 0.06) 1px, transparent 1px);
       background-size: 56px 56px;
-      mask-image: linear-gradient(180deg, #000 0%, transparent 84%);
+      mask-image: linear-gradient(180deg, #000 0%, transparent 86%);
     }
 
     a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    h1, h2, h3, p { margin-top: 0; }
     .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+
     .nav {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 40;
       border-bottom: 1px solid var(--line);
-      background: rgba(246, 243, 234, 0.9);
+      background: rgba(246, 243, 234, 0.92);
       backdrop-filter: blur(18px) saturate(160%);
     }
 
@@ -65,11 +72,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 24px;
+      gap: 22px;
     }
 
     .brand {
       display: inline-flex;
+      min-width: 0;
       align-items: center;
       gap: 12px;
       font-weight: 950;
@@ -79,6 +87,7 @@
     .brand img {
       width: 44px;
       height: 44px;
+      flex: 0 0 auto;
       border-radius: 14px;
       object-fit: contain;
       padding: 4px;
@@ -86,6 +95,7 @@
       box-shadow: 0 10px 26px rgba(16, 37, 27, 0.08);
     }
 
+    .brand strong { display: block; min-width: 0; }
     .brand small {
       display: block;
       color: var(--muted);
@@ -119,6 +129,7 @@
     .links a:hover { color: var(--green); }
 
     .btn {
+      gap: 8px;
       padding: 0 22px;
       border: 1px solid var(--green);
       background: var(--green);
@@ -127,6 +138,7 @@
       font-weight: 950;
       box-shadow: 0 12px 30px rgba(18, 63, 44, 0.18);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      white-space: nowrap;
     }
 
     .btn:hover {
@@ -136,9 +148,16 @@
 
     .btn.alt {
       border-color: var(--line);
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.82);
       color: var(--green);
       box-shadow: none;
+    }
+
+    .btn.gold {
+      border-color: var(--sun);
+      background: var(--sun);
+      color: var(--ink);
+      box-shadow: 0 14px 36px rgba(255, 207, 47, 0.24);
     }
 
     .hero {
@@ -146,15 +165,15 @@
       min-height: calc(100vh - 78px);
       display: grid;
       align-items: center;
-      padding: 82px 0 92px;
+      padding: 78px 0 86px;
       overflow: hidden;
     }
 
     .hero-grid,
     .split {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(360px, 0.88fr);
-      gap: 64px;
+      grid-template-columns: minmax(0, 1.04fr) minmax(360px, 0.86fr);
+      gap: 56px;
       align-items: center;
     }
 
@@ -177,26 +196,20 @@
       padding: 10px 14px;
     }
 
-    h1,
-    h2,
-    h3,
-    p { margin-top: 0; }
-
     h1 {
-      max-width: 830px;
-      margin-bottom: 26px;
-      margin-top: 26px;
-      font-size: clamp(46px, 5.6vw, 78px);
-      line-height: 0.96;
-      letter-spacing: -0.03em;
+      max-width: 860px;
+      margin: 26px 0 26px;
+      font-size: clamp(42px, 4.6vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
     }
 
     h2 {
-      max-width: 860px;
+      max-width: 900px;
       margin-bottom: 18px;
       font-size: clamp(34px, 4.6vw, 58px);
       line-height: 1;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.028em;
     }
 
     h3 {
@@ -207,7 +220,7 @@
     }
 
     .lead {
-      max-width: 720px;
+      max-width: 730px;
       color: var(--muted);
       font-size: 20px;
     }
@@ -219,7 +232,8 @@
       margin-top: 32px;
     }
 
-    .metrics {
+    .hero-metrics,
+    .market-strip {
       display: grid;
       grid-template-columns: repeat(4, minmax(150px, 1fr));
       gap: 14px;
@@ -230,17 +244,20 @@
     .card,
     .check,
     .step,
-    .quote {
+    .quote,
+    .source,
+    .role,
+    .loss-card {
       border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 253, 247, 0.82);
+      border-radius: var(--radius);
+      background: rgba(255, 253, 247, 0.84);
       box-shadow: 0 14px 42px rgba(16, 37, 27, 0.06);
     }
 
     .metric {
-      padding: 18px;
-      min-height: 118px;
       min-width: 0;
+      min-height: 118px;
+      padding: 18px;
     }
 
     .metric strong {
@@ -263,66 +280,49 @@
     }
 
     .device-scene { perspective: 1400px; }
-
     .device {
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      border-radius: 32px;
-      background: linear-gradient(145deg, #fffefa, #eee9de);
+      border: 1px solid rgba(16, 37, 27, 0.12);
+      border-radius: 30px;
+      background: #fffdf7;
       box-shadow: var(--shadow);
       transform: rotateX(9deg) rotateY(-13deg);
       transform-style: preserve-3d;
-      animation: float 6s ease-in-out infinite;
+      transition: transform 0.25s ease;
     }
 
-    .device::after {
+    .device::before {
       content: "";
       position: absolute;
-      inset: 0;
+      inset: -1px;
       pointer-events: none;
-      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.62) 34%, transparent 55%);
-      transform: translateX(-120%);
-      animation: shine 7s ease-in-out infinite;
+      background: radial-gradient(circle at 70% 12%, rgba(255, 207, 47, 0.26), transparent 28%);
+      mix-blend-mode: multiply;
     }
 
+    .device-bar,
+    .screen { position: relative; z-index: 1; }
     .device-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 16px;
       border-bottom: 1px solid var(--line);
-      padding: 18px 20px;
+      padding: 18px 22px;
       font-weight: 950;
     }
 
     .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
       border-radius: 999px;
-      background: #e6f3ea;
+      background: #dff7e9;
       color: var(--green);
-      padding: 7px 11px;
-      font-size: 11px;
-      font-weight: 950;
-      text-transform: uppercase;
+      padding: 7px 12px;
+      font-size: 12px;
+      white-space: nowrap;
     }
 
-    .status::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: #2dbb74;
-      box-shadow: 0 0 0 6px rgba(45, 187, 116, 0.12);
-    }
-
-    .screen {
-      display: grid;
-      gap: 14px;
-      padding: 18px;
-    }
-
+    .screen { padding: 22px; }
     .mini-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -330,15 +330,14 @@
     }
 
     .panel {
-      min-height: 134px;
       border: 1px solid var(--line);
       border-radius: 18px;
-      background: var(--white);
+      background: rgba(255, 253, 247, 0.84);
       padding: 18px;
     }
 
     .panel small {
-      color: rgba(16, 37, 27, 0.55);
+      color: rgba(16, 37, 27, 0.58);
       font-size: 11px;
       font-weight: 950;
       text-transform: uppercase;
@@ -346,95 +345,159 @@
 
     .panel b {
       display: block;
-      margin-top: 6px;
+      margin-top: 7px;
       color: var(--green);
       font-size: 32px;
       line-height: 1;
     }
 
-    .flow {
-      display: grid;
-      gap: 10px;
-    }
-
+    .flow { margin-top: 14px; background: #123f2c; color: #fff; }
     .flow-row {
       display: grid;
       grid-template-columns: 34px 1fr;
       gap: 12px;
       align-items: start;
-      padding: 12px;
-      border: 1px solid var(--line);
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.62);
+      background: rgba(255, 255, 255, 0.08);
+      padding: 13px;
     }
 
+    .flow-row + .flow-row { margin-top: 10px; }
     .flow-icon {
       display: grid;
-      width: 34px;
-      height: 34px;
+      width: 28px;
+      height: 28px;
       place-items: center;
-      border-radius: 11px;
-      background: var(--green);
-      color: #fff;
-      font-size: 14px;
+      border-radius: 10px;
+      background: var(--sun);
+      color: var(--ink);
+      font-size: 13px;
       font-weight: 950;
     }
 
+    .muted { color: var(--muted); }
+    .flow .muted { color: rgba(255, 255, 255, 0.72); }
     .section {
       position: relative;
       padding: 92px 0;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid rgba(16, 37, 27, 0.08);
     }
 
     .section.dark {
-      background: var(--green);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 207, 47, 0.15), transparent 28%),
+        linear-gradient(140deg, #0c2f21, #123f2c);
       color: #fff;
     }
 
-    .section.dark .muted,
-    .section.dark .kicker { color: rgba(255, 255, 255, 0.72); }
-    .section.dark .card {
+    .section.dark .lead,
+    .section.dark .muted { color: rgba(255, 255, 255, 0.72); }
+    .section.dark .kicker { color: #ffe08a; }
+    .section.dark .card,
+    .section.dark .check,
+    .section.dark .metric,
+    .section.dark .loss-card {
       border-color: rgba(255, 255, 255, 0.15);
       background: rgba(255, 255, 255, 0.08);
       color: #fff;
       box-shadow: none;
     }
 
-    .muted { color: var(--muted); }
-    .section-head { max-width: 860px; margin-bottom: 32px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .section-head { margin-bottom: 34px; }
+    .grid-3,
+    .grid-2,
+    .roles-grid,
+    .source-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .roles-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .source-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
     .card,
     .check,
     .step,
-    .quote { padding: 24px; }
+    .quote,
+    .source,
+    .role,
+    .loss-card { padding: 24px; }
 
     .card strong,
-    .check strong {
+    .loss-card strong,
+    .role strong {
       display: block;
-      margin-bottom: 9px;
+      margin-bottom: 12px;
       color: var(--green);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 950;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
     }
 
-    .section.dark .card strong { color: #dfeee5; }
+    .section.dark .card strong,
+    .section.dark .loss-card strong { color: #ffe08a; }
 
-    .photo-card {
+    .market-card {
+      position: relative;
       overflow: hidden;
-      padding: 0;
+      min-height: 230px;
     }
 
-    .photo-card img {
+    .bar-chart {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .bar {
+      display: grid;
+      grid-template-columns: 120px 1fr 70px;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .track {
+      height: 12px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(16, 37, 27, 0.1);
+    }
+
+    .fill {
       display: block;
-      width: 100%;
-      height: 240px;
-      object-fit: cover;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green), #68b783);
+      transform-origin: left;
+      animation: grow 1.1s ease both;
     }
 
-    .photo-card div { padding: 22px; }
+    .loss-model {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .loss-card.big {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .loss-card.big strong { color: #ffe08a; }
+    .loss-card .number {
+      display: block;
+      margin: 10px 0 6px;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 950;
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
 
     .checklist {
       display: grid;
@@ -443,75 +506,81 @@
 
     .check {
       display: grid;
-      grid-template-columns: 28px 1fr;
-      gap: 14px;
+      grid-template-columns: 34px 1fr;
+      gap: 16px;
       align-items: start;
     }
 
     .check::before {
-      content: "";
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      background:
-        linear-gradient(var(--green), var(--green)) center / 11px 2px no-repeat,
-        linear-gradient(var(--green), var(--green)) center / 2px 11px no-repeat,
-        #e7f4ed;
-      transform: rotate(45deg);
+      content: "✓";
+      display: grid;
+      width: 30px;
+      height: 30px;
+      place-items: center;
+      border-radius: 10px;
+      background: #dff7e9;
+      color: var(--green);
+      font-weight: 950;
     }
 
     .roadmap {
       display: grid;
       gap: 14px;
-      counter-reset: roadmap;
     }
 
     .step {
       display: grid;
-      grid-template-columns: 54px 1fr minmax(160px, 0.35fr);
-      gap: 18px;
-      align-items: start;
-      background: var(--white);
-    }
-
-    .step::before {
-      counter-increment: roadmap;
-      content: counter(roadmap, decimal-leading-zero);
-      display: grid;
-      width: 54px;
-      height: 54px;
-      place-items: center;
-      border-radius: 16px;
-      background: var(--green);
-      color: #fff;
-      font-weight: 950;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
     }
 
     .tag {
-      display: inline-flex;
-      min-height: 32px;
-      align-items: center;
-      border: 1px solid rgba(18, 63, 44, 0.14);
       border-radius: 999px;
-      padding: 0 10px;
+      background: #dff7e9;
       color: var(--green);
-      font-size: 11px;
+      padding: 9px 12px;
+      font-size: 12px;
       font-weight: 950;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: #ecf4ec;
+      white-space: nowrap;
     }
 
+    .photo-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+    .photo-card div { padding: 24px; }
     .quote {
-      background: linear-gradient(145deg, #fffdf7, #f0eadc);
-      font-size: 20px;
-      font-weight: 750;
+      background: #fffdf7;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 950;
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+    }
+
+    .source {
+      font-size: 14px;
+    }
+
+    .source a {
+      color: var(--green);
+      font-weight: 900;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
     }
 
     .footer {
-      padding: 58px 0;
-      background: #10251b;
+      background: #0b2419;
       color: #fff;
+      padding: 44px 0;
     }
 
     .footer-in {
@@ -524,21 +593,17 @@
     .reveal {
       opacity: 0;
       transform: translateY(28px);
-      transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     .reveal.show {
       opacity: 1;
-      transform: translateY(0);
+      transform: none;
     }
 
-    @keyframes float {
-      50% { transform: rotateX(7deg) rotateY(-9deg) translateY(-14px); }
-    }
-
-    @keyframes shine {
-      0%, 52% { transform: translateX(-120%); }
-      68%, 100% { transform: translateX(120%); }
+    @keyframes grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -551,30 +616,44 @@
       }
     }
 
-    @media (max-width: 960px) {
+    @media (max-width: 1060px) {
       .links { display: none; }
       .hero-grid,
       .split,
-      .grid-3,
+      .loss-model,
       .grid-2 { grid-template-columns: 1fr; }
-      .metrics,
-      .mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .device { transform: none; animation: none; }
-      .step { grid-template-columns: 54px 1fr; }
-      .step .tag { grid-column: 2; width: max-content; max-width: 100%; }
+      .device { transform: none; }
+      .roles-grid,
+      .source-grid,
+      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 580px) {
-      .wrap { width: min(100% - 28px, 1180px); }
+    @media (max-width: 700px) {
+      .wrap { width: calc(100% - 28px); max-width: 1180px; }
       .nav-in { min-height: 68px; }
+      .brand img { width: 40px; height: 40px; }
       .brand strong { font-size: 14px; }
+      .brand small { font-size: 9px; letter-spacing: 0.1em; }
       .nav .btn { display: none; }
-      .hero { min-height: auto; padding: 58px 0 64px; }
-      h1 { font-size: 44px; }
-      .lead { font-size: 18px; }
-      .metrics,
-      .mini-grid { grid-template-columns: 1fr; }
-      .btn { width: 100%; }
+      .hero { min-height: auto; padding: 56px 0 64px; }
+      .hero-grid,
+      .split { gap: 32px; min-width: 0; }
+      .hero-grid > *,
+      .split > * { min-width: 0; max-width: 100%; }
+      h1 { max-width: 100%; font-size: clamp(36px, 10.2vw, 43px); overflow-wrap: anywhere; }
+      h2 { font-size: 35px; }
+      .lead { max-width: 100%; font-size: 18px; overflow-wrap: anywhere; }
+      .eyebrow { max-width: 100%; overflow-wrap: anywhere; }
+      .hero-metrics,
+      .market-strip,
+      .mini-grid,
+      .roles-grid,
+      .source-grid,
+      .grid-3 { grid-template-columns: 1fr; }
+      .bar { grid-template-columns: 1fr; gap: 6px; }
+      .step { grid-template-columns: 1fr; }
+      .step .tag { width: max-content; max-width: 100%; }
+      .btn { width: 100%; white-space: normal; text-align: center; }
       .footer-in { align-items: flex-start; flex-direction: column; }
     }
   </style>
@@ -584,13 +663,14 @@
     <div class="wrap nav-in">
       <a class="brand" href="/">
         <img src="/client-assets/agropark/logo.png" alt="Логотип Некрасово поле">
-        <strong>Некрасово поле<small>AgroPark digital beta</small></strong>
+        <strong>AgroPark OS<small>коммерческая презентация | июнь 2026</small></strong>
       </a>
       <div class="links">
-        <a href="#problem">Проблема</a>
+        <a href="#current">Сейчас</a>
+        <a href="#market">Рынок</a>
         <a href="#solution">Решение</a>
-        <a href="#trust">Доверие</a>
-        <a href="#roadmap">Roadmap</a>
+        <a href="#demo">Демо</a>
+        <a href="#roadmap">План</a>
       </div>
       <a class="btn" href="/">Открыть приложение</a>
     </div>
@@ -599,40 +679,40 @@
   <header class="hero">
     <div class="wrap hero-grid">
       <div class="reveal">
-        <span class="eyebrow">Премиальная презентация | июнь 2026</span>
-        <h1>Передовая цифровая платформа для АгроПарка Некрасово поле.</h1>
+        <span class="eyebrow">Коммерческая презентация | версия 24.06.2026</span>
+        <h1>State-of-the-art платформа, которая превращает интерес гостя в бронь и управляемую операцию.</h1>
         <p class="lead">
-          Рабочая beta-система для презентации клиенту: современная homepage на идентичности парка,
-          онлайн-бронь, AI-помощник, CRM-роли, KPI, карта операционного контроля и понятный путь к production.
+          Это не редизайн страницы. Это рабочий цифровой продукт для АгроПарка:
+          бронирование, AI-помощник, мультиязычный путь гостя, CRM-роли, KPI и план до рабочего запуска.
         </p>
         <div class="actions">
-          <a class="btn" href="/">Открыть приложение</a>
-          <a class="btn alt" href="/buchung">Тест бронирования</a>
-          <a class="btn alt" href="/login">Открыть CRM</a>
+          <a class="btn gold" href="/">Открыть приложение</a>
+          <a class="btn alt" href="/buchung">Проверить бронь</a>
+          <a class="btn alt" href="/login">Показать CRM</a>
         </div>
-        <div class="metrics" aria-label="Ключевые показатели">
-          <div class="metric"><strong>90</strong><span>дней до beta-фазы</span></div>
-          <div class="metric"><strong>24/7</strong><span>AI-поддержка гостей</span></div>
-          <div class="metric"><strong>4</strong><span>demo-роли команды</span></div>
-          <div class="metric"><strong>RU/DE/TR/EN</strong><span>мультиязычный контур</span></div>
+        <div class="hero-metrics" aria-label="Ключевой тезис продукта">
+          <div class="metric"><strong>1</strong><span>путь гостя от интереса до заявки</span></div>
+          <div class="metric"><strong>4</strong><span>демо-роли для команды</span></div>
+          <div class="metric"><strong>RU/EN/DE/TR</strong><span>мультиязычная воронка</span></div>
+          <div class="metric"><strong>12 недель</strong><span>реалистичный путь к запуску</span></div>
         </div>
       </div>
 
-      <div class="device-scene reveal" aria-label="3D симуляция приложения">
+      <div class="device-scene reveal" aria-label="3D симуляция продукта">
         <div class="device" id="device">
           <div class="device-bar">
-            <span>Операционная система АгроПарка</span>
-            <span class="status">connected demo</span>
+            <span>AgroPark OS</span>
+            <span class="status">рабочая beta</span>
           </div>
           <div class="screen">
             <div class="mini-grid">
-              <div class="panel"><small>Брони сегодня</small><b>47</b><p class="muted">+12% к предыдущему дню</p></div>
-              <div class="panel"><small>Загрузка зон</small><b>78%</b><p class="muted">сезонная симуляция</p></div>
+              <div class="panel"><small>Заявки сегодня</small><b>47</b><p class="muted">единый поток вместо ручного сбора</p></div>
+              <div class="panel"><small>Открытые обращения</small><b>8</b><p class="muted">видно, где нужен ответ</p></div>
             </div>
             <div class="panel flow">
-              <div class="flow-row"><span class="flow-icon">1</span><div><b style="font-size:18px">Гость выбирает формат</b><p class="muted">Купол, прогулка, группа, детская программа или ресторан.</p></div></div>
-              <div class="flow-row"><span class="flow-icon">2</span><div><b style="font-size:18px">AI снимает вопросы</b><p class="muted">Часы, цены, парковка, контакты и языковые ответы доступны сразу.</p></div></div>
-              <div class="flow-row"><span class="flow-icon">3</span><div><b style="font-size:18px">Команда видит контроль</b><p class="muted">Dashboard показывает заявки, роли, KPI и следующие действия.</p></div></div>
+              <div class="flow-row"><span class="flow-icon">1</span><div><b>Гость выбирает формат</b><p class="muted">Купол, прогулка, группа, событие или ресторан.</p></div></div>
+              <div class="flow-row"><span class="flow-icon">2</span><div><b>AI снимает повторяющиеся вопросы</b><p class="muted">Цены, часы, маршрут и языки доступны сразу.</p></div></div>
+              <div class="flow-row"><span class="flow-icon">3</span><div><b>Команда управляет заявками</b><p class="muted">Панель показывает роли, KPI, активность и следующие действия.</p></div></div>
             </div>
           </div>
         </div>
@@ -641,88 +721,21 @@
   </header>
 
   <main>
-    <section id="problem" class="section">
+    <section id="current" class="section">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">Проблема бизнеса</span>
-          <h2>Ручной visitor-flow ограничивает продажи, скорость ответа и управляемость сезона.</h2>
+          <span class="kicker">01. Что есть сейчас</span>
+          <h2>У клиента уже есть сильный продукт офлайн, но цифровой путь не забирает всю ценность спроса.</h2>
           <p class="lead">
-            У парка уже есть сильная реальная локация и контент. Потеря возникает между интересом гостя и понятным цифровым действием:
-            где забронировать, что включено, кому писать, какие зоны доступны и кто в команде отвечает за заявку.
+            АгроПарк имеет реальную территорию, купола, события, контакты, фото и локальную узнаваемость.
+            Проблема не в отсутствии места. Проблема в том, что гость не получает быстрый цифровой путь:
+            выбрать формат, понять цену, задать вопрос, оставить заявку и увидеть подтверждение.
           </p>
         </div>
         <div class="grid-3">
-          <article class="card"><strong>Каналы разрознены</strong><h3>Телефон, мессенджеры и соцсети не дают единого статуса.</h3><p class="muted">Гость ждет ответа, команда вручную собирает детали, а руководитель не видит pipeline.</p></article>
-          <article class="card"><strong>Сезонность</strong><h3>Пиковые дни требуют быстрых сценариев, а не ручных уточнений.</h3><p class="muted">Купола, группы и мероприятия должны продаваться через ясный digital-маршрут.</p></article>
-          <article class="card"><strong>Доказательность</strong><h3>Для решения клиенту нужно увидеть рабочий продукт.</h3><p class="muted">Презентация усиливает продажу только тогда, когда ведет в живую demo-систему.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="solution" class="section dark">
-      <div class="wrap reveal">
-        <div class="section-head">
-          <span class="kicker">State-of-the-art решение</span>
-          <h2>Из статического сайта в premium digital beta с реальными действиями.</h2>
-          <p class="lead">
-            Мы не показываем “красивую заглушку”. Demo связывает публичную страницу, бронь, AI-чат, CRM и pitch в одну
-            логичную систему, где каждый экран отвечает на вопрос клиента: как это будет работать в реальности.
-          </p>
-        </div>
-        <div class="grid-3">
-          <article class="card"><strong>Homepage клиента</strong><h3>Та же идентичность, но выше качество восприятия.</h3><p class="muted">Логотип, фото, контакты, парк, зоны, купола, сезонность и понятные CTA.</p></article>
-          <article class="card"><strong>Рабочая beta</strong><h3>Пользователь проходит путь до брони и QR-подтверждения.</h3><p class="muted">Без реального платежа, но с полной логикой продукта для согласования.</p></article>
-          <article class="card"><strong>Операционный слой</strong><h3>Команда получает CRM, роли, KPI и activity feed.</h3><p class="muted">Руководителю видно, что происходит сегодня и где нужен ответ.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap split reveal">
-        <div>
-          <span class="kicker">Идентичность клиента</span>
-          <h2>Визуальный язык строится на реальном парке, а не на шаблонной SaaS-картинке.</h2>
-          <p class="lead">
-            В приложении используются офлайн-активы клиента: логотип, панорамы территории, купола, ресторан, детская зона,
-            техника и природные кадры. Это делает demo узнаваемым для клиента и снижает ощущение “чужого продукта”.
-          </p>
-        </div>
-        <article class="card photo-card">
-          <img src="/client-assets/agropark/park-panorama.png" alt="Панорама АгроПарка Некрасово поле">
-          <div><h3>Премиальная подача без потери локального характера</h3><p class="muted">Интерфейс остается теплым, туристическим и природным, но получает точность enterprise-продукта.</p></div>
-        </article>
-      </div>
-    </section>
-
-    <section id="trust" class="section">
-      <div class="wrap reveal">
-        <div class="section-head">
-          <span class="kicker">Аргументы доверия</span>
-          <h2>Формулировки, которые помогают продавать решение как надежную платформу.</h2>
-        </div>
-        <div class="checklist">
-          <div class="check"><div><h3>Защита данных</h3><p class="muted">Demo-контур не списывает платежи и не хранит чувствительные данные на сервере. Архитектура готова к приватному развертыванию и дальнейшему подключению защищенного backend.</p></div></div>
-          <div class="check"><div><h3>Compliance и юридическая определенность</h3><p class="muted">Роли, ограниченный AI, прозрачные статусы и будущий audit-log создают основу для GDPR-подхода, EU AI Act governance и контролируемого доступа.</p></div></div>
-          <div class="check"><div><h3>SEO, GEO и AI-search готовность</h3><p class="muted">Контент структурирован для поисковых систем и AI-ответов: адрес, часы, контакты, зоны, цены, FAQ, маршруты и сценарии посещения.</p></div></div>
-          <div class="check"><div><h3>Автоматизация без потери контроля</h3><p class="muted">AI отвечает на повторяющиеся вопросы, но бизнес-решения остаются у команды. Это снижает нагрузку и повышает скорость ответа в сезон.</p></div></div>
-          <div class="check"><div><h3>Контроль затрат</h3><p class="muted">Решение можно вести поэтапно: сначала demo и согласование, затем реальные заявки, интеграции, платежи и аналитика без лишнего закупочного риска.</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="wrap reveal">
-        <div class="section-head">
-          <span class="kicker">Демо-сценарий для встречи</span>
-          <h2>Показываем не абстрактный дизайн, а полный путь гостя и команды.</h2>
-        </div>
-        <div class="grid-3">
-          <article class="card"><strong>01. Гость</strong><h3>Заходит на современную главную</h3><p class="muted">Видит реальный парк, зоны, контакты, карту ценности и понятные действия.</p></article>
-          <article class="card"><strong>02. Бронь</strong><h3>Выбирает формат посещения</h3><p class="muted">Заполняет дату, количество гостей, получает demo-QR и понятное подтверждение.</p></article>
-          <article class="card"><strong>03. AI</strong><h3>Снимает вопросы до звонка</h3><p class="muted">Ответы доступны на русском, немецком, турецком и английском fallback-уровне.</p></article>
-          <article class="card"><strong>04. CRM</strong><h3>Команда входит по ролям</h3><p class="muted">Администратор, менеджер, сотрудник и посетитель видят релевантную demo-логику.</p></article>
-          <article class="card"><strong>05. KPI</strong><h3>Руководитель видит картину</h3><p class="muted">Брони, загрузка, заявки, активность и узкие места собраны в одном dashboard.</p></article>
-          <article class="card"><strong>06. Решение</strong><h3>Pitch ведет обратно в продукт</h3><p class="muted">Презентация не заменяет приложение, а продает следующий этап внедрения.</p></article>
+          <article class="card"><strong>Сильная база</strong><h3>Локация, фотографии, контакты и сезонный продукт уже существуют.</h3><p class="muted">Это снижает риск внедрения: мы не выдумываем бизнес, а переводим существующий спрос в управляемую систему.</p></article>
+          <article class="card"><strong>Слабое место</strong><h3>Интерес гостя расходится по телефону, мессенджерам, соцсетям и ручным уточнениям.</h3><p class="muted">Команда тратит время на повторяющиеся вопросы, а руководитель не видит полную картину по заявкам.</p></article>
+          <article class="card"><strong>Коммерческий риск</strong><h3>Каждая задержка ответа снижает вероятность брони в пиковый сезон.</h3><p class="muted">Когда гость не понимает цену или свободный формат сразу, он переключается на более понятную альтернативу.</p></article>
         </div>
       </div>
     </section>
@@ -730,28 +743,100 @@
     <section class="section dark">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">Экономика и KPI</span>
-          <h2>Система должна доказывать эффект в показателях, а не только выглядеть современно.</h2>
+          <span class="kicker">02. Что бизнес теряет</span>
+          <h2>Ручной процесс создает невидимые потери: заявки, скорость ответа, загрузку зон и управленческий контроль.</h2>
         </div>
-        <div class="grid-3">
-          <article class="card"><strong>Conversion</strong><h3>Больше прямых заявок</h3><p class="muted">Быстрые CTA, бронь и AI-ответы сокращают путь от интереса к действию.</p></article>
-          <article class="card"><strong>Operations</strong><h3>Меньше ручной переписки</h3><p class="muted">Повторяющиеся вопросы уходят в AI, а команда работает с готовыми заявками.</p></article>
-          <article class="card"><strong>Management</strong><h3>Понятный контроль сезона</h3><p class="muted">Dashboard показывает спрос, загрузку, каналы и операционные приоритеты.</p></article>
+        <div class="loss-model">
+          <article class="loss-card big">
+            <strong>Ориентировочная модель потерь</strong>
+            <span class="number">220-380 тыс. ₽</span>
+            <p>потенциальной месячной выручки может не доходить до брони, если 12 обращений в неделю теряются или откладываются при среднем чеке 4 600-8 000 ₽.</p>
+            <p class="muted">Это не финансовый прогноз. Это демонстрационная модель для разговора о цене бездействия.</p>
+          </article>
+          <div class="grid-2">
+            <article class="loss-card"><strong>До внедрения</strong><h3>Нет единого потока заявок</h3><p class="muted">Нельзя быстро увидеть, сколько заявок новых, кто отвечает, какие форматы загружены и где узкое место.</p></article>
+            <article class="loss-card"><strong>До внедрения</strong><h3>AI не разгружает команду</h3><p class="muted">Часы работы, цены, контакты, маршрут и правила брони снова и снова объясняются вручную.</p></article>
+            <article class="loss-card"><strong>До внедрения</strong><h3>Нет мультиязычной воронки</h3><p class="muted">Гости на английском, немецком и турецком не получают быстрый понятный ответ в интерфейсе.</p></article>
+            <article class="loss-card"><strong>До внедрения</strong><h3>Сложно доказать эффект</h3><p class="muted">Без KPI и истории действий невозможно оценить, что реально улучшилось после запуска.</p></article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="roadmap" class="section">
+    <section id="market" class="section">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">Roadmap внедрения</span>
-          <h2>Прагматичный путь от premium demo к production-ready beta.</h2>
+          <span class="kicker">03. Рынок и доказательства</span>
+          <h2>Туризм уже цифровой. Для регионального парка выигрывает тот, кто быстрее превращает онлайн-интерес в бронирование.</h2>
+          <p class="lead">
+            По последним опубликованным данным, актуальным на 24 июня 2026 года, Россия остается массово подключенной digital-аудиторией,
+            а мировой туризм полностью вернулся к росту. Поэтому “просто сайт” больше не является достаточным уровнем.
+          </p>
         </div>
-        <div class="roadmap">
-          <article class="step"><div><h3>Согласование продукта и контента</h3><p class="muted">Фиксируем страницы, сценарии брони, тексты, фото, контакты, роли и tone of voice.</p></div><span class="tag">1-2 недели</span></article>
-          <article class="step"><div><h3>Интеграции заявок</h3><p class="muted">Подключаем реальные формы, Telegram/WhatsApp workflow, уведомления и хранение заявок.</p></div><span class="tag">2-4 недели</span></article>
-          <article class="step"><div><h3>CRM и операционная аналитика</h3><p class="muted">Расширяем роли, pipeline, фильтры, экспорт и управленческие отчеты для сезона.</p></div><span class="tag">4-8 недель</span></article>
-          <article class="step"><div><h3>Production hardening</h3><p class="muted">Платежи, безопасность, мониторинг, backups, SEO/GEO, compliance checklist и launch QA.</p></div><span class="tag">8-12 недель</span></article>
+        <div class="grid-3">
+          <article class="card market-card">
+            <strong>Цифровая Россия</strong>
+            <h3>133 млн интернет-пользователей</h3>
+            <p class="muted">DataReportal фиксирует 92,2% интернет-проникновения в РФ на начало 2025 года.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>Интернет</span><span class="track"><i class="fill" style="width:92%"></i></span><b>92%</b></div>
+              <div class="bar"><span>Соцсети</span><span class="track"><i class="fill" style="width:73%"></i></span><b>73%</b></div>
+              <div class="bar"><span>Мобильные подключения</span><span class="track"><i class="fill" style="width:100%"></i></span><b>216 млн</b></div>
+            </div>
+          </article>
+          <article class="card market-card">
+            <strong>Рост туризма</strong>
+            <h3>1,5+ млрд международных поездок</h3>
+            <p class="muted">WTTC оценил 2025 год как рекордный для международного туризма, с вкладом сектора около 11,7 трлн долларов в глобальный ВВП.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>2024</span><span class="track"><i class="fill" style="width:94%"></i></span><b>1,45 млрд</b></div>
+              <div class="bar"><span>2025</span><span class="track"><i class="fill" style="width:100%"></i></span><b>1,5 млрд+</b></div>
+            </div>
+          </article>
+          <article class="card market-card">
+            <strong>Внутренний туризм</strong>
+            <h3>90 млн внутренних поездок</h3>
+            <p class="muted">Открытые отраслевые сводки по РФ указывают на 90 млн внутренних поездок и около 10 трлн ₽ выручки туриндустрии в 2024 году.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>Поездки</span><span class="track"><i class="fill" style="width:90%"></i></span><b>90 млн</b></div>
+              <div class="bar"><span>Выручка</span><span class="track"><i class="fill" style="width:100%"></i></span><b>10 трлн ₽</b></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="solution" class="section dark">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">04. State-of-the-art решение</span>
+          <h2>AgroPark OS добавляет владельцу не “новую страницу”, а операционную цифровую систему продаж.</h2>
+          <p class="lead">
+            Решение объединяет публичный сайт, бронирование, AI, мультиязычность, CRM и KPI в один продукт.
+            Клиент видит не абстрактный дизайн, а работающий путь гостя и команды.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card"><strong>Гость</strong><h3>Быстрее понимает предложение и оставляет заявку</h3><p class="muted">Главная страница, зоны, цены, карта, призывы к действию, бронь и AI работают как единая воронка.</p></article>
+          <article class="card"><strong>Команда</strong><h3>Получает меньше ручной переписки и больше структуры</h3><p class="muted">Заявки, роли, статусы, лента активности и быстрые действия собираются в CRM-слое.</p></article>
+          <article class="card"><strong>Руководитель</strong><h3>Видит, что происходит сегодня</h3><p class="muted">KPI по броням, загрузке, обращениям и событиям превращают сезон в управляемую картину.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="section">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">05. Что уже работает в beta</span>
+          <h2>Текущая версия уже показывает продуктовый сценарий, который можно продавать и развивать.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card"><strong>Главная страница</strong><h3>Гостевая страница парка</h3><p class="muted">Премиальная визуальная подача, реальные активы клиента, понятные призывы к действию и мобильная адаптация.</p></article>
+          <article class="card"><strong>Бронирование</strong><h3>Бронирование с подтверждением</h3><p class="muted">Дата, формат, контакт, расчет суммы, демо-QR и сохранение заявки в безопасный демо-контур.</p></article>
+          <article class="card"><strong>AI-помощник</strong><h3>Ответы на RU / EN / DE / TR</h3><p class="muted">Цены, часы, контакты, маршрут, демо-входы, роли, будущие возможности и безопасные ограничения.</p></article>
+          <article class="card"><strong>CRM-панель</strong><h3>Панель для команды</h3><p class="muted">KPI, поток заявок, активность, карточки обращений, роли и быстрые переходы к операциям.</p></article>
+          <article class="card"><strong>Связка презентации</strong><h3>Презентация ведет в продукт</h3><p class="muted">Материал объясняет бизнес-логику, но всегда возвращает клиента в рабочее приложение.</p></article>
+          <article class="card"><strong>База проверки</strong><h3>Проверяемость демо</h3><p class="muted">Сценарии можно прогнать в браузере: главная, презентация, бронь, чат, вход и CRM-роли.</p></article>
         </div>
       </div>
     </section>
@@ -759,15 +844,84 @@
     <section class="section">
       <div class="wrap split reveal">
         <div>
-          <span class="kicker">Позиционирование</span>
-          <h2>Клиент должен почувствовать: это уже продукт, а не “набросок”.</h2>
+          <span class="kicker">06. Роли в системе</span>
+          <h2>Клиенту важно увидеть не только гостя, но и то, как работает команда внутри.</h2>
           <p class="lead">
-            Поэтому pitch отделен от приложения, ссылка на него находится только в footer. Главная страница продает парк гостю,
-            а презентация продает цифровую стратегию владельцу и команде.
+            Поэтому демо показывает четыре роли. Это помогает продавать платформу как операционный инструмент, а не как витрину.
           </p>
         </div>
+        <div class="roles-grid">
+          <article class="role"><strong>Директор</strong><h3>Видит KPI и контроль сезона</h3><p class="muted">Полный доступ к панели, заявкам, AI-сводкам и бизнес-показателям.</p></article>
+          <article class="role"><strong>Менеджер</strong><h3>Ведет брони и события</h3><p class="muted">Работает с календарем, форматами, ответами гостям и подтверждениями.</p></article>
+          <article class="role"><strong>Администратор</strong><h3>Закрывает ежедневные обращения</h3><p class="muted">Контактные формы, лента активности, заявки и быстрые последующие действия.</p></article>
+          <article class="role"><strong>Гость</strong><h3>Проверяет свой путь</h3><p class="muted">Бронь, цены, маршрут, вопросы AI и статус обращения в понятном интерфейсе.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">07. Что добавляем дальше</span>
+          <h2>План развития делает решение дороже и сильнее после первой продажи.</h2>
+        </div>
+        <div class="grid-3">
+          <article class="card"><strong>Рабочие данные</strong><h3>Реальное хранение заявок и журнал изменений</h3><p class="muted">База данных, роли доступа, история изменений и экспорт для руководителя.</p></article>
+          <article class="card"><strong>Интеграции</strong><h3>Telegram, WhatsApp, email и уведомления</h3><p class="muted">Заявки не теряются, команда получает автоматические напоминания и шаблоны ответов.</p></article>
+          <article class="card"><strong>Оплаты</strong><h3>Оплаты и предоплаты</h3><p class="muted">Подключение платежного сценария после согласования юридики и процессов возврата.</p></article>
+          <article class="card"><strong>База знаний AI</strong><h3>AI с источниками и управляемыми ответами</h3><p class="muted">База знаний по ценам, правилам, FAQ, событиям и сезонным предложениям.</p></article>
+          <article class="card"><strong>Аналитика</strong><h3>Каналы, спрос и прогноз загрузки</h3><p class="muted">Понимание, откуда пришел гость, какие форматы продаются и где сезонные пики.</p></article>
+          <article class="card"><strong>Мультиязычный рост</strong><h3>RU / EN / DE / TR как продажный слой</h3><p class="muted">Локализация интерфейса, AI-ответов, SEO/GEO-страниц и коммерческих сообщений.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap" class="section">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">08. План внедрения</span>
+          <h2>Прагматичный путь от продающего beta-демо к приложению, готовому к рабочему запуску.</h2>
+        </div>
+        <div class="roadmap">
+          <article class="step"><div><h3>Фиксация продукта и коммерческого сценария</h3><p class="muted">Утверждаем страницы, языки, цены, призывы к действию, роли, FAQ, тон коммуникации и правила демо.</p></div><span class="tag">1-2 недели</span></article>
+          <article class="step"><div><h3>Заявки, CRM и уведомления</h3><p class="muted">Подключаем хранение заявок, поток статусов, Telegram/WhatsApp/email-процесс и роли доступа.</p></div><span class="tag">2-5 недель</span></article>
+          <article class="step"><div><h3>База знаний AI и мультиязычный слой</h3><p class="muted">Загружаем управляемые знания, источники, FAQ и языковые сценарии RU/EN/DE/TR.</p></div><span class="tag">5-8 недель</span></article>
+          <article class="step"><div><h3>Усиление production-контура и запуск сезона</h3><p class="muted">Платежи, безопасность, мониторинг, резервные копии, SEO/GEO, аналитика и финальная QA-проверка.</p></div><span class="tag">8-12 недель</span></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">09. Доверие и источники</span>
+          <h2>Факты в презентации отделены от демо-модели, чтобы разговор выглядел профессионально.</h2>
+        </div>
+        <div class="source-grid">
+          <article class="source"><h3>DataReportal: цифровая Россия 2025</h3><p class="muted">133 млн интернет-пользователей, 92,2% проникновения, 216 млн мобильных подключений, 106 млн идентификаторов в социальных сетях.</p><a href="https://datareportal.com/reports/digital-2025-russian-federation" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>WTTC: мировой туризм 2025</h3><p class="muted">Мировой туризм в 2025 году превысил 1,5 млрд международных поездок и около 11,7 трлн долларов вклада в мировой ВВП.</p><a href="https://elpais.com/economia/2026-01-14/el-turismo-mundial-bate-un-record-en-2025-con-mas-de-1500-millones-de-viajeros-internacionales.html" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>Открытые сводки по туризму РФ</h3><p class="muted">Для рыночного контекста используются опубликованные данные о 90 млн внутренних поездок и 10 трлн ₽ выручки туризма за 2024 год.</p><a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F#%D0%A2%D1%83%D1%80%D0%B8%D0%B7%D0%BC" target="_blank" rel="noreferrer">Открыть сводку</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap split reveal">
+        <div>
+          <span class="kicker">Финальный тезис</span>
+          <h2>Мы продаем владельцу контроль, скорость ответа и рост прямых заявок.</h2>
+          <p class="lead">
+            Приложение уже можно открыть, потрогать, показать команде и использовать как основу для решения о рабочем запуске.
+            Следующий шаг - согласовать внедрение и перевести демо в рабочий контур.
+          </p>
+          <div class="actions">
+            <a class="btn gold" href="/">Открыть приложение</a>
+            <a class="btn alt" href="/login">Открыть CRM</a>
+            <a class="btn alt" href="/buchung">Проверить бронь</a>
+          </div>
+        </div>
         <div class="quote">
-          “Мы показываем рабочую premium beta: клиент видит свою идентичность, свои контактные точки, реальные сценарии и понятный roadmap внедрения.”
+          “Сильный офлайн-продукт получает цифровую систему, которая продает быстрее, отвечает умнее и показывает владельцу, что происходит в бизнесе.”
         </div>
       </div>
     </section>
@@ -776,14 +930,14 @@
   <footer class="footer">
     <div class="wrap footer-in">
       <div>
-        <strong>Некрасово поле digital beta</strong>
+        <strong>AgroPark OS | коммерческая beta-презентация</strong>
         <p style="max-width:620px;color:rgba(255,255,255,.72)">
-          Премиальная презентация для консультационной демонстрации. Основное приложение остается отдельным клиентским сайтом.
+          Презентация продает цифровую платформу. Приложение остается отдельным рабочим продуктом для демонстрации клиенту.
         </p>
       </div>
       <div class="actions">
-        <a class="btn" href="/">Открыть приложение</a>
-        <a class="btn alt" href="/login">Открыть CRM</a>
+        <a class="btn gold" href="/">Открыть приложение</a>
+        <a class="btn alt" href="/login">CRM</a>
       </div>
     </div>
   </footer>
@@ -801,6 +955,7 @@
     const device = document.getElementById("device");
     document.addEventListener("pointermove", (event) => {
       if (!device || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
       const x = (event.clientX / window.innerWidth - 0.5) * 10;
       const y = (event.clientY / window.innerHeight - 0.5) * -8;
       device.style.transform = `rotateX(${9 + y}deg) rotateY(${-13 + x}deg)`;
