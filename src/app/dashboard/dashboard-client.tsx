@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BarChart3, Bot, CalendarCheck, CheckCircle2, Home, Leaf, LogOut, MapPinned, MessageSquareText, Sparkles } from "lucide-react";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { OpenChatButton } from "@/components/chat/open-chat-button";
 import { appCopy } from "@/components/i18n/app-copy";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
@@ -245,6 +246,7 @@ export function DashboardClient({ user }: { user: DemoUser }) {
           </div>
         </div>
       </main>
+      <ChatWidget />
     </div>
   );
 }

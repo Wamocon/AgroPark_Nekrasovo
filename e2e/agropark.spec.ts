@@ -60,6 +60,26 @@ test.describe("Public AgroPark app", () => {
     await expect(page.getByText(/Grill domes start/)).toBeVisible({ timeout: 10_000 });
   });
 
+  test("homepage action rows and mobile chat trigger are wired", async ({ page, isMobile }) => {
+    await page.goto("/");
+    await setEnglish(page);
+
+    await page.getByRole("link", { name: /Booking with QR confirmation/ }).click();
+    await expect(page).toHaveURL(/\/buchung/);
+
+    await page.goto("/");
+    await setEnglish(page);
+    await page.getByRole("link", { name: /AI chat RU \/ DE \/ TR \/ EN/ }).click();
+    await expect(page).toHaveURL(/\/kontakt/);
+
+    if (isMobile) {
+      await page.goto("/");
+      await setEnglish(page);
+      await page.getByRole("button", { name: "Open AI chat" }).click();
+      await expect(page.getByText("AgroPark AI Assist", { exact: true })).toBeVisible();
+    }
+  });
+
   test("pitch deck remains a separate commercial presentation", async ({ page }) => {
     await page.goto("/proposal.html");
 
@@ -79,6 +99,11 @@ test.describe("Authentication and dashboard", () => {
       await expect(page.getByTestId("user-role-badge")).toContainText(role.badge);
       await expect(page.getByRole("heading", { name: "AgroPark OS Dashboard" })).toBeVisible();
       await expect(page.getByText("Requests, bookings, AI support")).toBeVisible();
+      await page.getByRole("main").getByRole("button", { name: "Open AI chat" }).click();
+      await expect(page.getByText("AgroPark AI Assist", { exact: true })).toBeVisible();
+      await page.getByRole("button", { name: "Close chat" }).click();
+      await page.getByRole("link", { name: "New booking" }).click();
+      await expect(page).toHaveURL(/\/buchung/);
     });
   }
 });

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { CalendarCheck, Menu, MessageCircle } from "lucide-react";
+import { ChatWidget } from "@/components/chat/chat-widget";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { useLanguagePreference, type LanguageCode } from "@/components/i18n/use-language-preference";
@@ -81,15 +82,20 @@ export function Navbar() {
   const copy = navCopy[language];
 
   return (
+    <>
     <header className="fixed inset-x-0 top-0 z-50 border-b border-emerald-950/10 bg-[#fbfaf5]/92 backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl gap-2 px-4 py-2 md:flex md:h-20 md:items-center md:justify-between md:gap-3 md:px-6 md:py-0 lg:px-8">
         <div className="flex min-w-0 items-center justify-between gap-3">
           <BrandLogo className="min-w-0 [&>span:last-child]:min-w-0 [&>span:last-child_span:first-child]:truncate" />
           <div className="flex shrink-0 items-center gap-2 md:hidden">
-            <Button asChild size="icon" variant="outline" aria-label={copy.chatAria}>
-              <Link href="/kontakt">
-                <MessageCircle className="size-4" />
-              </Link>
+            <Button
+              type="button"
+              size="icon"
+              variant="outline"
+              aria-label={copy.chatAria}
+              onClick={() => window.dispatchEvent(new CustomEvent("agropark:open-chat"))}
+            >
+              <MessageCircle className="size-4" />
             </Button>
             <Button asChild size="icon" variant="outline" aria-label={copy.menuAria}>
               <Link href="/park">
@@ -126,5 +132,7 @@ export function Navbar() {
         </div>
       </div>
     </header>
+    <ChatWidget hideMobileTrigger />
+    </>
   );
 }

@@ -12,7 +12,7 @@ type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
 
 const STORAGE_KEY = "agropark_prelogin_chat_count";
 
-export function ChatWidget() {
+export function ChatWidget({ hideMobileTrigger = false }: { hideMobileTrigger?: boolean }) {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].chat;
   const [open, setOpen] = useState(false);
@@ -168,7 +168,10 @@ export function ChatWidget() {
         <Button
           size="lg"
           aria-label={copy.open}
-          className="h-14 w-14 rounded-full bg-emerald-800 p-0 shadow-xl shadow-emerald-950/20 hover:bg-emerald-900 sm:h-12 sm:w-auto sm:px-5"
+          className={cn(
+            hideMobileTrigger && "hidden md:inline-flex",
+            "h-14 w-14 rounded-full bg-emerald-800 p-0 shadow-xl shadow-emerald-950/20 hover:bg-emerald-900 sm:h-12 sm:w-auto sm:px-5",
+          )}
           onClick={() => setOpen(true)}
         >
           <Bot className="size-5 sm:mr-2 sm:size-4" />

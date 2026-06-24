@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { demoAccounts } from "@/data/agropark";
+import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -57,8 +58,14 @@ export default function LoginPage() {
                 <button
                   key={account.email}
                   type="button"
+                  aria-pressed={email === account.email}
                   onClick={() => setEmail(account.email)}
-                  className="rounded-lg border border-emerald-950/10 bg-white p-4 text-left shadow-sm transition hover:border-amber-500/50 hover:bg-amber-50"
+                  className={cn(
+                    "rounded-lg border bg-white p-4 text-left shadow-sm transition hover:border-amber-500/50 hover:bg-amber-50",
+                    email === account.email
+                      ? "border-amber-500 bg-amber-50 ring-2 ring-amber-200"
+                      : "border-emerald-950/10",
+                  )}
                 >
                   <span className="block text-sm font-black">{accountCopy.role}</span>
                   <span className="mt-1 block text-xs text-emerald-950/58">{account.email}</span>

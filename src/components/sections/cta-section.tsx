@@ -6,6 +6,8 @@ import { appCopy } from "@/components/i18n/app-copy";
 import { useLanguagePreference } from "@/components/i18n/use-language-preference";
 import { Button } from "@/components/ui/button";
 
+const itemLinks = ["/park", "/buchung", "/kontakt", "/login"] as const;
+
 export function CTASection() {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].home.cta;
@@ -40,11 +42,15 @@ export function CTASection() {
             </div>
           </div>
           <div className="grid gap-4">
-            {copy.items.map((item) => (
-              <div key={item} className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/8 p-4 text-sm font-bold">
+            {copy.items.map((item, index) => (
+              <Link
+                key={item}
+                href={itemLinks[index] ?? "/"}
+                className="flex min-h-14 items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/8 p-4 text-sm font-bold transition hover:-translate-y-0.5 hover:border-amber-200/35 hover:bg-white/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200 focus-visible:ring-offset-2 focus-visible:ring-offset-emerald-950"
+              >
                 {item}
                 <ArrowRight className="size-4 shrink-0 text-amber-200" />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
