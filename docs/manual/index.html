@@ -616,7 +616,7 @@
  <section id="uebersicht">
  <h2><span class="num">01</span> &Uuml;bersicht</h2>
  <p>
- Некрасово поле AgroPark ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Die Startseite ist jetzt bewusst als kundennahe Park-Homepage aufgebaut: russische Kerninhalte, Buchung, Kontakt, Grill-Dom-Angebote, mehrsprachiger KI-Chat und ein separater Premium-Pitch unter <code>/proposal.html</code>.
+ Некрасово поле AgroPark ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Die Startseite ist bewusst als kundennahe Park-Homepage aufgebaut: reale Parkinhalte, Buchung, Kontakt, Grill-Dom-Angebote, app-weite Sprachumschaltung RU / EN / DE / TR, mehrsprachiger KI-Chat und ein separater Premium-Pitch unter <code>/proposal.html</code>.
  </p>
  <div class="card">
  <strong>Was die App l&ouml;st:</strong> Die &ouml;ffentliche Website verkauft den Park und nicht mehr das interne Strategiepapier. Das Pitch Deck bleibt separat, ist in der Anwendung nur im Footer verlinkt und f&uuml;hrt zur&uuml;ck in die Live-Demo.
@@ -625,12 +625,12 @@
  <div class="feature-card">
  <div class="feature-icon">🌐</div>
  <div class="feature-title">Client-Homepage &amp; Inhalt</div>
- <div class="feature-desc">Animierter Hero, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, mehrsprachige Besucherlogik und klar getrennte Footer-Verlinkung zur Pr&auml;sentation.</div>
+ <div class="feature-desc">Animierter Hero, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, app-weite RU / EN / DE / TR Besucherlogik und klar getrennte Footer-Verlinkung zur Pr&auml;sentation.</div>
  </div>
  <div class="feature-card">
  <div class="feature-icon">🤖</div>
  <div class="feature-title">Mehrsprachiger KI-Chat</div>
- <div class="feature-desc">Floating-Chat-Widget auf allen Seiten mit serverseitigem Proxy und Fallback-Modus f&uuml;r Russisch, Deutsch und T&uuml;rkisch.</div>
+ <div class="feature-desc">Floating-Chat-Widget auf allen Seiten mit serverseitigem Proxy und Fallback-Modus f&uuml;r Russisch, Englisch, Deutsch und T&uuml;rkisch.</div>
  </div>
  <div class="feature-card">
  <div class="feature-icon">🔐</div>
@@ -640,7 +640,7 @@
  <div class="feature-card">
  <div class="feature-icon">🎟️</div>
  <div class="feature-title">Buchungssystem</div>
- <div class="feature-desc">3-Schritt-Ticketbuchung f&uuml;r Erwachsene, Kinder, Familien und Gruppenf&uuml;hrungen inklusive Saisonpr&uuml;fung, Mengenbegrenzung und QR-Code.</div>
+ <div class="feature-desc">3-Schritt-Buchung f&uuml;r Grill-Dom-Formate inklusive Saisonpr&uuml;fung, Mengenbegrenzung, lokaler Demo-Speicherung und QR-Code.</div>
  </div>
  </div>
  <div class="table-wrap">
@@ -663,11 +663,11 @@
  <h3 id="feature-list">2.1 Feature-Liste</h3>
  <p>Die App ist in folgende Funktionsbereiche unterteilt:</p>
  <ol>
- <li><strong>Client-Homepage</strong> &ndash; Animierter Hero f&uuml;r Некрасово поле, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, Premium-Vertrauensargumente und klare Footer-Verlinkung zur separaten Pr&auml;sentation. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
- <li><strong>Mehrsprachiger KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Russisch, Deutsch und T&uuml;rkisch.</li>
+ <li><strong>Client-Homepage</strong> &ndash; Animierter Hero f&uuml;r Некрасово поле, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, Premium-Vertrauensargumente und klare Footer-Verlinkung zur separaten Pr&auml;sentation. Die Hauptseiten, Login, Dashboard, Coming-Soon-Module, Chat und Footer reagieren auf die zentrale Sprachumschaltung RU / EN / DE / TR. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
+ <li><strong>Mehrsprachiger KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Russisch, Englisch, Deutsch und T&uuml;rkisch.</li>
  <li><strong>Demo-Authentifizierung &amp; Rollen</strong> &ndash; Login mit vier Rollen (Administrator, Park Manager, Mitarbeiter, Besucher) und gesch&uuml;tztem Dashboard.</li>
  <li><strong>Dashboard</strong> &ndash; KPI-Karten, Buchungs- und Umsatz-Charts, Kanal-Attribution, Aktivit&auml;tsfeed und Schnellzugriffe.</li>
- <li><strong>Buchungssystem</strong> &ndash; 3-Schritt-Buchung (Termin &rarr; Tickets &rarr; Best&auml;tigung), saisonale Datumspr&uuml;fung, begrenzte Ticketmengen, Tickettypen Erwachsene/Kinder/Familie/Gruppenf&uuml;hrung, Buchungsreferenz mit QR-Code, Zahlung vor Ort.</li>
+ <li><strong>Buchungssystem</strong> &ndash; 3-Schritt-Buchung (Termin &rarr; Grill-Dom-Format &rarr; Best&auml;tigung), saisonale Datumspr&uuml;fung, begrenzte Mengen, Buchungsreferenz mit QR-Code und sichere Demo-Logik ohne echte Online-Zahlung.</li>
  <li><strong>Coming Soon</strong> &ndash; Seiten unter <code>/membership</code>, <code>/vr-tour</code>, <code>/iot</code>, <code>/shop</code> und <code>/workshops</code> mit Waitlist-Formular.</li>
  </ol>
  <div class="info-box">
@@ -699,7 +699,7 @@
  <ol>
  <li><code>/login</code> aufrufen</li>
  <li>Eine der vier Demo-Rollen w&auml;hlen: <strong>Administrator</strong>, <strong>Park Manager</strong>, <strong>Mitarbeiter</strong> oder <strong>Besucher</strong></li>
- <li><strong>&bdquo;Войти&ldquo;</strong> klicken</li>
+ <li>Passwort <code>password</code> verwenden und den Login-Button klicken. Die sichtbare Beschriftung folgt der gew&auml;hlten Sprache.</li>
  <li>Bei internen Rollen erfolgt die Weiterleitung zum Dashboard; Besucher bleiben auf den &ouml;ffentlichen Seiten</li>
  </ol>
 
@@ -707,10 +707,10 @@
  <ol>
  <li><code>/buchung</code> aufrufen</li>
  <li>Ein Besuchsdatum innerhalb der Saison (Mai bis September) im Kalender w&auml;hlen</li>
- <li>Tickettypen und Anzahl ausw&auml;hlen (Erwachsene, Kinder, Familie, Gruppenf&uuml;hrung; maximal 20 je Tickettyp)</li>
+ <li>Grill-Dom-Format und Anzahl ausw&auml;hlen (maximal 20 je Format)</li>
  <li>Kontaktdaten eingeben</li>
  <li>Die Buchung mit einer eindeutigen <strong>Buchungsreferenz</strong> und einem <strong>QR-Code</strong> best&auml;tigen</li>
- <li>Die Zahlung erfolgt vor Ort am Park</li>
+ <li>In der Demo wird keine Online-Zahlung ausgel&ouml;st; finale Abstimmung und Zahlung erfolgen separat mit dem Parkteam</li>
  </ol>
 
  <h3 id="tut-dashboard">3.3 Dashboard-&Uuml;bersicht</h3>
@@ -731,9 +731,9 @@
  <ol>
  <li>&Uuml;ber das Men&uuml; oder die Startseite zu <code>/buchung</code> navigieren</li>
  <li>Den gew&uuml;nschten Besuchstermin innerhalb der Parksaison ausw&auml;hlen</li>
- <li>Die gew&uuml;nschten Ticketkategorien und Mengen hinzuf&uuml;gen</li>
+ <li>Das gew&uuml;nschte Grill-Dom-Format und die Menge hinzuf&uuml;gen</li>
  <li>Vor- und Nachname sowie E-Mail-Adresse eingeben</li>
- <li>Die Zusammenfassung pr&uuml;fen und <strong>&bdquo;Jetzt reservieren&ldquo;</strong> klicken</li>
+ <li>Die Zusammenfassung pr&uuml;fen und die Buchung absenden. Die sichtbare Beschriftung folgt der gew&auml;hlten Sprache.</li>
  <li>Die Best&auml;tigungsseite mit Buchungsreferenz und QR-Code speichern oder ausdrucken</li>
  </ol>
 
@@ -742,7 +742,7 @@
  <li>Das Chat-Icon in der unteren rechten Ecke &ouml;ffnen</li>
  <li>Eine Frage zu &Ouml;ffnungszeiten, Grill-Dom-Angeboten, Tickets oder dem Park stellen</li>
  <li>Der serverseitige Proxy leitet die Anfrage an ein OpenAI-kompatibles Modell weiter</li>
- <li>Ist die KI-Schnittstelle nicht erreichbar, antwortet der integrierte Fallback-Modus mit Informationen in Russisch, Deutsch oder T&uuml;rkisch</li>
+ <li>Ist die KI-Schnittstelle nicht erreichbar, antwortet der integrierte Fallback-Modus mit Informationen in Russisch, Englisch, Deutsch oder T&uuml;rkisch</li>
  </ol>
  <div class="info-box">
  <div class="info-box-title">Demo-Hinweis</div>
@@ -788,7 +788,7 @@
  <table>
  <thead><tr><th>Endpunkt / Hook</th><th>Methode</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
  <tbody>
- <tr><td><code>/api/chat</code></td><td>POST</td><td>Mehrsprachiger KI-Chat Proxy mit Payload-Validierung und Fallback f&uuml;r RU / DE / TR</td><td>Alle</td></tr>
+ <tr><td><code>/api/chat</code></td><td>POST</td><td>Mehrsprachiger KI-Chat Proxy mit Payload-Validierung und Fallback f&uuml;r RU / EN / DE / TR</td><td>Alle</td></tr>
  <tr><td><code>/api/login</code></td><td>POST</td><td>Demo-Login API</td><td>&Ouml;ffentlich</td></tr>
  </tbody>
  </table>
@@ -808,7 +808,7 @@
  <tr><td>Styling</td><td>Tailwind CSS v4, shadcn/ui (manuelles Setup)</td><td>Utility-First, Komponenten-Bibliothek</td></tr>
  <tr><td>Animation &amp; Icons</td><td>Framer Motion, Lucide React</td><td>Motion &amp; Iconografie</td></tr>
  <tr><td>Charts</td><td>Original-SVGs f&uuml;r Marketing-Charts; Recharts in Abh&auml;ngigkeiten, aktuell nicht genutzt</td><td>Visualisierung</td></tr>
- <tr><td>KI</td><td>OpenAI-compatible API &uuml;ber serverseitigen Proxy mit RU / DE / TR Fallback</td><td>Mehrsprachiger Besucher-Chatbot</td></tr>
+ <tr><td>KI</td><td>OpenAI-compatible API &uuml;ber serverseitigen Proxy mit RU / EN / DE / TR Fallback</td><td>Mehrsprachiger Besucher-Chatbot</td></tr>
  <tr><td>Auth</td><td>Demo-Cookie-Sessions (keine Signatur &ndash; nur Demo)</td><td>Rollen-basierter Login</td></tr>
  <tr><td>Datenbank</td><td>Supabase Client konfiguriert, optional f&uuml;r diese Demo</td><td>Persistenz vorbereitet</td></tr>
  <tr><td>Tests</td><td>Playwright E2E + Smoke-Test (<code>scripts/smoke-test.mjs</code>)</td><td>End-to-End-Validierung</td></tr>
@@ -844,7 +844,7 @@
  <p>Zus&auml;tzlich stehen lokale Tests bereit:</p>
  <ul>
  <li><code>npm run test</code> &ndash; Smoke-Test (<code>scripts/smoke-test.mjs</code>)</li>
- <li><code>npm run test:e2e</code> &ndash; Playwright E2E-Suite</li>
+ <li><code>npm run test:e2e</code> &ndash; Playwright E2E-Suite inklusive Desktop/Mobile-Pr&uuml;fung f&uuml;r app-weite Sprachumschaltung, Buchung, Chat, Pitch-Link und Dashboard-Rollen</li>
  </ul>
  </section>
 

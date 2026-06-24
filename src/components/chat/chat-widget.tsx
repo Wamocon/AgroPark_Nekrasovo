@@ -2,6 +2,8 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Bot, Send, X } from "lucide-react";
+import { appCopy } from "@/components/i18n/app-copy";
+import { useLanguagePreference } from "@/components/i18n/use-language-preference";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -11,6 +13,8 @@ type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
 const STORAGE_KEY = "agropark_prelogin_chat_count";
 
 export function ChatWidget() {
+  const { language } = useLanguagePreference();
+  const copy = appCopy[language].chat;
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,8 +22,7 @@ export function ChatWidget() {
     {
       id: "welcome",
       role: "assistant",
-      content:
-        "Здравствуйте. Я AgroPark AI Assist. Могу подсказать часы работы, цены гриль-куполов, маршрут, бронирование, роли команды и доступные языки. Отвечаю также на Deutsch, Türkçe and English.",
+      content: copy.welcome,
     },
   ]);
   const endRef = useRef<HTMLDivElement | null>(null);
@@ -29,6 +32,13 @@ export function ChatWidget() {
     window.addEventListener("agropark:open-chat", handler);
     return () => window.removeEventListener("agropark:open-chat", handler);
   }, []);
+
+  useEffect(() => {
+    setMessages((current) => {
+      if (current.length !== 1 || current[0].id !== "welcome") return current;
+      return [{ ...current[0], content: copy.welcome }];
+    });
+  }, [copy.welcome]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -72,7 +82,7 @@ export function ChatWidget() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content: data.reply || "Я сохранил контекст и готов уточнить детали.",
+          content: data.reply || copy.fallback,
         },
       ]);
     } catch {
@@ -81,8 +91,7 @@ export function ChatWidget() {
         {
           id: crypto.randomUUID(),
           role: "assistant",
-          content:
-            "AI-сервис временно недоступен, но базовая справка остается: парк работает со вторника по воскресенье 10:00-19:00, сезон май-сентябрь, гриль-купола от 2 300 ₽.",
+          content: copy.offline,
         },
       ]);
     } finally {
@@ -101,15 +110,13 @@ export function ChatWidget() {
               </div>
               <div>
                 <div className="text-sm font-bold">AgroPark AI Assist</div>
-                <div className="text-[10px] opacity-80">
-                  RU / DE / TR / EN, guarded fallback
-                </div>
+                <div className="text-[10px] opacity-80">{copy.subtitle}</div>
               </div>
             </div>
             <button
               onClick={() => setOpen(false)}
               className="rounded-full p-1 hover:bg-white/20"
-              aria-label="Закрыть чат"
+              aria-label={copy.close}
             >
               <X className="size-4" />
             </button>
@@ -131,7 +138,7 @@ export function ChatWidget() {
             ))}
             {loading ? (
               <div className="max-w-[86%] rounded-2xl bg-white px-4 py-3 text-sm text-emerald-950 shadow-sm">
-                Готовлю ответ...
+                {copy.loading}
               </div>
             ) : null}
             <div ref={endRef} />
@@ -144,8 +151,8 @@ export function ChatWidget() {
             <Input
               value={input}
               onChange={(event) => setInput(event.target.value)}
-              placeholder="Спросите о парке или брони..."
-              aria-label="Сообщение для AI"
+              placeholder={copy.placeholder}
+              aria-label={copy.inputLabel}
             />
             <Button
               type="submit"
@@ -159,12 +166,12 @@ export function ChatWidget() {
       ) : (
         <Button
           size="lg"
-          aria-label="Открыть AI-чат"
+          aria-label={copy.open}
           className="h-14 w-14 rounded-full bg-emerald-800 p-0 shadow-xl shadow-emerald-950/20 hover:bg-emerald-900 sm:h-12 sm:w-auto sm:px-5"
           onClick={() => setOpen(true)}
         >
           <Bot className="size-5 sm:mr-2 sm:size-4" />
-          <span className="sr-only sm:not-sr-only">AI-чат</span>
+          <span className="sr-only sm:not-sr-only">{copy.button}</span>
         </Button>
       )}
     </div>
