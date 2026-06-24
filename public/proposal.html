@@ -377,6 +377,256 @@
 
     .muted { color: var(--muted); }
     .flow .muted { color: rgba(255, 255, 255, 0.72); }
+
+    .live-demo {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 32px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)),
+        #09261a;
+      box-shadow: 0 34px 110px rgba(0, 0, 0, 0.24);
+    }
+
+    .live-demo::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      opacity: 0.32;
+    }
+
+    .live-top,
+    .live-grid {
+      position: relative;
+      z-index: 1;
+    }
+
+    .live-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 18px 20px;
+      color: #fff;
+      font-weight: 950;
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      background: rgba(223, 247, 233, 0.12);
+      color: #dff7e9;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .live-badge::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #7cf4a4;
+      box-shadow: 0 0 0 7px rgba(124, 244, 164, 0.12);
+    }
+
+    .live-grid {
+      display: grid;
+      grid-template-columns: minmax(260px, 0.8fr) minmax(300px, 1fr) minmax(260px, 0.85fr);
+      gap: 18px;
+      padding: 20px;
+    }
+
+    .scenario-card,
+    .chat-stack,
+    .booking-sim,
+    .crm-sim {
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 22px;
+      background: rgba(255, 253, 247, 0.96);
+      color: var(--ink);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .scenario-card,
+    .booking-sim,
+    .crm-sim { padding: 20px; }
+
+    .scenario-card {
+      display: grid;
+      align-content: space-between;
+      gap: 22px;
+      min-height: 370px;
+    }
+
+    .scenario-card strong,
+    .booking-sim strong,
+    .crm-sim strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .scenario-steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .scenario-steps span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-radius: 14px;
+      background: rgba(18, 63, 44, 0.08);
+      padding: 12px 13px;
+      color: rgba(16, 37, 27, 0.72);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .scenario-steps b {
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .chat-stack {
+      padding: 16px;
+      background: #fffdf7;
+    }
+
+    .chat-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      padding: 0 2px 14px;
+      font-weight: 950;
+    }
+
+    .lang-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .lang-pills span {
+      border-radius: 999px;
+      background: rgba(18, 63, 44, 0.08);
+      color: var(--green);
+      padding: 5px 8px;
+      font-size: 10px;
+      font-weight: 950;
+    }
+
+    .chat-bubble {
+      max-width: 92%;
+      margin-top: 14px;
+      border-radius: 18px;
+      padding: 13px 14px;
+      font-size: 14px;
+      line-height: 1.45;
+      box-shadow: 0 10px 28px rgba(16, 37, 27, 0.08);
+      animation: slideIn 0.7s ease both;
+    }
+
+    .chat-bubble.user {
+      margin-left: auto;
+      background: var(--green);
+      color: #fff;
+      animation-delay: 0.1s;
+    }
+
+    .chat-bubble.ai {
+      background: #edf7ee;
+      color: var(--ink);
+      animation-delay: 0.35s;
+    }
+
+    .chat-bubble.note {
+      border: 1px solid rgba(215, 164, 94, 0.36);
+      background: rgba(255, 207, 47, 0.18);
+      color: var(--ink);
+      animation-delay: 0.62s;
+    }
+
+    .sim-side {
+      display: grid;
+      gap: 18px;
+    }
+
+    .ticket-row,
+    .crm-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      border-top: 1px solid var(--line);
+      padding-top: 13px;
+      margin-top: 13px;
+      font-size: 13px;
+    }
+
+    .signal {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #23b36d;
+      box-shadow: 0 0 0 8px rgba(35, 179, 109, 0.12);
+    }
+
+    .ticket-row b,
+    .crm-row b { color: var(--green); }
+
+    .crm-sim {
+      background:
+        linear-gradient(135deg, #fffdf7, #f3f6ea);
+    }
+
+    .mini-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mini-kpis span {
+      border-radius: 14px;
+      background: rgba(18, 63, 44, 0.08);
+      padding: 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .mini-kpis b {
+      display: block;
+      color: var(--green);
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .section {
       position: relative;
       padding: 92px 0;
@@ -392,6 +642,7 @@
 
     .section.dark .lead,
     .section.dark .muted { color: rgba(255, 255, 255, 0.72); }
+    .section.dark .live-demo .muted { color: var(--muted); }
     .section.dark .kicker { color: #ffe08a; }
     .section.dark .card,
     .section.dark .check,
@@ -414,7 +665,7 @@
 
     .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .roles-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .roles-grid { grid-template-columns: repeat(4, minmax(180px, 1fr)); }
     .source-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
     .card,
@@ -577,6 +828,16 @@
       text-underline-offset: 3px;
     }
 
+    .roles-showcase .section-head { max-width: 860px; }
+    .role {
+      min-height: 245px;
+    }
+
+    .role h3 {
+      font-size: 20px;
+      line-height: 1.15;
+    }
+
     .footer {
       background: #0b2419;
       color: #fff;
@@ -620,6 +881,7 @@
       .links { display: none; }
       .hero-grid,
       .split,
+      .live-grid,
       .loss-model,
       .grid-2 { grid-template-columns: 1fr; }
       .device { transform: none; }
@@ -647,9 +909,20 @@
       .hero-metrics,
       .market-strip,
       .mini-grid,
+      .mini-kpis,
       .roles-grid,
       .source-grid,
       .grid-3 { grid-template-columns: 1fr; }
+      .live-top,
+      .ticket-row,
+      .crm-row {
+        grid-template-columns: 1fr;
+      }
+      .live-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .scenario-card { min-height: auto; }
       .bar { grid-template-columns: 1fr; gap: 6px; }
       .step { grid-template-columns: 1fr; }
       .step .tag { width: max-content; max-width: 100%; }
@@ -680,10 +953,10 @@
     <div class="wrap hero-grid">
       <div class="reveal">
         <span class="eyebrow">Коммерческая презентация | версия 24.06.2026</span>
-        <h1>State-of-the-art платформа, которая превращает интерес гостя в бронь и управляемую операцию.</h1>
+        <h1>State-of-the-art платформа, которая превращает ваш спрос в брони, ответы AI и управляемую работу команды.</h1>
         <p class="lead">
-          Это не редизайн страницы. Это рабочий цифровой продукт для АгроПарка:
-          бронирование, AI-помощник, мультиязычный путь гостя, CRM-роли, KPI и план до рабочего запуска.
+          Мы показываем не картинку и не обычный редизайн сайта. Мы показываем рабочий продукт:
+          гостевая витрина, бронирование, AI-помощник, RU/EN/DE/TR, CRM-роли, KPI и понятный путь до запуска в сезон.
         </p>
         <div class="actions">
           <a class="btn gold" href="/">Открыть приложение</a>
@@ -711,7 +984,7 @@
             </div>
             <div class="panel flow">
               <div class="flow-row"><span class="flow-icon">1</span><div><b>Гость выбирает формат</b><p class="muted">Купол, прогулка, группа, событие или ресторан.</p></div></div>
-              <div class="flow-row"><span class="flow-icon">2</span><div><b>AI снимает повторяющиеся вопросы</b><p class="muted">Цены, часы, маршрут и языки доступны сразу.</p></div></div>
+              <div class="flow-row"><span class="flow-icon">2</span><div><b>AI снимает повторяющиеся вопросы</b><p class="muted">Цены, часы, маршрут и языки доступны сразу на RU/EN/DE/TR.</p></div></div>
               <div class="flow-row"><span class="flow-icon">3</span><div><b>Команда управляет заявками</b><p class="muted">Панель показывает роли, KPI, активность и следующие действия.</p></div></div>
             </div>
           </div>
@@ -725,15 +998,15 @@
       <div class="wrap reveal">
         <div class="section-head">
           <span class="kicker">01. Что есть сейчас</span>
-          <h2>У клиента уже есть сильный продукт офлайн, но цифровой путь не забирает всю ценность спроса.</h2>
+          <h2>У вас уже есть сильный офлайн-продукт, но текущий цифровой путь не забирает всю ценность спроса.</h2>
           <p class="lead">
-            АгроПарк имеет реальную территорию, купола, события, контакты, фото и локальную узнаваемость.
+            У AgroPark есть реальная территория, купола, события, контакты, фотографии и локальная узнаваемость.
             Проблема не в отсутствии места. Проблема в том, что гость не получает быстрый цифровой путь:
             выбрать формат, понять цену, задать вопрос, оставить заявку и увидеть подтверждение.
           </p>
         </div>
         <div class="grid-3">
-          <article class="card"><strong>Сильная база</strong><h3>Локация, фотографии, контакты и сезонный продукт уже существуют.</h3><p class="muted">Это снижает риск внедрения: мы не выдумываем бизнес, а переводим существующий спрос в управляемую систему.</p></article>
+          <article class="card"><strong>Сильная база</strong><h3>Локация, фотографии, контакты и сезонный продукт уже существуют.</h3><p class="muted">Это снижает риск внедрения: мы не выдумываем бизнес, а переводим ваш существующий спрос в управляемую систему.</p></article>
           <article class="card"><strong>Слабое место</strong><h3>Интерес гостя расходится по телефону, мессенджерам, соцсетям и ручным уточнениям.</h3><p class="muted">Команда тратит время на повторяющиеся вопросы, а руководитель не видит полную картину по заявкам.</p></article>
           <article class="card"><strong>Коммерческий риск</strong><h3>Каждая задержка ответа снижает вероятность брони в пиковый сезон.</h3><p class="muted">Когда гость не понимает цену или свободный формат сразу, он переключается на более понятную альтернативу.</p></article>
         </div>
@@ -802,6 +1075,15 @@
               <div class="bar"><span>Выручка</span><span class="track"><i class="fill" style="width:100%"></i></span><b>10 трлн ₽</b></div>
             </div>
           </article>
+          <article class="card market-card">
+            <strong>AI как канал спроса</strong>
+            <h3>194% рост AI-рефералов в travel</h3>
+            <p class="muted">Adobe фиксирует резкий рост AI-переходов на travel-сайты в 2026 году. Для AgroPark это аргумент за структурированный контент, AI-ответы и быстрый путь бронирования.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>AI-трафик</span><span class="track"><i class="fill" style="width:100%"></i></span><b>+194%</b></div>
+              <div class="bar"><span>Вовлеченность</span><span class="track"><i class="fill" style="width:70%"></i></span><b>+21%</b></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -810,10 +1092,10 @@
       <div class="wrap reveal">
         <div class="section-head">
           <span class="kicker">04. State-of-the-art решение</span>
-          <h2>AgroPark OS добавляет владельцу не “новую страницу”, а операционную цифровую систему продаж.</h2>
+          <h2>AgroPark OS добавляет вам не новую страницу, а операционную цифровую систему продаж.</h2>
           <p class="lead">
             Решение объединяет публичный сайт, бронирование, AI, мультиязычность, CRM и KPI в один продукт.
-            Клиент видит не абстрактный дизайн, а работающий путь гостя и команды.
+            Вы видите не абстрактный дизайн, а работающий путь гостя, AI и команды.
           </p>
         </div>
         <div class="grid-3">
@@ -824,30 +1106,93 @@
       </div>
     </section>
 
+    <section class="section dark">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">05. Живая симуляция продукта</span>
+          <h2>На встрече мы показываем один непрерывный сценарий: вопрос гостя, ответ AI, заявка, CRM и решение команды.</h2>
+          <p class="lead">
+            Это важно для продажи: владелец видит не набор экранов, а будущую операционную реальность AgroPark.
+            Так проще понять ценность, скорость внедрения и следующий коммерческий шаг.
+          </p>
+        </div>
+        <div class="live-demo" aria-label="Симуляция AgroPark OS">
+          <div class="live-top">
+            <span>AgroPark OS - live product simulation</span>
+            <span class="live-badge">AI, бронь и CRM связаны</span>
+          </div>
+          <div class="live-grid">
+            <article class="scenario-card">
+              <div>
+                <strong>Сценарий для звонка</strong>
+                <h3>Вы показываете, как гость проходит путь без звонка администратору.</h3>
+                <p class="muted">Смысл демонстрации: не обещать “когда-нибудь”, а показать рабочий поток здесь и сейчас.</p>
+              </div>
+              <div class="scenario-steps">
+                <span>Гость выбирает формат <b>1 мин</b></span>
+                <span>AI отвечает на вопрос <b>24/7</b></span>
+                <span>Заявка попадает в CRM <b>сразу</b></span>
+                <span>Команда видит следующий шаг <b>KPI</b></span>
+              </div>
+            </article>
+
+            <article class="chat-stack" aria-label="AI чат">
+              <div class="chat-head">
+                <span>AI-помощник</span>
+                <div class="lang-pills"><span>RU</span><span>EN</span><span>DE</span><span>TR</span></div>
+              </div>
+              <div class="chat-bubble user">Хотим купол на субботу для 8 гостей. Сколько стоит и как добраться?</div>
+              <div class="chat-bubble ai">Большой гриль-купол подходит для группы. Я покажу свободные форматы, маршрут, контакты и помогу оставить заявку без платежных данных.</div>
+              <div class="chat-bubble note">AI формирует краткую сводку для команды: дата, формат, гости, вопрос, язык и срочность ответа.</div>
+            </article>
+
+            <div class="sim-side">
+              <article class="booking-sim">
+                <strong>Бронирование</strong>
+                <h3>Заявка собрана в понятной форме</h3>
+                <div class="ticket-row"><span class="signal"></span><span>Суббота, гриль-купол, 8 гостей</span><b>новая</b></div>
+                <div class="ticket-row"><span class="signal"></span><span>Контакт и комментарий готовы</span><b>CRM</b></div>
+              </article>
+              <article class="crm-sim">
+                <strong>Панель команды</strong>
+                <h3>Руководитель видит, где деньги и действия</h3>
+                <div class="mini-kpis">
+                  <span><b>47</b>заявок</span>
+                  <span><b>8</b>открыто</span>
+                  <span><b>78%</b>загрузка</span>
+                </div>
+                <div class="crm-row"><span class="signal"></span><span>Следующее действие назначено менеджеру</span><b>сегодня</b></div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="demo" class="section">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">05. Что уже работает в beta</span>
+          <span class="kicker">06. Что уже работает в beta</span>
           <h2>Текущая версия уже показывает продуктовый сценарий, который можно продавать и развивать.</h2>
         </div>
         <div class="grid-3">
-          <article class="card"><strong>Главная страница</strong><h3>Гостевая страница парка</h3><p class="muted">Премиальная визуальная подача, реальные активы клиента, понятные призывы к действию и мобильная адаптация.</p></article>
+          <article class="card"><strong>Главная страница</strong><h3>Гостевая страница парка</h3><p class="muted">Премиальная визуальная подача, ваши реальные активы, понятные призывы к действию и мобильная адаптация.</p></article>
           <article class="card"><strong>Бронирование</strong><h3>Бронирование с подтверждением</h3><p class="muted">Дата, формат, контакт, расчет суммы, демо-QR и сохранение заявки в безопасный демо-контур.</p></article>
           <article class="card"><strong>AI-помощник</strong><h3>Ответы на RU / EN / DE / TR</h3><p class="muted">Цены, часы, контакты, маршрут, демо-входы, роли, будущие возможности и безопасные ограничения.</p></article>
           <article class="card"><strong>CRM-панель</strong><h3>Панель для команды</h3><p class="muted">KPI, поток заявок, активность, карточки обращений, роли и быстрые переходы к операциям.</p></article>
-          <article class="card"><strong>Связка презентации</strong><h3>Презентация ведет в продукт</h3><p class="muted">Материал объясняет бизнес-логику, но всегда возвращает клиента в рабочее приложение.</p></article>
+          <article class="card"><strong>Связка презентации</strong><h3>Презентация ведет в продукт</h3><p class="muted">Материал объясняет бизнес-логику, но всегда возвращает вас в рабочее приложение.</p></article>
           <article class="card"><strong>База проверки</strong><h3>Проверяемость демо</h3><p class="muted">Сценарии можно прогнать в браузере: главная, презентация, бронь, чат, вход и CRM-роли.</p></article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="wrap split reveal">
-        <div>
-          <span class="kicker">06. Роли в системе</span>
-          <h2>Клиенту важно увидеть не только гостя, но и то, как работает команда внутри.</h2>
+    <section class="section roles-showcase">
+      <div class="wrap reveal">
+        <div class="section-head">
+          <span class="kicker">07. Роли в системе</span>
+          <h2>Вам важно увидеть не только путь гостя, но и то, как команда будет работать внутри.</h2>
           <p class="lead">
-            Поэтому демо показывает четыре роли. Это помогает продавать платформу как операционный инструмент, а не как витрину.
+            Поэтому демо показывает четыре роли. Это продает платформу как операционный инструмент, а не как красивую витрину.
           </p>
         </div>
         <div class="roles-grid">
@@ -862,11 +1207,11 @@
     <section class="section dark">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">07. Что добавляем дальше</span>
-          <h2>План развития делает решение дороже и сильнее после первой продажи.</h2>
+          <span class="kicker">08. Что добавляем дальше</span>
+          <h2>План развития делает решение сильнее после первой продажи и готовит его к полноценному сезону.</h2>
         </div>
         <div class="grid-3">
-          <article class="card"><strong>Рабочие данные</strong><h3>Реальное хранение заявок и журнал изменений</h3><p class="muted">База данных, роли доступа, история изменений и экспорт для руководителя.</p></article>
+          <article class="card"><strong>Контур заявок</strong><h3>Надежное хранение заявок и журнал изменений</h3><p class="muted">Роли доступа, история изменений, экспорт для руководителя и понятная ответственность по каждому обращению.</p></article>
           <article class="card"><strong>Интеграции</strong><h3>Telegram, WhatsApp, email и уведомления</h3><p class="muted">Заявки не теряются, команда получает автоматические напоминания и шаблоны ответов.</p></article>
           <article class="card"><strong>Оплаты</strong><h3>Оплаты и предоплаты</h3><p class="muted">Подключение платежного сценария после согласования юридики и процессов возврата.</p></article>
           <article class="card"><strong>База знаний AI</strong><h3>AI с источниками и управляемыми ответами</h3><p class="muted">База знаний по ценам, правилам, FAQ, событиям и сезонным предложениям.</p></article>
@@ -879,14 +1224,14 @@
     <section id="roadmap" class="section">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">08. План внедрения</span>
+          <span class="kicker">09. План внедрения</span>
           <h2>Прагматичный путь от продающего beta-демо к приложению, готовому к рабочему запуску.</h2>
         </div>
         <div class="roadmap">
           <article class="step"><div><h3>Фиксация продукта и коммерческого сценария</h3><p class="muted">Утверждаем страницы, языки, цены, призывы к действию, роли, FAQ, тон коммуникации и правила демо.</p></div><span class="tag">1-2 недели</span></article>
           <article class="step"><div><h3>Заявки, CRM и уведомления</h3><p class="muted">Подключаем хранение заявок, поток статусов, Telegram/WhatsApp/email-процесс и роли доступа.</p></div><span class="tag">2-5 недель</span></article>
           <article class="step"><div><h3>База знаний AI и мультиязычный слой</h3><p class="muted">Загружаем управляемые знания, источники, FAQ и языковые сценарии RU/EN/DE/TR.</p></div><span class="tag">5-8 недель</span></article>
-          <article class="step"><div><h3>Усиление production-контура и запуск сезона</h3><p class="muted">Платежи, безопасность, мониторинг, резервные копии, SEO/GEO, аналитика и финальная QA-проверка.</p></div><span class="tag">8-12 недель</span></article>
+          <article class="step"><div><h3>Усиление рабочего контура и запуск сезона</h3><p class="muted">Платежи, юридически согласованные правила, контроль стабильности, SEO/GEO, аналитика и финальная QA-проверка.</p></div><span class="tag">8-12 недель</span></article>
         </div>
       </div>
     </section>
@@ -894,13 +1239,14 @@
     <section class="section">
       <div class="wrap reveal">
         <div class="section-head">
-          <span class="kicker">09. Доверие и источники</span>
-          <h2>Факты в презентации отделены от демо-модели, чтобы разговор выглядел профессионально.</h2>
+          <span class="kicker">10. Доверие и источники</span>
+          <h2>Факты в презентации отделены от демо-модели, чтобы разговор был прозрачным и профессиональным.</h2>
         </div>
         <div class="source-grid">
           <article class="source"><h3>DataReportal: цифровая Россия 2025</h3><p class="muted">133 млн интернет-пользователей, 92,2% проникновения, 216 млн мобильных подключений, 106 млн идентификаторов в социальных сетях.</p><a href="https://datareportal.com/reports/digital-2025-russian-federation" target="_blank" rel="noreferrer">Открыть источник</a></article>
           <article class="source"><h3>WTTC: мировой туризм 2025</h3><p class="muted">Мировой туризм в 2025 году превысил 1,5 млрд международных поездок и около 11,7 трлн долларов вклада в мировой ВВП.</p><a href="https://elpais.com/economia/2026-01-14/el-turismo-mundial-bate-un-record-en-2025-con-mas-de-1500-millones-de-viajeros-internacionales.html" target="_blank" rel="noreferrer">Открыть источник</a></article>
           <article class="source"><h3>Открытые сводки по туризму РФ</h3><p class="muted">Для рыночного контекста используются опубликованные данные о 90 млн внутренних поездок и 10 трлн ₽ выручки туризма за 2024 год.</p><a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F#%D0%A2%D1%83%D1%80%D0%B8%D0%B7%D0%BC" target="_blank" rel="noreferrer">Открыть сводку</a></article>
+          <article class="source"><h3>AI и travel-поиск 2026</h3><p class="muted">Adobe фиксирует быстрый рост AI-рефералов в travel-сегменте; это усиливает важность структурированного контента, AI-ответов и понятного пути бронирования.</p><a href="https://www.techradar.com/pro/ai-traffic-to-travel-sites-is-booming-as-shoppers-look-for-the-best-holiday-deal-without-doing-any-research" target="_blank" rel="noreferrer">Открыть источник</a></article>
         </div>
       </div>
     </section>
@@ -909,7 +1255,7 @@
       <div class="wrap split reveal">
         <div>
           <span class="kicker">Финальный тезис</span>
-          <h2>Мы продаем владельцу контроль, скорость ответа и рост прямых заявок.</h2>
+          <h2>Мы предлагаем вам контроль, скорость ответа и рост прямых заявок.</h2>
           <p class="lead">
             Приложение уже можно открыть, потрогать, показать команде и использовать как основу для решения о рабочем запуске.
             Следующий шаг - согласовать внедрение и перевести демо в рабочий контур.
@@ -921,7 +1267,7 @@
           </div>
         </div>
         <div class="quote">
-          “Сильный офлайн-продукт получает цифровую систему, которая продает быстрее, отвечает умнее и показывает владельцу, что происходит в бизнесе.”
+          “Ваш сильный офлайн-продукт получает цифровую систему, которая продает быстрее, отвечает умнее и показывает, что происходит в бизнесе.”
         </div>
       </div>
     </section>
@@ -932,7 +1278,7 @@
       <div>
         <strong>AgroPark OS | коммерческая beta-презентация</strong>
         <p style="max-width:620px;color:rgba(255,255,255,.72)">
-          Презентация продает цифровую платформу. Приложение остается отдельным рабочим продуктом для демонстрации клиенту.
+          Презентация продает цифровую платформу. Приложение остается отдельным рабочим продуктом для демонстрации на встрече.
         </p>
       </div>
       <div class="actions">

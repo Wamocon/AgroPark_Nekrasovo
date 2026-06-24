@@ -64,6 +64,9 @@ test.describe("Public AgroPark app", () => {
     await page.goto("/proposal.html");
 
     await expect(page.getByRole("heading", { name: /State-of-the-art/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /У вас уже есть сильный офлайн-продукт/ })).toBeVisible();
+    await expect(page.getByText("05. Живая симуляция продукта")).toBeVisible();
+    await expect(page.locator("body")).not.toContainText(/У клиента|Клиенту|backend|Supabase/);
     await expect(page.getByText(/24\.06\.2026/)).toBeVisible();
     await expect(page.getByRole("link", { name: /Открыть приложение/ }).first()).toBeVisible();
   });
