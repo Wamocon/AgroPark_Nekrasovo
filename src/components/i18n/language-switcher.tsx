@@ -11,7 +11,7 @@ export function LanguageSwitcher({ compact = false, className }: { compact?: boo
     <div
       className={cn(
         "inline-flex items-center rounded-full border border-emerald-950/10 bg-white/72 shadow-sm backdrop-blur",
-        compact ? "min-h-9 gap-0 p-0.5" : "min-h-10 gap-1 p-1",
+        compact ? "min-h-11 gap-0 p-0.5" : "min-h-11 gap-1 p-1",
         className,
       )}
       aria-label="Language selector"
@@ -25,8 +25,8 @@ export function LanguageSwitcher({ compact = false, className }: { compact?: boo
           aria-pressed={language === option.code}
           onClick={() => setLanguage(option.code)}
           className={cn(
-            "inline-flex h-8 min-w-8 items-center justify-center rounded-full px-2 text-[11px] font-black uppercase tracking-[0.08em] transition",
-            compact && "h-7 min-w-7 px-1 text-[10px] tracking-normal",
+            "inline-flex h-10 min-w-10 items-center justify-center rounded-full px-2 text-[11px] font-black uppercase tracking-[0.08em] transition",
+            compact && "px-1 text-[10px] tracking-normal",
             language === option.code
               ? "bg-emerald-900 text-white shadow-sm"
               : "text-emerald-950/58 hover:bg-emerald-950/6 hover:text-emerald-950",

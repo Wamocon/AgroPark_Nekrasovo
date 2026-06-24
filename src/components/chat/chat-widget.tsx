@@ -115,7 +115,7 @@ export function ChatWidget() {
             </div>
             <button
               onClick={() => setOpen(false)}
-              className="rounded-full p-1 hover:bg-white/20"
+              className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-white/20"
               aria-label={copy.close}
             >
               <X className="size-4" />
@@ -156,6 +156,7 @@ export function ChatWidget() {
             />
             <Button
               type="submit"
+              aria-label={copy.sendLabel}
               disabled={loading || !input.trim()}
               className="bg-emerald-800 hover:bg-emerald-900"
             >

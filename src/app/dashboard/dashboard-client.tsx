@@ -34,26 +34,26 @@ export function DashboardClient({ user }: { user: DemoUser }) {
   return (
     <div className="min-h-screen bg-[#f6f3ea]">
       <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-white/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
-          <div className="flex min-h-11 items-center gap-3 text-emerald-950">
-            <BrandLogo />
+        <div className="mx-auto grid max-w-7xl gap-3 px-4 py-3 sm:flex sm:min-h-16 sm:items-center sm:justify-between sm:px-6 sm:py-0 lg:px-8">
+          <div className="flex min-w-0 items-center gap-3 text-emerald-950">
+            <BrandLogo className="min-w-0 [&>span:last-child]:min-w-0 [&>span:last-child_span:first-child]:truncate" />
             <span className="hidden rounded-full border border-emerald-900/10 bg-emerald-50 px-2.5 py-1 text-[10px] font-black uppercase text-emerald-800 sm:inline-flex">
               {copy.beta}
             </span>
           </div>
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex min-w-0 flex-wrap items-center gap-2 sm:justify-end sm:gap-4">
             <LanguageSwitcher compact />
             <div className="hidden text-sm sm:block">
               <span className="text-muted-foreground">{copy.user} </span>
               <span className="font-semibold">{roleLabel}</span>
             </div>
-            <Badge variant="success" data-testid="user-role-badge">
+            <Badge variant="success" className="hidden sm:inline-flex" data-testid="user-role-badge">
               {roleLabel}
             </Badge>
             <form action={logout}>
-              <Button type="submit" variant="ghost" size="sm">
-                <LogOut className="mr-2 size-4" />
-                {copy.logout}
+              <Button type="submit" variant="ghost" size="sm" className="min-w-10 px-2 sm:px-3" aria-label={copy.logout}>
+                <LogOut className="size-4 sm:mr-2" />
+                <span className="hidden sm:inline">{copy.logout}</span>
               </Button>
             </form>
           </div>

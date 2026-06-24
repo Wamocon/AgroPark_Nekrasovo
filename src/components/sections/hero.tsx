@@ -147,7 +147,7 @@ export function Hero() {
   const copy = heroCopy[language];
 
   return (
-    <section className="relative isolate min-h-[100svh] overflow-hidden bg-emerald-950 pt-24 text-white">
+    <section className="relative isolate min-h-[100svh] overflow-hidden bg-emerald-950 pt-32 text-white md:pt-24">
       <Image src="/client-assets/agropark/aerial-view.png" alt={copy.alt} fill priority className="-z-20 object-cover opacity-42" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,rgba(10,42,29,.98),rgba(10,42,29,.84)_48%,rgba(10,42,29,.44))]" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] bg-[size:64px_64px]" />

@@ -40,7 +40,7 @@ export default function ContactPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#f6f3ea] pt-24 text-emerald-950">
+      <main className="bg-[#f6f3ea] pt-28 text-emerald-950 md:pt-24">
         <section className="px-4 py-12 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
