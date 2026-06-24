@@ -1,11 +1,5 @@
 import { ComingSoon } from "@/components/coming-soon";
 
 export default function MembershipPage() {
- return (
- <ComingSoon
- title="Mitgliedschaft & Loyalty"
- description="Exklusive Mitgliedervorteile, Saisontickets und ein Punkteprogramm für treue Besucher."
- eta="Phase 3 (Monat 6-9)"
- />
- );
+  return <ComingSoon title="Клуб гостей и loyalty" description="Будущий модуль сезонных абонементов, специальных предложений и программы лояльности для постоянных гостей АгроПарка." eta="Фаза 3, после проверки beta-бронирования" />;
 }

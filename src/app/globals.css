@@ -1,18 +1,18 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 :root {
- /* AgroPark Brand Palette */
- --green-950: #0f2e1f;
- --green-900: #1b4332;
- --green-800: #2d6a4f;
- --green-700: #40916c;
- --green-600: #52b788;
- --green-500: #74c69d;
- --green-100: #e8f5e9;
+ /* AgroPark Nekrasovo brand palette */
+ --green-950: #0f3525;
+ --green-900: #14532d;
+ --green-800: #166534;
+ --green-700: #15803d;
+ --green-600: #16a34a;
+ --green-500: #22c55e;
+ --green-100: #dcfce7;
 
- --accent-600: #bc8a5f;
- --accent-500: #d4a373;
- --accent-100: #fff3e0;
+ --accent-600: #b45309;
+ --accent-500: #d97706;
+ --accent-100: #fef3c7;
 
  --neutral-950: #1a1a1a;
  --neutral-700: #5c5f62;
@@ -24,7 +24,7 @@
  --font-geist-mono: "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 
  /* Semantic tokens */
- --background: #f7f6ef;
+ --background: #f6f3ea;
  --foreground: var(--neutral-950);
  --card: var(--white);
  --card-foreground: var(--neutral-950);

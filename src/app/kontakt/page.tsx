@@ -1,188 +1,24 @@
 "use client";
 
-import { useState } from "react";
-import { PageShell } from "@/components/layout/page-shell";
-import { SectionHeader } from "@/components/sections/section-header";
+import { ChangeEvent, FormEvent, useState } from "react";
+import Link from "next/link";
+import { Bot, CheckCircle2, Mail, MapPin, MessageCircle, Phone, Send, Sparkles } from "lucide-react";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Phone, MapPin, Clock, Check, Loader2 } from "lucide-react";
+import { agroparkContact, aiAutomations } from "@/data/agropark";
+
+type FormState = { name: string; company: string; email: string; message: string };
+const initialForm: FormState = { name: "", company: "", email: "", message: "" };
 
 export default function ContactPage() {
- const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
- const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
-
- function handleChange(
- e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
- ) {
- setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
- }
-
- async function handleSubmit(e: React.FormEvent) {
- e.preventDefault();
- if (!form.name || !form.email || !form.message) return;
-
- setStatus("submitting");
-
- // Demo: simulate API call and store locally
- await new Promise((resolve) => setTimeout(resolve, 800));
- try {
- const inquiries = JSON.parse(localStorage.getItem("agropark_inquiries") || "[]");
- inquiries.push({ ...form, id: crypto.randomUUID(), createdAt: new Date().toISOString() });
- localStorage.setItem("agropark_inquiries", JSON.stringify(inquiries));
- setStatus("success");
- setForm({ name: "", email: "", subject: "", message: "" });
- } catch {
- setStatus("error");
- }
- }
-
- return (
- <PageShell>
- <section className="bg-gradient-to-br from-green-900 to-green-800 py-20 text-white">
- <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
- <h1 className="text-4xl font-black tracking-tight sm:text-5xl">Kontakt</h1>
- <p className="mx-auto mt-4 max-w-2xl text-lg text-white/80">
- Haben Sie Fragen? Schreiben Sie uns oder nutzen Sie den KI-Chat.
- </p>
- </div>
- </section>
-
- <section className="py-16">
- <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
- <div className="grid gap-8 lg:grid-cols-3">
- <div className="lg:col-span-2">
- <SectionHeader
- title="Nachricht senden"
- description="Wir melden uns innerhalb von 24 Stunden bei Ihnen."
- />
- <Card>
- <CardContent className="p-6">
- {status === "success" ? (
- <div className="rounded-xl bg-green-50 p-8 text-center">
- <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-900 text-white">
- <Check className="size-7" />
- </div>
- <h3 className="text-xl font-bold text-green-900">Nachricht gesendet</h3>
- <p className="mt-2 text-neutral-600">
- Vielen Dank, {form.name || "für Ihre Nachricht"}. Wir melden uns zeitnah bei Ihnen.
- </p>
- <Button
- onClick={() => setStatus("idle")}
- className="mt-6 bg-green-900 hover:bg-green-800"
- >
- Neue Nachricht
- </Button>
- </div>
- ) : (
- <form onSubmit={handleSubmit} className="space-y-4">
- <div className="grid gap-4 sm:grid-cols-2">
- <div className="space-y-2">
- <Label htmlFor="name">Name</Label>
- <Input
- id="name"
- name="name"
- value={form.name}
- onChange={handleChange}
- placeholder="Ihr Name"
- required
- />
- </div>
- <div className="space-y-2">
- <Label htmlFor="email">E-Mail</Label>
- <Input
- id="email"
- name="email"
- type="email"
- value={form.email}
- onChange={handleChange}
- placeholder="ihre@email.de"
- required
- />
- </div>
- </div>
- <div className="space-y-2">
- <Label htmlFor="subject">Betreff</Label>
- <Input
- id="subject"
- name="subject"
- value={form.subject}
- onChange={handleChange}
- placeholder="Worum geht es?"
- />
- </div>
- <div className="space-y-2">
- <Label htmlFor="message">Nachricht</Label>
- <Textarea
- id="message"
- name="message"
- value={form.message}
- onChange={handleChange}
- rows={5}
- placeholder="Ihre Nachricht..."
- required
- />
- </div>
- {status === "error" && (
- <div className="rounded-lg bg-red-50 p-3 text-sm text-red-700">
- Fehler beim Senden. Bitte versuchen Sie es erneut.
- </div>
- )}
- <Button
- type="submit"
- disabled={status === "submitting"}
- className="bg-green-900 hover:bg-green-800"
- >
- {status === "submitting" ? (
- <>
- <Loader2 className="mr-2 size-4 animate-spin" /> Wird gesendet…
- </>
- ) : (
- "Nachricht senden"
- )}
- </Button>
- </form>
- )}
- </CardContent>
- </Card>
- </div>
-
- <div className="space-y-6">
- <Card>
- <CardHeader>
- <CardTitle>Kontaktdaten</CardTitle>
- </CardHeader>
- <CardContent className="space-y-4">
- <a
- href="mailto:info@agroparknp.ru"
- className="flex min-h-10 items-center gap-3 text-sm text-neutral-600 hover:text-green-900"
- >
- <Mail className="size-4 text-green-700" />
- info@agroparknp.ru
- </a>
- <a
- href="tel:+79114743004"
- className="flex min-h-10 items-center gap-3 text-sm text-neutral-600 hover:text-green-900"
- >
- <Phone className="size-4 text-green-700" />
- +7 (911) 474-30-04
- </a>
- <span className="flex items-start gap-3 text-sm text-neutral-600">
- <MapPin className="mt-0.5 size-4 text-green-700" />
- Kaliningrader Oblast, Russland
- </span>
- <span className="flex items-start gap-3 text-sm text-neutral-600">
- <Clock className="mt-0.5 size-4 text-green-700" />
- Saison: Mai - September
- </span>
- </CardContent>
- </Card>
- </div>
- </div>
- </div>
- </section>
- </PageShell>
- );
+  const [form, setForm] = useState(initialForm);
+  const [submitted, setSubmitted] = useState(false);
+  function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) { setForm((current) => ({ ...current, [event.target.name]: event.target.value })); }
+  function handleSubmit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const inquiries = JSON.parse(localStorage.getItem("agropark_inquiries") || "[]"); inquiries.unshift({ ...form, createdAt: new Date().toISOString() }); localStorage.setItem("agropark_inquiries", JSON.stringify(inquiries)); setSubmitted(true); setForm(initialForm); }
+  return <><Navbar /><main className="bg-[#f6f3ea] pt-24 text-emerald-950"><section className="px-4 py-12 sm:px-6 lg:px-8"><div className="mx-auto max-w-7xl"><div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">Контакты и AI</p><h1 className="mt-4 max-w-4xl text-4xl font-black tracking-tight sm:text-5xl">Задайте вопрос о парке, бронировании или beta-платформе.</h1><p className="mt-5 max-w-2xl text-base leading-8 text-emerald-950/68">Форма сохраняет заявку локально в demo-режиме. AI-чат помогает гостю с часами работы, ценами, маршрутом и входом в CRM, даже если внешний AI API временно недоступен.</p><div className="mt-8 grid gap-3 sm:grid-cols-2">{aiAutomations.map((automation) => <article key={automation.title} className="rounded-lg border border-emerald-950/10 bg-white p-5 shadow-sm"><automation.icon className="mb-4 size-5 text-amber-700" /><h2 className="text-base font-black">{automation.title}</h2><p className="mt-2 text-sm leading-6 text-emerald-950/64">{automation.detail}</p></article>)}</div></div><div className="grid gap-6"><Card className="border-emerald-950/10 bg-white shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2"><Send className="size-5 text-amber-700" />Оставить заявку</CardTitle></CardHeader><CardContent>{submitted ? <div className="mb-5 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold text-emerald-900"><CheckCircle2 className="mr-2 inline size-4" />Заявка сохранена в demo-режиме.</div> : null}<form onSubmit={handleSubmit} className="space-y-4"><div className="grid gap-4 sm:grid-cols-2"><div className="space-y-2"><Label htmlFor="name">Имя</Label><Input id="name" name="name" value={form.name} onChange={handleChange} placeholder="Ваше имя" required /></div><div className="space-y-2"><Label htmlFor="email">E-mail</Label><Input id="email" name="email" type="email" value={form.email} onChange={handleChange} placeholder="name@example.com" required /></div></div><div className="space-y-2"><Label htmlFor="company">Компания или группа</Label><Input id="company" name="company" value={form.company} onChange={handleChange} placeholder="Семья, школа, компания, партнер" /></div><div className="space-y-2"><Label htmlFor="message">Сообщение</Label><Textarea id="message" name="message" value={form.message} onChange={handleChange} rows={5} placeholder="Напишите вопрос о бронировании, мероприятии, гриль-куполах или beta-платформе" required /></div><Button type="submit" className="w-full bg-emerald-800 hover:bg-emerald-900">Отправить заявку</Button></form></CardContent></Card><Card className="border-emerald-950/10 bg-white shadow-sm"><CardHeader><CardTitle>Контакты Некрасово поле</CardTitle></CardHeader><CardContent className="space-y-4"><a href={agroparkContact.emailHref} className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900"><Mail className="size-4 text-amber-700" />{agroparkContact.email}</a><a href={agroparkContact.phoneHref} className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900"><Phone className="size-4 text-amber-700" />{agroparkContact.phone}</a><span className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68"><MessageCircle className="size-4 text-amber-700" />WhatsApp: {agroparkContact.whatsapp}</span><span className="flex min-h-10 items-start gap-3 text-sm text-emerald-950/68"><MapPin className="mt-1 size-4 text-amber-700" />{agroparkContact.region}</span><span className="flex min-h-10 items-start gap-3 text-sm text-emerald-950/68"><Bot className="mt-1 size-4 text-amber-700" />AI-чат работает с guardrail и не запрашивает чувствительные данные.</span></CardContent></Card><Card className="border-emerald-950/10 bg-emerald-950 text-white shadow-sm"><CardHeader><CardTitle className="flex items-center gap-2"><Sparkles className="size-5 text-amber-200" />Быстрый переход</CardTitle></CardHeader><CardContent className="grid gap-3 sm:grid-cols-2"><Button asChild className="bg-amber-300 text-emerald-950 hover:bg-amber-200"><Link href="/buchung">Тест брони</Link></Button><Button asChild variant="outline" className="border-white/20 bg-white/8 text-white hover:bg-white/12 hover:text-white"><Link href="/login">Войти в CRM</Link></Button></CardContent></Card></div></div></div></section></main><Footer /></>;
 }

@@ -619,13 +619,13 @@
  Некрасово поле AgroPark ist eine moderne Next.js-Webanwendung f&uuml;r den Agritourismus-Park in der Kaliningrader Oblast. Die Startseite ist jetzt bewusst als kundennahe Park-Homepage aufgebaut: russische Kerninhalte, Buchung, Kontakt, Grill-Dom-Angebote, mehrsprachiger KI-Chat und ein separater Premium-Pitch unter <code>/proposal.html</code>.
  </p>
  <div class="card">
- <strong>Was die App l&ouml;st:</strong> Die &ouml;ffentliche Website verkauft den Park und nicht mehr das interne Strategiepapier. Das Pitch Deck bleibt separat, kann vom Footer oder der Navigation ge&ouml;ffnet werden und f&uuml;hrt zur&uuml;ck in die Live-Demo.
+ <strong>Was die App l&ouml;st:</strong> Die &ouml;ffentliche Website verkauft den Park und nicht mehr das interne Strategiepapier. Das Pitch Deck bleibt separat, ist in der Anwendung nur im Footer verlinkt und f&uuml;hrt zur&uuml;ck in die Live-Demo.
  </div>
  <div class="feature-grid">
  <div class="feature-card">
  <div class="feature-icon">🌐</div>
  <div class="feature-title">Client-Homepage &amp; Inhalt</div>
- <div class="feature-desc">Animierter Hero, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, mehrsprachige Besucherlogik und klar getrennte Pitch-Deck-Verlinkung.</div>
+ <div class="feature-desc">Animierter Hero, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, mehrsprachige Besucherlogik und klar getrennte Footer-Verlinkung zur Pr&auml;sentation.</div>
  </div>
  <div class="feature-card">
  <div class="feature-icon">🤖</div>
@@ -663,7 +663,7 @@
  <h3 id="feature-list">2.1 Feature-Liste</h3>
  <p>Die App ist in folgende Funktionsbereiche unterteilt:</p>
  <ol>
- <li><strong>Client-Homepage</strong> &ndash; Animierter Hero f&uuml;r Некрасово поле, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, Premium-Vertrauensargumente und klare Verlinkung zum separaten Pitch Deck. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
+ <li><strong>Client-Homepage</strong> &ndash; Animierter Hero f&uuml;r Некрасово поле, Parkinformationen, Grill-Dom-Angebote, Kontaktpunkte, Premium-Vertrauensargumente und klare Footer-Verlinkung zur separaten Pr&auml;sentation. Unterseiten: Park, Attraktionen, Kontakt, Impressum, Datenschutz und AGB. SEO durch Sitemap, robots.txt und strukturierte Daten.</li>
  <li><strong>Mehrsprachiger KI-Chatbot</strong> &ndash; Floating-Chat-Widget auf allen Seiten, serverseitiger Proxy, Payload-Validierung und Fallback-Modus f&uuml;r Russisch, Deutsch und T&uuml;rkisch.</li>
  <li><strong>Demo-Authentifizierung &amp; Rollen</strong> &ndash; Login mit vier Rollen (Administrator, Park Manager, Mitarbeiter, Besucher) und gesch&uuml;tztem Dashboard.</li>
  <li><strong>Dashboard</strong> &ndash; KPI-Karten, Buchungs- und Umsatz-Charts, Kanal-Attribution, Aktivit&auml;tsfeed und Schnellzugriffe.</li>
@@ -699,7 +699,7 @@
  <ol>
  <li><code>/login</code> aufrufen</li>
  <li>Eine der vier Demo-Rollen w&auml;hlen: <strong>Administrator</strong>, <strong>Park Manager</strong>, <strong>Mitarbeiter</strong> oder <strong>Besucher</strong></li>
- <li><strong>&bdquo;Anmelden&ldquo;</strong> klicken</li>
+ <li><strong>&bdquo;Войти&ldquo;</strong> klicken</li>
  <li>Bei internen Rollen erfolgt die Weiterleitung zum Dashboard; Besucher bleiben auf den &ouml;ffentlichen Seiten</li>
  </ol>
 
@@ -760,7 +760,7 @@
  <table>
  <thead><tr><th>Route</th><th>Beschreibung</th><th>Zugriff</th></tr></thead>
  <tbody>
- <tr><td><code>/</code></td><td>Client-Homepage f&uuml;r Некрасово поле mit Parkinhalten, Buchung, KI-Chat, Premium-Vertrauensargumenten und Link zum separaten Pitch Deck</td><td>Alle</td></tr>
+ <tr><td><code>/</code></td><td>Client-Homepage f&uuml;r Некрасово поле mit Parkinhalten, Buchung, KI-Chat, Premium-Vertrauensargumenten und Footer-Link zur separaten Pr&auml;sentation</td><td>Alle</td></tr>
  <tr><td><code>/login</code></td><td>Demo-Login</td><td>&Ouml;ffentlich</td></tr>
  <tr><td><code>/dashboard</code></td><td>Gesch&uuml;tztes Dashboard</td><td>Eingeloggt</td></tr>
  <tr><td><code>/buchung</code></td><td>Ticketbuchung</td><td>Alle</td></tr>
@@ -918,3 +918,4 @@
 
 </body>
 </html>
+

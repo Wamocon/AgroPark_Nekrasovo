@@ -1,88 +1,27 @@
-"use client";
-
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarDays, MapPinned, UsersRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { AmbientBackground } from "@/components/ui/ambient-background";
-import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { SectionHeader } from "./section-header";
+import { clientImages, productModules } from "@/data/agropark";
 
-const cards = [
-  {
-    label: "Park-Erlebnis",
-    color: "bg-green-50 border-green-100",
-    labelColor: "text-green-800",
-    text: "Die Startseite erklärt den Park zuerst aus Besuchersicht: Maisfeld-Labyrinth, Maschinenmuseum, Tierbereiche, Restaurant und Grillkuppeln.",
-  },
-  {
-    label: "Digitale Hilfe",
-    color: "bg-orange-50 border-orange-100",
-    labelColor: "text-orange-800",
-    text: "Gäste wählen Termine, reservieren Tickets und stellen Fragen direkt im mehrsprachigen AI-Chat - auch auf mobilen Geräten.",
-  },
-  {
-    label: "Demo-Logik",
-    color: "bg-emerald-50 border-emerald-100",
-    labelColor: "text-emerald-900",
-    text: "Der öffentliche Auftritt verkauft das Parkerlebnis. Das separate Pitch Deck erklärt Strategie, Automatisierung, Roadmap und Wirtschaftlichkeit.",
-  },
+const proofPoints = [
+  { label: "реальный контент клиента", value: "бренд, адрес, цены, зоны" },
+  { label: "гостевой путь", value: "сайт, бронь, AI, контакт" },
+  { label: "команда", value: "CRM, роли, KPI, активность" },
 ];
 
 export function ExecutiveSummary() {
-  const reducedMotion = useReducedMotion();
-
   return (
-    <section id="park-services" className="relative overflow-hidden border-b border-neutral-200">
-      <AmbientBackground variant="neutral" intensity="subtle" className="py-16 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeader
-            number="01"
-            title="Parkinhalt und digitale Services"
-            description="Die Homepage bleibt einladend für Besucher und zeigt gleichzeitig die Qualität der Demo-Plattform."
-          />
-
-          <div className="mt-2 grid gap-5 md:grid-cols-3">
-            {cards.map((card, index) => (
-              <motion.div
-                key={card.label}
-                initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : index * 0.08 }}
-                className={`rounded-lg border p-6 ${card.color}`}
-              >
-                <div className={`mb-3 text-xs font-extrabold uppercase tracking-widest ${card.labelColor}`}>
-                  {card.label}
-                </div>
-                <p className="text-[15px] leading-relaxed text-neutral-700">{card.text}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: reducedMotion ? 0 : 0.5, delay: reducedMotion ? 0 : 0.25 }}
-            className="mt-6 flex flex-col items-center justify-between gap-5 rounded-lg bg-green-900 p-6 text-white sm:flex-row sm:p-8"
-          >
-            <div>
-              <div className="text-xs font-bold uppercase tracking-widest text-white/70">
-                Demo-Logik
-              </div>
-              <div className="mt-2 text-lg font-bold sm:text-xl">
-                Besucher buchen. Entscheider prüfen das Premium Pitch Deck separat.
-              </div>
-            </div>
-            <Button asChild size="lg" className="shrink-0 bg-white text-green-900 hover:bg-neutral-100">
-              <Link href="/proposal.html">
-                Pitch öffnen <ArrowRight className="ml-2 size-4" />
-              </Link>
-            </Button>
-          </motion.div>
+    <section className="bg-[#f6f3ea] py-20 text-emerald-950">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:items-end">
+          <div><p className="text-xs font-black uppercase tracking-[0.18em] text-amber-700">обновленная главная страница</p><h2 className="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Клиентский сайт остается узнаваемым, но становится быстрее, богаче и продающим.</h2><p className="mt-5 text-base leading-8 text-emerald-950/68">В интерфейсе собраны ключевые материалы АгроПарка: отдых на природе, мероприятия, гриль-купола, детские площадки, музей техники, ресторанная зона, контакты и сезонный режим работы. Поверх этого добавлены цифровые сценарии, которые можно показывать клиенту как рабочую beta-версию.</p></div>
+          <div className="grid gap-4 sm:grid-cols-3">{proofPoints.map((point) => <div key={point.label} className="rounded-lg border border-emerald-950/10 bg-white p-5 shadow-sm"><div className="text-[11px] font-black uppercase text-amber-700">{point.label}</div><div className="mt-3 text-xl font-black leading-tight">{point.value}</div></div>)}</div>
         </div>
-      </AmbientBackground>
+        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{clientImages.map((image) => <article key={image.src} className="group overflow-hidden rounded-xl border border-emerald-950/10 bg-white shadow-sm"><div className="relative h-56 overflow-hidden"><Image src={image.src} alt={image.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" /></div><div className="p-4"><h3 className="font-black">{image.title}</h3><p className="mt-2 text-sm leading-6 text-emerald-950/62">Визуальный контент работает как доверие к месту, а не как абстрактный SaaS-макет.</p></div></article>)}</div>
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">{productModules.map((module) => <article key={module.title} className="rounded-xl border border-emerald-950/10 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"><div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-emerald-900 text-white"><module.icon className="size-5" /></div><div className="text-xs font-black uppercase text-amber-700">{module.metric}</div><h3 className="mt-2 text-xl font-black">{module.title}</h3><p className="mt-3 text-sm leading-7 text-emerald-950/64">{module.text}</p><Button asChild variant="outline" className="mt-5"><Link href={module.href}>{module.action}<ArrowRight className="size-4" /></Link></Button></article>)}</div>
+        <div className="mt-14 grid gap-5 rounded-2xl bg-emerald-950 p-6 text-white shadow-2xl shadow-emerald-950/18 lg:grid-cols-3"><div className="flex gap-4"><CalendarDays className="size-6 text-amber-200" /><div><h3 className="font-black">Сезон и часы</h3><p className="mt-2 text-sm leading-6 text-white/70">Май-сентябрь, вторник-воскресенье 10:00-19:00. Понедельник закрыто.</p></div></div><div className="flex gap-4"><MapPinned className="size-6 text-amber-200" /><div><h3 className="font-black">Место</h3><p className="mt-2 text-sm leading-6 text-white/70">поселок Некрасово, Гурьевский муниципальный округ.</p></div></div><div className="flex gap-4"><UsersRound className="size-6 text-amber-200" /><div><h3 className="font-black">Для кого</h3><p className="mt-2 text-sm leading-6 text-white/70">Семьи, школы, туристы, корпоративные группы и партнеры.</p></div></div></div>
+      </div>
     </section>
   );
 }

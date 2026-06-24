@@ -1,11 +1,11 @@
 import { ComingSoon } from "@/components/coming-soon";
 
 export default function IoTPage() {
- return (
- <ComingSoon
- title="IoT & Smart Farm"
- description="Live-Daten von Boden- und Wettersensoren, Smart-Farming-Exhibit und Premium-Tickets für datenbegeisterte Besucher."
- eta="Phase 4 (ab Monat 9)"
- />
- );
+  return (
+    <ComingSoon
+      title="IoT и Smart Farm"
+      description="Будущий модуль для датчиков, образовательных smart-farm экспонатов и живых данных о территории парка. Сейчас он оставлен как аккуратная roadmap-страница, чтобы не создавать ложного ощущения готовой интеграции."
+      eta="Фаза 4, после согласования beta-процессов"
+    />
+  );
 }

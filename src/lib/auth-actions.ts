@@ -1,52 +1,15 @@
 "use server";
-
 import { cookies } from "next/headers";
-import { User, UserRole } from "./auth";
-
-const DEMO_USERS: Record<string, { password: string; name: string; role: UserRole }> = {
- "admin@agropark.demo": { password: "password", name: "Administrator", role: "admin" },
- "manager@agropark.demo": { password: "password", name: "Park Manager", role: "manager" },
- "staff@agropark.demo": { password: "password", name: "Mitarbeiter", role: "staff" },
- "visitor@agropark.demo": { password: "password", name: "Besucher", role: "visitor" },
+import { redirect } from "next/navigation";
+import type { DemoUser } from "@/lib/auth";
+const COOKIE_NAME = "agropark_session";
+const PASSWORD = "password";
+const users: Record<string, DemoUser> = {
+  "admin@agropark.demo": { email: "admin@agropark.demo", name: "Директор АгроПарка", role: "admin" },
+  "manager@agropark.demo": { email: "manager@agropark.demo", name: "Менеджер бронирований", role: "manager" },
+  "staff@agropark.demo": { email: "staff@agropark.demo", name: "Администратор смены", role: "staff" },
+  "visitor@agropark.demo": { email: "visitor@agropark.demo", name: "Demo-гость", role: "visitor" },
 };
-
-const SESSION_COOKIE = "agropark_session";
-
-export async function login(email: string, password: string): Promise<User | null> {
- const demo = DEMO_USERS[email.toLowerCase()];
- if (!demo || demo.password !== password) return null;
-
- const user: User = {
- email: email.toLowerCase(),
- name: demo.name,
- role: demo.role,
- };
-
- const cookieStore = await cookies();
- cookieStore.set(SESSION_COOKIE, JSON.stringify(user), {
- httpOnly: true,
- secure: process.env.NODE_ENV === "production",
- sameSite: "lax",
- path: "/",
- maxAge: 60 * 60 * 24, // 24 hours
- });
-
- return user;
-}
-
-export async function logout(): Promise<void> {
- const cookieStore = await cookies();
- cookieStore.delete(SESSION_COOKIE);
-}
-
-export async function getCurrentUser(): Promise<User | null> {
- const cookieStore = await cookies();
- const session = cookieStore.get(SESSION_COOKIE)?.value;
- if (!session) return null;
-
- try {
- return JSON.parse(session) as User;
- } catch {
- return null;
- }
-}
+export async function login(email: string, password: string) { const normalized = email.trim().toLowerCase(); const user = users[normalized]; if (!user || password !== PASSWORD) return { ok: false, error: "Проверьте e-mail и пароль demo-доступа." }; const jar = await cookies(); jar.set(COOKIE_NAME, Buffer.from(JSON.stringify(user)).toString("base64url"), { httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 8, path: "/" }); return { ok: true, user }; }
+export async function getCurrentUser(): Promise<DemoUser | null> { const jar = await cookies(); const raw = jar.get(COOKIE_NAME)?.value; if (!raw) return null; try { const parsed = JSON.parse(Buffer.from(raw, "base64url").toString("utf8")) as DemoUser; return users[parsed.email] ? parsed : null; } catch { return null; } }
+export async function logout() { const jar = await cookies(); jar.delete(COOKIE_NAME); redirect("/login"); }

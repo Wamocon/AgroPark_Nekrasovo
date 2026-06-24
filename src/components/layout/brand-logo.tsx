@@ -1,28 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Leaf } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface BrandLogoProps {
-  className?: string;
-  href?: string;
-}
-
-export function BrandLogo({ className, href = "/" }: BrandLogoProps) {
-  return (
-    <Link
-      href={href}
-      className={cn("group flex items-center gap-3 text-emerald-950", className)}
-      aria-label="AgroPark Nekrasovo Digital"
-    >
-      <span className="flex size-9 items-center justify-center rounded-lg border border-amber-500/25 bg-amber-50 text-amber-700 shadow-sm transition-transform group-hover:-rotate-6">
-        <Leaf className="size-5" />
-      </span>
-      <span className="leading-none">
-        <span className="block text-sm font-black tracking-tight">AgroPark Nekrasovo</span>
-        <span className="mt-1 block text-[10px] font-black uppercase text-emerald-700">
-          Digital
-        </span>
-      </span>
-    </Link>
-  );
-}
+export function BrandLogo({ href = "/", className }: { href?: string; className?: string }) { return <Link href={href} className={cn("group inline-flex min-h-11 items-center gap-3 text-emerald-950", className)} aria-label="Некрасово поле, главная страница"><span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border border-emerald-900/10 bg-white shadow-sm"><Image src="/client-assets/agropark/logo.png" alt="Логотип Некрасово поле" width={40} height={40} className="h-full w-full object-contain p-1" priority /></span><span className="leading-tight"><span className="block text-[15px] font-black tracking-tight">Некрасово поле</span><span className="block text-[10px] font-black uppercase tracking-[0.18em] text-amber-700">АгроПарк</span></span></Link>; }

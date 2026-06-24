@@ -13,14 +13,15 @@ const requiredFiles = [
   "src/app/buchung/page.tsx",
   "src/components/chat/chat-widget.tsx",
   "src/lib/auth.ts",
+  "public/proposal.html",
 ];
 
 function checkFiles() {
-  console.log("\n📁 Checking required files...");
+  console.log("\nChecking required files...");
   let failed = false;
   for (const file of requiredFiles) {
     const ok = existsSync(file);
-    console.log(`  ${ok ? "✓" : "✗"} ${file}`);
+    console.log(`  ${ok ? "OK" : "MISSING"} ${file}`);
     if (!ok) failed = true;
   }
   return !failed;
@@ -29,13 +30,7 @@ function checkFiles() {
 function run(command, label) {
   console.log(`\n${label}...`);
   try {
-    execSync(command, {
-      stdio: "inherit",
-      env: {
-        ...process.env,
-        NODE_OPTIONS: "--max-old-space-size=4096",
-      },
-    });
+    execSync(command, { stdio: "inherit", env: { ...process.env, NODE_OPTIONS: "--max-old-space-size=4096" } });
     return true;
   } catch {
     return false;
@@ -43,26 +38,18 @@ function run(command, label) {
 }
 
 function main() {
-  console.log("🚀 AgroPark App Smoke Test");
-
+  console.log("AgroPark App Smoke Test");
   const filesOk = checkFiles();
-  const typecheckOk = run("npm run typecheck", "🔍 Running typecheck");
-  const lintOk = run("npm run lint", "🧹 Running lint");
-  const buildOk = run("npm run build", "🏗️  Running build");
-
+  const typecheckOk = run("npm run typecheck", "Running typecheck");
+  const lintOk = run("npm run lint", "Running lint");
+  const buildOk = run("npm run build", "Running build");
   console.log("\n" + "=".repeat(40));
-  console.log(`Files:   ${filesOk ? "✓" : "✗"}`);
-  console.log(`Types:   ${typecheckOk ? "✓" : "✗"}`);
-  console.log(`Lint:    ${lintOk ? "✓" : "✗"}`);
-  console.log(`Build:   ${buildOk ? "✓" : "✗"}`);
-
-  if (filesOk && typecheckOk && lintOk && buildOk) {
-    console.log("\n🎉 All smoke tests passed!");
-    process.exit(0);
-  } else {
-    console.log("\n❌ Smoke tests failed.");
-    process.exit(1);
-  }
+  console.log(`Files: ${filesOk ? "OK" : "FAIL"}`);
+  console.log(`Types: ${typecheckOk ? "OK" : "FAIL"}`);
+  console.log(`Lint:  ${lintOk ? "OK" : "FAIL"}`);
+  console.log(`Build: ${buildOk ? "OK" : "FAIL"}`);
+  if (filesOk && typecheckOk && lintOk && buildOk) process.exit(0);
+  process.exit(1);
 }
 
 main();

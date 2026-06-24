@@ -141,7 +141,7 @@ async function login(page) {
   await page.fill('input[name="password"]', "password");
   await Promise.all([
     page.waitForURL("**/dashboard", { timeout: 15_000 }),
-    page.getByRole("button", { name: /Anmelden|Sign in/i }).click(),
+    page.getByRole("button", { name: /Открыть dashboard|Войти|Sign in/i }).click(),
   ]);
   await page.waitForTimeout(500);
 }
