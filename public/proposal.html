@@ -371,6 +371,8 @@
     .flow-row > div { min-width: 0; }
     .flow-row b,
     .flow-row p { overflow-wrap: anywhere; }
+    .flow .flow-row b { color: #fffdf7; }
+    .flow .flow-row .muted { color: rgba(255, 255, 255, 0.76); }
     .flow-icon {
       display: grid;
       width: 28px;
@@ -1185,6 +1187,58 @@
       min-height: 230px;
     }
 
+    .competitor-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+
+    .competitor-card {
+      min-height: 270px;
+      border: 1px solid rgba(16, 37, 27, 0.11);
+      border-radius: 26px;
+      background: rgba(255, 253, 247, 0.9);
+      box-shadow: 0 18px 52px rgba(16, 37, 27, 0.08);
+      padding: 22px;
+    }
+
+    .competitor-card h3 {
+      margin: 8px 0 10px;
+      font-size: 19px;
+      line-height: 1.12;
+    }
+
+    .competitor-card strong {
+      display: inline-flex;
+      min-height: 30px;
+      align-items: center;
+      border-radius: 999px;
+      background: #e6f6ed;
+      padding: 6px 10px;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .market-strip.callout {
+      margin-top: 22px;
+      border-color: rgba(222, 169, 106, 0.45);
+      background:
+        linear-gradient(135deg, rgba(255, 209, 64, 0.12), transparent 42%),
+        rgba(255, 253, 247, 0.96);
+    }
+
+    .market-strip.callout b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--green);
+      font-size: 20px;
+      line-height: 1.18;
+    }
+
     .bar-chart {
       display: grid;
       gap: 12px;
@@ -1377,6 +1431,7 @@
       .loss-model,
       .grid-2 { grid-template-columns: 1fr; }
       .device { transform: none; }
+      .competitor-grid,
       .roles-grid,
       .source-grid,
       .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1400,6 +1455,7 @@
       .eyebrow { max-width: 100%; overflow-wrap: anywhere; }
       .hero-metrics,
       .market-strip,
+      .competitor-grid,
       .mini-grid,
       .mini-kpis,
       .roles-grid,
@@ -1585,17 +1641,17 @@
       <div class="wrap reveal">
         <div class="section-head">
           <span class="kicker">03. Рынок и доказательства</span>
-          <h2>Туризм уже цифровой. Для регионального парка выигрывает тот, кто быстрее превращает онлайн-интерес в бронирование.</h2>
+          <h2>Гость в России уже привык к быстрому цифровому пути: найти, сравнить, спросить, забронировать и получить подтверждение.</h2>
           <p class="lead">
-            По последним опубликованным данным, актуальным на 24 июня 2026 года, Россия остается массово подключенной digital-аудиторией,
-            а мировой туризм полностью вернулся к росту. Поэтому “просто сайт” больше не является достаточным уровнем.
+            По последним опубликованным данным, актуальным на 24 июня 2026 года, спрос на внутренний туризм, онлайн-бронирование,
+            мобильные сценарии и AI-поиск растет одновременно. Поэтому для AgroPark важно продавать не "сайт", а управляемый путь от интереса до заявки.
           </p>
         </div>
         <div class="grid-3">
           <article class="card market-card">
             <strong>Цифровая Россия</strong>
             <h3>133 млн интернет-пользователей</h3>
-            <p class="muted">DataReportal фиксирует 92,2% интернет-проникновения в РФ на начало 2025 года.</p>
+            <p class="muted">DataReportal фиксирует 92,2% интернет-проникновения в РФ на начало 2025 года. Это рынок, где первое доверие часто формируется на экране телефона.</p>
             <div class="bar-chart">
               <div class="bar"><span>Интернет</span><span class="track"><i class="fill" style="width:92%"></i></span><b>92%</b></div>
               <div class="bar"><span>Соцсети</span><span class="track"><i class="fill" style="width:73%"></i></span><b>73%</b></div>
@@ -1603,32 +1659,77 @@
             </div>
           </article>
           <article class="card market-card">
-            <strong>Рост туризма</strong>
-            <h3>1,5+ млрд международных поездок</h3>
-            <p class="muted">WTTC оценил 2025 год как рекордный для международного туризма, с вкладом сектора около 11,7 трлн долларов в глобальный ВВП.</p>
-            <div class="bar-chart">
-              <div class="bar"><span>2024</span><span class="track"><i class="fill" style="width:94%"></i></span><b>1,45 млрд</b></div>
-              <div class="bar"><span>2025</span><span class="track"><i class="fill" style="width:100%"></i></span><b>1,5 млрд+</b></div>
-            </div>
-          </article>
-          <article class="card market-card">
             <strong>Внутренний туризм</strong>
-            <h3>90 млн внутренних поездок</h3>
-            <p class="muted">Открытые отраслевые сводки по РФ указывают на 90 млн внутренних поездок и около 10 трлн ₽ выручки туриндустрии в 2024 году.</p>
+            <h3>173,9 млн поездок по РФ</h3>
+            <p class="muted">По опубликованной аналитике Сбера, внутренний туризм в 2025 году вырос на 7,4%. Для региональных проектов это окно спроса, но выигрывает тот, кто быстрее обрабатывает заявку.</p>
             <div class="bar-chart">
-              <div class="bar"><span>Поездки</span><span class="track"><i class="fill" style="width:90%"></i></span><b>90 млн</b></div>
-              <div class="bar"><span>Выручка</span><span class="track"><i class="fill" style="width:100%"></i></span><b>10 трлн ₽</b></div>
+              <div class="bar"><span>2021</span><span class="track"><i class="fill" style="width:70%"></i></span><b>база</b></div>
+              <div class="bar"><span>2025</span><span class="track"><i class="fill" style="width:100%"></i></span><b>173,9 млн</b></div>
             </div>
           </article>
           <article class="card market-card">
-            <strong>AI как канал спроса</strong>
-            <h3>194% рост AI-рефералов в travel</h3>
-            <p class="muted">Adobe фиксирует резкий рост AI-переходов на travel-сайты в 2026 году. Для AgroPark это аргумент за структурированный контент, AI-ответы и быстрый путь бронирования.</p>
+            <strong>Онлайн-продажи travel</strong>
+            <h3>$12,2 млрд рынок в РФ</h3>
+            <p class="muted">IMARC оценивает российский online travel market в 2025 году в $12,165 млрд и прогнозирует рост до $27,192 млрд к 2034 году.</p>
             <div class="bar-chart">
-              <div class="bar"><span>AI-трафик</span><span class="track"><i class="fill" style="width:100%"></i></span><b>+194%</b></div>
-              <div class="bar"><span>Вовлеченность</span><span class="track"><i class="fill" style="width:70%"></i></span><b>+21%</b></div>
+              <div class="bar"><span>2025</span><span class="track"><i class="fill" style="width:55%"></i></span><b>$12,2B</b></div>
+              <div class="bar"><span>2034</span><span class="track"><i class="fill" style="width:100%"></i></span><b>$27,2B</b></div>
             </div>
           </article>
+          <article class="card market-card">
+            <strong>Agro / rural tourism</strong>
+            <h3>$75,3 млрд в 2026</h3>
+            <p class="muted">The Business Research Company оценивает мировой agritourism market в $75,31 млрд в 2026 году. Тренд поддерживают фермерские форматы, outdoor recreation, education и размещение.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>2026</span><span class="track"><i class="fill" style="width:76%"></i></span><b>$75,3B</b></div>
+              <div class="bar"><span>2030</span><span class="track"><i class="fill" style="width:100%"></i></span><b>$99,5B</b></div>
+            </div>
+          </article>
+          <article class="card market-card">
+            <strong>AI в hospitality</strong>
+            <h3>$26,5 млрд в 2026</h3>
+            <p class="muted">Research and Markets оценивает AI in Hospitality and Tourism в $26,53 млрд в 2026 году с прогнозом $75,66 млрд к 2030 году. AI должен помогать, но оставаться управляемым и проверяемым.</p>
+            <div class="bar-chart">
+              <div class="bar"><span>2026</span><span class="track"><i class="fill" style="width:35%"></i></span><b>$26,5B</b></div>
+              <div class="bar"><span>2030</span><span class="track"><i class="fill" style="width:100%"></i></span><b>$75,7B</b></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="competitor-grid" aria-label="Ориентиры российского и мирового рынка">
+          <article class="competitor-card">
+            <strong>Yandex Travel</strong>
+            <h3>Единый поиск, брони, транспорт и доверие экосистемы</h3>
+            <p class="muted">Пользователь ожидает быстрый поиск, понятную карту, отзывы, цену и уверенность, что следующий шаг не потеряется.</p>
+          </article>
+          <article class="competitor-card">
+            <strong>Ostrovok</strong>
+            <h3>Широкий выбор, loyalty и варианты оплаты</h3>
+            <p class="muted">На уровне ожиданий это значит: карточки форматов, прозрачные условия, подтверждение и отсутствие лишней переписки.</p>
+          </article>
+          <article class="competitor-card">
+            <strong>Sutochno.ru</strong>
+            <h3>Mobile-first заявка и переписка в одном месте</h3>
+            <p class="muted">Российский пользователь ценит, когда заявка, контакт, статус и ответ находятся в понятном интерфейсе.</p>
+          </article>
+          <article class="competitor-card">
+            <strong>Tutu / Aviasales / Ozon</strong>
+            <h3>Сравнение, фильтры, маршруты и быстрый выбор</h3>
+            <p class="muted">Даже локальному парку нужны ясные форматы, сценарии, цена, маршрут и быстрый переход к брони.</p>
+          </article>
+          <article class="competitor-card">
+            <strong>Global glamping</strong>
+            <h3>Премиальный outdoor-продукт продается через эмоцию и сервис</h3>
+            <p class="muted">Фотографии, история места, удобства, ожидания гостя и прямое бронирование важны так же, как сама территория.</p>
+          </article>
+        </div>
+
+        <div class="market-strip callout">
+          <b>Вывод для переговоров: AgroPark не должен копировать OTA-платформы. Ему нужна собственная прямая система спроса.</b>
+          <p class="muted">
+            Российскому гостю важны понятная цена, маршрут, мессенджер, телефон, быстрый ответ, доверие и отсутствие риска с оплатой.
+            Поэтому наша демо-логика показывает именно то, что помогает владельцу: прямые заявки, AI-ответы, роли команды, статус обработки, языки RU/EN/DE/TR и KPI.
+          </p>
         </div>
       </div>
     </section>
@@ -1835,9 +1936,11 @@
         </div>
         <div class="source-grid">
           <article class="source"><h3>DataReportal: цифровая Россия 2025</h3><p class="muted">133 млн интернет-пользователей, 92,2% проникновения, 216 млн мобильных подключений, 106 млн идентификаторов в социальных сетях.</p><a href="https://datareportal.com/reports/digital-2025-russian-federation" target="_blank" rel="noreferrer">Открыть источник</a></article>
-          <article class="source"><h3>WTTC: мировой туризм 2025</h3><p class="muted">Мировой туризм в 2025 году превысил 1,5 млрд международных поездок и около 11,7 трлн долларов вклада в мировой ВВП.</p><a href="https://elpais.com/economia/2026-01-14/el-turismo-mundial-bate-un-record-en-2025-con-mas-de-1500-millones-de-viajeros-internacionales.html" target="_blank" rel="noreferrer">Открыть источник</a></article>
-          <article class="source"><h3>Открытые сводки по туризму РФ</h3><p class="muted">Для рыночного контекста используются опубликованные данные о 90 млн внутренних поездок и 10 трлн ₽ выручки туризма за 2024 год.</p><a href="https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D1%8F#%D0%A2%D1%83%D1%80%D0%B8%D0%B7%D0%BC" target="_blank" rel="noreferrer">Открыть сводку</a></article>
-          <article class="source"><h3>AI и travel-поиск 2026</h3><p class="muted">Adobe фиксирует быстрый рост AI-рефералов в travel-сегменте; это усиливает важность структурированного контента, AI-ответов и понятного пути бронирования.</p><a href="https://www.techradar.com/pro/ai-traffic-to-travel-sites-is-booming-as-shoppers-look-for-the-best-holiday-deal-without-doing-any-research" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>Сбер: внутренний туризм РФ 2025</h3><p class="muted">В 2025 году внутренний туризм вырос на 7,4% и достиг 173,9 млн поездок по стране.</p><a href="https://www.sberbank.ru/en/press_center/all/article?blockID=1539&lang=en&newsID=e12a18d5-bc65-4474-9dcf-a96e0325e120&regionID=77&type=NEWS" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>IMARC: online travel market Russia</h3><p class="muted">Российский online travel market оценен в $12,165 млрд в 2025 году с прогнозом $27,192 млрд к 2034 году.</p><a href="https://www.imarcgroup.com/russia-online-travel-market" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>Yandex Travel как рыночный ориентир</h3><p class="muted">Форум Let's Travel указывает Yandex Travel как сервис с более чем 28 млн пользователей в месяц.</p><a href="https://rustravelforum.com/en/partners/" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>The Business Research Company: agritourism 2026</h3><p class="muted">Мировой agritourism market оценивается в $75,31 млрд в 2026 году и $99,51 млрд к 2030 году.</p><a href="https://www.thebusinessresearchcompany.com/report/agritourism-global-market-report" target="_blank" rel="noreferrer">Открыть источник</a></article>
+          <article class="source"><h3>Research and Markets: AI in hospitality</h3><p class="muted">AI in Hospitality and Tourism market оценивается в $26,53 млрд в 2026 году с прогнозом $75,66 млрд к 2030 году.</p><a href="https://www.researchandmarkets.com/reports/6005577/ai-in-hospitality-tourism-market-report" target="_blank" rel="noreferrer">Открыть источник</a></article>
         </div>
       </div>
     </section>
@@ -1880,14 +1983,23 @@
   </footer>
 
   <script>
+    const revealItems = Array.from(document.querySelectorAll(".reveal"));
+    const showVisibleReveals = () => {
+      revealItems.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.94 && rect.bottom > 0) el.classList.add("show");
+      });
+    };
     const io = new IntersectionObserver(
       (entries) => entries.forEach((entry) => {
         if (entry.isIntersecting) entry.target.classList.add("show");
       }),
-      { threshold: 0.14 }
+      { threshold: 0.02, rootMargin: "0px 0px -4% 0px" }
     );
 
-    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+    revealItems.forEach((el) => io.observe(el));
+    requestAnimationFrame(showVisibleReveals);
+    window.addEventListener("hashchange", () => setTimeout(showVisibleReveals, 80));
 
     const device = document.getElementById("device");
     document.addEventListener("pointermove", (event) => {
