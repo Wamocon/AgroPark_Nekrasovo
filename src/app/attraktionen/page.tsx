@@ -61,7 +61,7 @@ export default function AttractionsPage() {
           </div>
 
           <div className="mt-16 text-center">
-            <Button asChild size="lg" className="bg-emerald-900 hover:bg-emerald-800">
+            <Button asChild size="lg" className="w-full whitespace-normal bg-emerald-900 text-center hover:bg-emerald-800 sm:w-auto">
               <Link href="/buchung">
                 {copy.cta}
                 <ArrowRight className="ml-2 size-4" />
