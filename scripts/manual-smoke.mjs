@@ -28,6 +28,11 @@ async function main() {
   await page.getByLabel("Visit date").fill("2026-06-28");
   await page.getByRole("button", { name: "Next" }).click();
   await page.getByText("Choose a format").waitFor({ timeout: 10_000 });
+  await page.getByRole("button", { name: "Standard dome, morning increase" }).click();
+  await page.getByLabel("Name").fill("Demo Guest");
+  await page.getByLabel("E-mail").fill("demo@example.com");
+  await page.getByRole("button", { name: "Book" }).click();
+  await page.getByRole("heading", { name: "Booking confirmed" }).waitFor({ timeout: 10_000 });
 
   await page.goto(`${baseURL}/kontakt`, { waitUntil: "networkidle" });
   await setEnglish(page);
@@ -56,6 +61,9 @@ async function main() {
     page.getByRole("button", { name: "Open dashboard" }).click(),
   ]);
   await page.getByRole("heading", { name: "AgroPark OS Dashboard" }).waitFor({ timeout: 10_000 });
+  await page.getByText("Live demo inbox").waitFor({ timeout: 10_000 });
+  await page.getByText("Demo Guest").first().waitFor({ timeout: 10_000 });
+  await page.getByText("Client presentation").waitFor({ timeout: 10_000 });
   await page.getByRole("main").getByRole("button", { name: "Open AI chat" }).click();
   await page.getByText("AgroPark AI Assist", { exact: true }).waitFor({ timeout: 10_000 });
   await page.getByRole("button", { name: "Close chat" }).click();

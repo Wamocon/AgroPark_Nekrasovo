@@ -106,4 +106,51 @@ test.describe("Authentication and dashboard", () => {
       await expect(page).toHaveURL(/\/buchung/);
     });
   }
+
+  test("dashboard shows live demo inbox records from booking, contact and waitlist flows", async ({ page }) => {
+    await page.addInitScript(() => {
+      localStorage.setItem(
+        "agropark_bookings",
+        JSON.stringify([
+          {
+            id: "AP-TEST123",
+            date: "2026-06-28",
+            name: "Demo Client",
+            email: "demo@example.com",
+            total: 2300,
+            createdAt: "2026-06-25T09:00:00.000Z",
+          },
+        ]),
+      );
+      localStorage.setItem(
+        "agropark_inquiries",
+        JSON.stringify([
+          {
+            name: "Demo Contact",
+            company: "Client presentation",
+            email: "contact@example.com",
+            message: "Can we reserve a dome for a team event?",
+            createdAt: "2026-06-25T09:05:00.000Z",
+          },
+        ]),
+      );
+      localStorage.setItem(
+        "agropark_waitlist",
+        JSON.stringify([
+          {
+            email: "future@example.com",
+            page: "VR tour",
+            createdAt: "2026-06-25T09:10:00.000Z",
+          },
+        ]),
+      );
+    });
+
+    await login(page);
+    await expect(page.getByText("Live demo inbox")).toBeVisible();
+    await expect(page.getByText("Demo Client")).toBeVisible();
+    await expect(page.getByText("Demo Contact")).toBeVisible();
+    await expect(page.getByText("future@example.com")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Copy summary" })).toBeVisible();
+  });
 });

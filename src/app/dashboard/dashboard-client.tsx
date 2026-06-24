@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { BarChart3, Bot, CalendarCheck, CheckCircle2, Home, Leaf, LogOut, MapPinned, MessageSquareText, Sparkles } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { BarChart3, Bot, CalendarCheck, CheckCircle2, ClipboardList, Copy, Home, Leaf, LogOut, MapPinned, MessageSquareText, RefreshCcw, Sparkles } from "lucide-react";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { OpenChatButton } from "@/components/chat/open-chat-button";
 import { appCopy } from "@/components/i18n/app-copy";
@@ -27,10 +28,130 @@ const chartValues = [
 const kpiIcons = [CalendarCheck, MessageSquareText, BarChart3, Leaf] as const;
 const quickActionIcons = [CalendarCheck, Bot, MapPinned, Home] as const;
 
+type DemoBooking = {
+  id?: string;
+  date?: string;
+  name?: string;
+  email?: string;
+  total?: number;
+  createdAt?: string;
+};
+
+type DemoInquiry = {
+  name?: string;
+  company?: string;
+  email?: string;
+  message?: string;
+  createdAt?: string;
+};
+
+type DemoWaitlist = {
+  email?: string;
+  page?: string;
+  createdAt?: string;
+};
+
+type DemoData = {
+  bookings: DemoBooking[];
+  inquiries: DemoInquiry[];
+  waitlist: DemoWaitlist[];
+};
+
+type DemoEvent = {
+  type: "booking" | "inquiry" | "waitlist";
+  title: string;
+  detail: string;
+  meta: string;
+  createdAt: string;
+};
+
+const emptyDemoData: DemoData = { bookings: [], inquiries: [], waitlist: [] };
+
+function readDemoList<T>(key: string): T[] {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function readDemoData(): DemoData {
+  if (typeof window === "undefined") return emptyDemoData;
+  return {
+    bookings: readDemoList<DemoBooking>("agropark_bookings"),
+    inquiries: readDemoList<DemoInquiry>("agropark_inquiries"),
+    waitlist: readDemoList<DemoWaitlist>("agropark_waitlist"),
+  };
+}
+
+function formatRubles(value?: number) {
+  if (!value) return "";
+  return `${new Intl.NumberFormat("ru-RU").format(value)} \u20BD`;
+}
+
 export function DashboardClient({ user }: { user: DemoUser }) {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].dashboard;
   const roleLabel = copy.roleLabels[user.role];
+  const [demoData, setDemoData] = useState<DemoData>(emptyDemoData);
+  const [summaryCopied, setSummaryCopied] = useState(false);
+
+  function refreshDemoData() {
+    setDemoData(readDemoData());
+    setSummaryCopied(false);
+  }
+
+  useEffect(() => {
+    const timer = window.setTimeout(refreshDemoData, 0);
+    window.addEventListener("focus", refreshDemoData);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("focus", refreshDemoData);
+    };
+  }, []);
+
+  const demoEvents = useMemo<DemoEvent[]>(() => {
+    const inbox = copy.demoInbox;
+    const bookings = demoData.bookings.map((booking) => ({
+      type: "booking" as const,
+      title: booking.name || booking.email || booking.id || inbox.unknownGuest,
+      detail: [booking.date, formatRubles(booking.total)].filter(Boolean).join(" · ") || booking.email || inbox.bookingType,
+      meta: booking.id || inbox.bookingType,
+      createdAt: booking.createdAt || "",
+    }));
+    const inquiries = demoData.inquiries.map((inquiry) => ({
+      type: "inquiry" as const,
+      title: inquiry.name || inquiry.company || inquiry.email || inbox.unknownGuest,
+      detail: inquiry.message || inbox.noMessage,
+      meta: inquiry.company || inquiry.email || inbox.inquiryType,
+      createdAt: inquiry.createdAt || "",
+    }));
+    const waitlist = demoData.waitlist.map((entry) => ({
+      type: "waitlist" as const,
+      title: entry.email || inbox.unknownGuest,
+      detail: entry.page || inbox.waitlistType,
+      meta: inbox.waitlistType,
+      createdAt: entry.createdAt || "",
+    }));
+
+    return [...bookings, ...inquiries, ...waitlist]
+      .sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime())
+      .slice(0, 6);
+  }, [copy.demoInbox, demoData]);
+
+  async function copyDemoSummary() {
+    const inbox = copy.demoInbox;
+    const summary = demoEvents.length
+      ? demoEvents.map((event) => `${event.meta}: ${event.title} - ${event.detail}`).join("\n")
+      : inbox.empty;
+    try {
+      await navigator.clipboard.writeText(summary);
+      setSummaryCopied(true);
+    } catch {
+      setSummaryCopied(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-[#f6f3ea]">
@@ -139,6 +260,63 @@ export function DashboardClient({ user }: { user: DemoUser }) {
                     </div>
                   ))}
                 </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-white/94">
+              <CardHeader className="gap-4 sm:flex sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <ClipboardList className="size-5 text-amber-700" />
+                    {copy.demoInbox.title}
+                  </CardTitle>
+                  <CardDescription className="mt-2">{copy.demoInbox.description}</CardDescription>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button type="button" variant="outline" size="sm" onClick={refreshDemoData} className="bg-white">
+                    <RefreshCcw className="mr-2 size-4" />
+                    {copy.demoInbox.refresh}
+                  </Button>
+                  <Button type="button" variant="outline" size="sm" onClick={copyDemoSummary} className="bg-white">
+                    <Copy className="mr-2 size-4" />
+                    {summaryCopied ? copy.demoInbox.copied : copy.demoInbox.copy}
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="mb-4 grid gap-3 sm:grid-cols-3">
+                  {[
+                    { label: copy.demoInbox.bookings, value: demoData.bookings.length, tone: "bg-emerald-50 text-emerald-800" },
+                    { label: copy.demoInbox.inquiries, value: demoData.inquiries.length, tone: "bg-amber-50 text-amber-800" },
+                    { label: copy.demoInbox.waitlist, value: demoData.waitlist.length, tone: "bg-sky-50 text-sky-800" },
+                  ].map((metric) => (
+                    <div key={metric.label} className={`rounded-lg border border-emerald-950/10 p-4 ${metric.tone}`}>
+                      <p className="text-xs font-black uppercase tracking-[0.12em]">{metric.label}</p>
+                      <p className="mt-2 text-3xl font-black">{metric.value}</p>
+                    </div>
+                  ))}
+                </div>
+                {demoEvents.length ? (
+                  <div>
+                    <p className="mb-3 text-xs font-black uppercase tracking-[0.14em] text-emerald-950/58">{copy.demoInbox.latest}</p>
+                    <div className="space-y-3">
+                      {demoEvents.map((event, index) => (
+                        <article key={`${event.type}-${event.createdAt}-${index}`} className="rounded-lg border border-emerald-950/10 bg-[#fcfbf6] p-4">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <span className="rounded-full bg-emerald-900 px-2.5 py-1 text-xs font-black text-white">
+                              {event.type === "booking" ? copy.demoInbox.bookingType : event.type === "inquiry" ? copy.demoInbox.inquiryType : copy.demoInbox.waitlistType}
+                            </span>
+                            <span className="text-xs font-bold text-emerald-950/54">{event.meta}</span>
+                          </div>
+                          <h3 className="mt-3 font-black text-emerald-950">{event.title}</h3>
+                          <p className="mt-1 line-clamp-2 text-sm leading-6 text-emerald-950/64">{event.detail}</p>
+                        </article>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="rounded-lg border border-dashed border-emerald-950/16 bg-[#fcfbf6] p-5 text-sm leading-6 text-emerald-950/64">{copy.demoInbox.empty}</div>
+                )}
               </CardContent>
             </Card>
 
