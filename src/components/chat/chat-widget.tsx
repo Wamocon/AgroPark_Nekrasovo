@@ -1,9 +1,172 @@
 "use client";
+
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Bot, Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+
 type ChatMessage = { id: string; role: "user" | "assistant"; content: string };
+
 const STORAGE_KEY = "agropark_prelogin_chat_count";
-export function ChatWidget() { const [open, setOpen] = useState(false); const [input, setInput] = useState(""); const [loading, setLoading] = useState(false); const [messages, setMessages] = useState<ChatMessage[]>([{ id: "welcome", role: "assistant", content: "Здравствуйте. Я AgroPark AI Assist. Могу подсказать часы работы, цены гриль-куполов, маршрут, бронирование и demo-вход в CRM. Отвечаю также на Deutsch, Türkçe and English." }]); const endRef = useRef<HTMLDivElement | null>(null); useEffect(() => { const handler = () => setOpen(true); window.addEventListener("agropark:open-chat", handler); return () => window.removeEventListener("agropark:open-chat", handler); }, []); useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" }); }, [messages, loading]); async function handleSubmit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); const content = input.trim(); if (!content || loading) return; const userMessage: ChatMessage = { id: crypto.randomUUID(), role: "user", content }; const nextMessages = [...messages, userMessage]; setMessages(nextMessages); setInput(""); setLoading(true); try { const previousCount = Number(localStorage.getItem(STORAGE_KEY) || "0"); localStorage.setItem(STORAGE_KEY, String(previousCount + 1)); const response = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: nextMessages.map(({ role, content }) => ({ role, content })) }) }); const data = await response.json(); setMessages((current) => [...current, { id: crypto.randomUUID(), role: "assistant", content: data.reply || "Я сохранил контекст и готов уточнить детали." }]); } catch { setMessages((current) => [...current, { id: crypto.randomUUID(), role: "assistant", content: "AI-сервис временно недоступен, но базовая справка остается: парк работает со вторника по воскресенье 10:00-19:00, сезон май-сентябрь, гриль-купола от 2 300 ₽." }]); } finally { setLoading(false); } } return <div className="fixed bottom-4 right-4 z-[70]">{open ? <div className="flex h-[560px] w-[min(400px,calc(100vw-32px))] flex-col overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-2xl shadow-emerald-950/20"><div className="flex items-center justify-between bg-gradient-to-r from-emerald-950 to-emerald-800 px-4 py-3 text-white"><div className="flex items-center gap-2"><div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20"><Bot className="size-4" /></div><div><div className="text-sm font-bold">AgroPark AI Assist</div><div className="text-[10px] opacity-80">RU / DE / TR / EN, guarded fallback</div></div></div><button onClick={() => setOpen(false)} className="rounded-full p-1 hover:bg-white/20" aria-label="Закрыть чат"><X className="size-4" /></button></div><div className="flex-1 space-y-3 overflow-y-auto bg-[#f6f3ea] p-4">{messages.map((message) => <div key={message.id} className={cn("max-w-[86%] rounded-2xl px-4 py-3 text-sm leading-6", message.role === "user" ? "ml-auto bg-emerald-900 text-white" : "bg-white text-emerald-950 shadow-sm")}>{message.content}</div>)}{loading ? <div className="max-w-[86%] rounded-2xl bg-white px-4 py-3 text-sm text-emerald-950 shadow-sm">Готовлю ответ...</div> : null}<div ref={endRef} /></div><form onSubmit={handleSubmit} className="flex gap-2 border-t border-emerald-950/10 p-3"><Input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Спросите о парке или брони..." aria-label="Сообщение для AI" /><Button type="submit" disabled={loading || !input.trim()} className="bg-emerald-800 hover:bg-emerald-900"><Send className="size-4" /></Button></form></div> : <Button size="lg" className="rounded-full bg-emerald-800 shadow-xl shadow-emerald-950/20 hover:bg-emerald-900" onClick={() => setOpen(true)}><Bot className="mr-2 size-4" />AI-чат</Button>}</div>; }
+
+export function ChatWidget() {
+  const [open, setOpen] = useState(false);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: "welcome",
+      role: "assistant",
+      content:
+        "Здравствуйте. Я AgroPark AI Assist. Могу подсказать часы работы, цены гриль-куполов, маршрут, бронирование и demo-вход в CRM. Отвечаю также на Deutsch, Türkçe and English.",
+    },
+  ]);
+  const endRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("agropark:open-chat", handler);
+    return () => window.removeEventListener("agropark:open-chat", handler);
+  }, []);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages, loading]);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const content = input.trim();
+    if (!content || loading) return;
+
+    const userMessage: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content,
+    };
+    const nextMessages = [...messages, userMessage];
+
+    setMessages(nextMessages);
+    setInput("");
+    setLoading(true);
+
+    try {
+      const previousCount = Number(localStorage.getItem(STORAGE_KEY) || "0");
+      localStorage.setItem(STORAGE_KEY, String(previousCount + 1));
+
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages.map(({ role, content }) => ({
+            role,
+            content,
+          })),
+        }),
+      });
+      const data = await response.json();
+
+      setMessages((current) => [
+        ...current,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          content: data.reply || "Я сохранил контекст и готов уточнить детали.",
+        },
+      ]);
+    } catch {
+      setMessages((current) => [
+        ...current,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          content:
+            "AI-сервис временно недоступен, но базовая справка остается: парк работает со вторника по воскресенье 10:00-19:00, сезон май-сентябрь, гриль-купола от 2 300 ₽.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="fixed bottom-4 right-4 z-[70]">
+      {open ? (
+        <div className="flex h-[560px] w-[min(400px,calc(100vw-32px))] flex-col overflow-hidden rounded-2xl border border-emerald-950/10 bg-white shadow-2xl shadow-emerald-950/20">
+          <div className="flex items-center justify-between bg-gradient-to-r from-emerald-950 to-emerald-800 px-4 py-3 text-white">
+            <div className="flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                <Bot className="size-4" />
+              </div>
+              <div>
+                <div className="text-sm font-bold">AgroPark AI Assist</div>
+                <div className="text-[10px] opacity-80">
+                  RU / DE / TR / EN, guarded fallback
+                </div>
+              </div>
+            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="rounded-full p-1 hover:bg-white/20"
+              aria-label="Закрыть чат"
+            >
+              <X className="size-4" />
+            </button>
+          </div>
+
+          <div className="flex-1 space-y-3 overflow-y-auto bg-[#f6f3ea] p-4">
+            {messages.map((message) => (
+              <div
+                key={message.id}
+                className={cn(
+                  "max-w-[86%] rounded-2xl px-4 py-3 text-sm leading-6",
+                  message.role === "user"
+                    ? "ml-auto bg-emerald-900 text-white"
+                    : "bg-white text-emerald-950 shadow-sm",
+                )}
+              >
+                {message.content}
+              </div>
+            ))}
+            {loading ? (
+              <div className="max-w-[86%] rounded-2xl bg-white px-4 py-3 text-sm text-emerald-950 shadow-sm">
+                Готовлю ответ...
+              </div>
+            ) : null}
+            <div ref={endRef} />
+          </div>
+
+          <form
+            onSubmit={handleSubmit}
+            className="flex gap-2 border-t border-emerald-950/10 p-3"
+          >
+            <Input
+              value={input}
+              onChange={(event) => setInput(event.target.value)}
+              placeholder="Спросите о парке или брони..."
+              aria-label="Сообщение для AI"
+            />
+            <Button
+              type="submit"
+              disabled={loading || !input.trim()}
+              className="bg-emerald-800 hover:bg-emerald-900"
+            >
+              <Send className="size-4" />
+            </Button>
+          </form>
+        </div>
+      ) : (
+        <Button
+          size="lg"
+          aria-label="Открыть AI-чат"
+          className="h-14 w-14 rounded-full bg-emerald-800 p-0 shadow-xl shadow-emerald-950/20 hover:bg-emerald-900 sm:h-12 sm:w-auto sm:px-5"
+          onClick={() => setOpen(true)}
+        >
+          <Bot className="size-5 sm:mr-2 sm:size-4" />
+          <span className="sr-only sm:not-sr-only">AI-чат</span>
+        </Button>
+      )}
+    </div>
+  );
+}

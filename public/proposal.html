@@ -221,7 +221,7 @@
 
     .metrics {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
       gap: 14px;
       margin-top: 42px;
     }
@@ -240,13 +240,15 @@
     .metric {
       padding: 18px;
       min-height: 118px;
+      min-width: 0;
     }
 
     .metric strong {
       display: block;
       color: var(--green);
-      font-size: 30px;
+      font-size: clamp(24px, 2.1vw, 30px);
       line-height: 1;
+      overflow-wrap: anywhere;
     }
 
     .metric span {
@@ -257,6 +259,7 @@
       font-weight: 950;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      overflow-wrap: anywhere;
     }
 
     .device-scene { perspective: 1400px; }
