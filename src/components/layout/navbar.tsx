@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { CalendarCheck, Menu, MessageCircle } from "lucide-react";
+import { CalendarCheck, Menu, MessageCircle, X } from "lucide-react";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
@@ -80,6 +81,7 @@ const navCopy: Record<
 export function Navbar() {
   const { language } = useLanguagePreference();
   const copy = navCopy[language];
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -87,7 +89,7 @@ export function Navbar() {
       <div className="mx-auto grid max-w-7xl gap-2 px-4 py-2 md:flex md:h-20 md:items-center md:justify-between md:gap-3 md:px-6 md:py-0 lg:px-8">
         <div className="flex min-w-0 items-center justify-between gap-3">
           <BrandLogo className="min-w-0 [&>span:last-child]:min-w-0 [&>span:last-child_span:first-child]:truncate" />
-          <div className="flex shrink-0 items-center gap-2 md:hidden">
+          <div className="flex shrink-0 items-center gap-2 lg:hidden">
             <Button
               type="button"
               size="icon"
@@ -97,10 +99,16 @@ export function Navbar() {
             >
               <MessageCircle className="size-4" />
             </Button>
-            <Button asChild size="icon" variant="outline" aria-label={copy.menuAria}>
-              <Link href="/park">
-                <Menu className="size-4" />
-              </Link>
+            <Button
+              type="button"
+              size="icon"
+              variant="outline"
+              aria-label={copy.menuAria}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X className="size-4" /> : <Menu className="size-4" />}
             </Button>
           </div>
         </div>
@@ -115,7 +123,7 @@ export function Navbar() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <LanguageSwitcher />
           <Button asChild variant="ghost" size="sm">
             <Link href="/login">{copy.login}</Link>
@@ -127,10 +135,38 @@ export function Navbar() {
             </Link>
           </Button>
         </div>
-        <div className="flex min-w-0 items-center justify-end md:hidden">
+        <div className="flex min-w-0 items-center justify-end lg:hidden">
           <LanguageSwitcher compact />
         </div>
       </div>
+
+      {open ? (
+        <nav id="mobile-menu" aria-label={copy.aria} className="border-t border-emerald-950/10 bg-[#fbfaf5] px-4 py-4 lg:hidden">
+          <div className="mx-auto grid max-w-7xl gap-1">
+            {copy.items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="flex min-h-11 items-center rounded-lg px-3 text-sm font-black uppercase tracking-[0.12em] text-emerald-950/72 transition hover:bg-emerald-950/6 hover:text-emerald-900"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <Button asChild variant="outline">
+                <Link href="/login" onClick={() => setOpen(false)}>{copy.login}</Link>
+              </Button>
+              <Button asChild className="bg-emerald-900 hover:bg-emerald-800">
+                <Link href="/buchung" onClick={() => setOpen(false)}>
+                  <CalendarCheck className="size-4" />
+                  {copy.book}
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </nav>
+      ) : null}
     </header>
     <ChatWidget hideMobileTrigger />
     </>

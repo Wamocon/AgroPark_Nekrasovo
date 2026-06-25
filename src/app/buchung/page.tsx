@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Check, CreditCard, Minus, Plus, Ticket } from "lucide-react";
 import { appCopy } from "@/components/i18n/app-copy";
+import { consentCopy } from "@/components/i18n/consent-copy";
 import { useLanguagePreference } from "@/components/i18n/use-language-preference";
 import { PageShell } from "@/components/layout/page-shell";
 import { Badge } from "@/components/ui/badge";
@@ -91,6 +92,7 @@ function SimpleQR({ label, value }: { label: string; value: string }) {
 export default function BookingPage() {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].booking;
+  const consentText = consentCopy[language];
   const seasonWindow = useMemo(() => getSeasonWindow(), []);
   const [step, setStep] = useState(1);
   const [date, setDate] = useState("");
@@ -98,6 +100,7 @@ export default function BookingPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bookingRef, setBookingRef] = useState("");
+  const [consent, setConsent] = useState(false);
   const total = ticketConfig.reduce((sum, t) => sum + (quantities[t.id] || 0) * t.price, 0);
   const hasTickets = total > 0;
   const isDateInSeason = !date || (date >= seasonWindow.minDate && date <= seasonWindow.maxDate);
@@ -108,7 +111,7 @@ export default function BookingPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!date || !isDateInSeason || !hasTickets || !name.trim() || !email.trim()) return;
+    if (!date || !isDateInSeason || !hasTickets || !name.trim() || !email.trim() || !consent) return;
     const ref = generateBookingRef();
     const normalizedEmail = email.trim().toLowerCase();
     setBookingRef(ref);
@@ -241,11 +244,29 @@ export default function BookingPage() {
                         {copy.paymentNote}
                       </p>
                     </div>
+                    <label htmlFor="pdn-consent" className="flex items-start gap-2 text-xs leading-5 text-neutral-600">
+                      <input
+                        id="pdn-consent"
+                        type="checkbox"
+                        checked={consent}
+                        onChange={(e) => setConsent(e.target.checked)}
+                        required
+                        aria-describedby="pdn-consent-error"
+                        className="mt-0.5 size-5 shrink-0 accent-emerald-800"
+                      />
+                      <span>
+                        {consentText.before}
+                        <Link href="/datenschutz#pdn" target="_blank" className="font-bold text-emerald-900 underline">
+                          {consentText.link}
+                        </Link>
+                        {consentText.after}
+                      </span>
+                    </label>
                     <div className="flex gap-3">
                       <Button type="button" variant="outline" onClick={() => setStep(1)} className="flex-1">
                         {copy.back}
                       </Button>
-                      <Button type="submit" disabled={!hasTickets || !name.trim() || !email.trim()} className="flex-1 bg-emerald-900 hover:bg-emerald-800">
+                      <Button type="submit" disabled={!hasTickets || !name.trim() || !email.trim() || !consent} className="flex-1 bg-emerald-900 hover:bg-emerald-800">
                         {copy.book}
                       </Button>
                     </div>

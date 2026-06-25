@@ -2,8 +2,9 @@
 
 import { ChangeEvent, FormEvent, useState } from "react";
 import Link from "next/link";
-import { Bot, CheckCircle2, Mail, MapPin, MessageCircle, Phone, Send, Sparkles } from "lucide-react";
+import { Bot, CheckCircle2, Globe, Mail, MapPin, MessageCircle, Phone, Send, Sparkles } from "lucide-react";
 import { appCopy } from "@/components/i18n/app-copy";
+import { consentCopy } from "@/components/i18n/consent-copy";
 import { useLanguagePreference } from "@/components/i18n/use-language-preference";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
@@ -21,7 +22,9 @@ const initialForm: FormState = { name: "", company: "", email: "", message: "" }
 export default function ContactPage() {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].contact;
+  const consentText = consentCopy[language];
   const [form, setForm] = useState(initialForm);
+  const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   function handleChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -30,11 +33,13 @@ export default function ContactPage() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!consent) return;
     const inquiries = JSON.parse(localStorage.getItem("agropark_inquiries") || "[]");
     inquiries.unshift({ ...form, createdAt: new Date().toISOString() });
     localStorage.setItem("agropark_inquiries", JSON.stringify(inquiries));
     setSubmitted(true);
     setForm(initialForm);
+    setConsent(false);
   }
 
   return (
@@ -97,7 +102,24 @@ export default function ContactPage() {
                         <Label htmlFor="message">{copy.labels.message}</Label>
                         <Textarea id="message" name="message" value={form.message} onChange={handleChange} rows={5} placeholder={copy.placeholders.message} required />
                       </div>
-                      <Button type="submit" className="w-full bg-emerald-800 hover:bg-emerald-900">
+                      <label htmlFor="pdn-consent" className="flex items-start gap-2 text-xs leading-5 text-emerald-950/64">
+                        <input
+                          id="pdn-consent"
+                          type="checkbox"
+                          checked={consent}
+                          onChange={(e) => setConsent(e.target.checked)}
+                          required
+                          className="mt-0.5 size-5 shrink-0 accent-emerald-800"
+                        />
+                        <span>
+                          {consentText.before}
+                          <Link href="/datenschutz#pdn" target="_blank" className="font-bold text-emerald-900 underline">
+                            {consentText.link}
+                          </Link>
+                          {consentText.after}
+                        </span>
+                      </label>
+                      <Button type="submit" disabled={!consent} className="w-full bg-emerald-800 hover:bg-emerald-900">
                         {copy.submit}
                       </Button>
                     </form>
@@ -117,10 +139,26 @@ export default function ContactPage() {
                       <Phone className="size-4 text-amber-700" />
                       {agroparkContact.phone}
                     </a>
-                    <span className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68">
+                    <a href={agroparkContact.whatsappHref} target="_blank" rel="noopener noreferrer" className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900">
                       <MessageCircle className="size-4 text-amber-700" />
                       WhatsApp: {agroparkContact.whatsapp}
-                    </span>
+                    </a>
+                    <a href={agroparkContact.telegramHref} target="_blank" rel="noopener noreferrer" className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900">
+                      <Send className="size-4 text-amber-700" />
+                      Telegram: {agroparkContact.telegram}
+                    </a>
+                    <a href={agroparkContact.vkHref} target="_blank" rel="noopener noreferrer" className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900">
+                      <MessageCircle className="size-4 text-amber-700" />
+                      VK: {agroparkContact.vk}
+                    </a>
+                    <a href={agroparkContact.maxHref} target="_blank" rel="noopener noreferrer" className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900">
+                      <MessageCircle className="size-4 text-amber-700" />
+                      Max: {agroparkContact.max}
+                    </a>
+                    <a href={agroparkContact.websiteHref} target="_blank" rel="noopener noreferrer" className="flex min-h-10 items-center gap-3 text-sm text-emerald-950/68 hover:text-emerald-900">
+                      <Globe className="size-4 text-amber-700" />
+                      {agroparkContact.website}
+                    </a>
                     <span className="flex min-h-10 items-start gap-3 text-sm text-emerald-950/68">
                       <MapPin className="mt-1 size-4 text-amber-700" />
                       {copy.region}
