@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import NextImage from "next/image";
+import { useEffect, useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Bot, CalendarCheck, CheckCircle2, Gauge, Sparkles, type LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,15 +25,21 @@ const heroCopy: Record<
     pathLabel: string;
     pathTitle: string;
     pathItems: string[];
-    pipeline: { count: string; label: string; tone: string }[];
+    simulation: {
+      photo: string;
+      booking: string;
+      ai: string;
+      crm: string;
+      rail: { title: string; text: string }[];
+    };
   }
 > = {
   ru: {
     alt: "Территория АгроПарка Некрасово поле",
-    badge: "Сезон май-сентябрь | бронирование онлайн",
-    title: "АгроПарк Некрасово поле: купола, прогулки и события на природе.",
+    badge: "Сезон май-сентябрь | онлайн-бронирование",
+    title: "Некрасово поле как понятная цифровая экосистема для гостей и команды.",
     lead:
-      "Выберите формат отдыха, проверьте цены, задайте вопрос AI-помощнику и отправьте заявку за несколько минут. Команда парка увидит бронь в CRM и быстро подтвердит детали.",
+      "Гость видит реальные зоны парка, цены и маршруты, быстро задает вопрос AI и отправляет заявку. Команда получает структурированную бронь, статусы и KPI в едином рабочем контуре.",
     actions: [
       { label: "Забронировать отдых", href: "/buchung", icon: CalendarCheck },
       { label: "Спросить AI", href: "/kontakt", icon: Bot },
@@ -41,24 +51,29 @@ const heroCopy: Record<
       { value: "78%", label: "загрузка зон", change: "+5% в реальном времени" },
       { value: "6", label: "форматов отдыха", change: "экскурсии, купола, события" },
     ],
-    panelTitle: "Некрасово поле",
-    panelBadge: "online",
-    pathLabel: "Путь гостя",
-    pathTitle: "Один маршрут, три связанных шага",
-    pathItems: ["Выбор формата и даты", "AI отвечает на вопросы", "Команда подтверждает бронь"],
-    pipeline: [
-      { count: "12", label: "новые", tone: "bg-amber-400" },
-      { count: "8", label: "в работе", tone: "bg-sky-400" },
-      { count: "47", label: "сегодня", tone: "bg-emerald-400" },
-      { count: "5", label: "событий", tone: "bg-lime-400" },
-    ],
+    panelTitle: "AgroPark OS",
+    panelBadge: "connected beta",
+    pathLabel: "Живой сценарий",
+    pathTitle: "Сайт, AI и CRM работают как один маршрут",
+    pathItems: ["Гость выбирает формат и дату", "AI объясняет цены, маршрут и правила", "Команда видит заявку и следующий шаг"],
+    simulation: {
+      photo: "реальный парк",
+      booking: "Бронь",
+      ai: "AI отвечает",
+      crm: "CRM обновлена",
+      rail: [
+        { title: "Гриль-купола", text: "Цены, вместимость и правила собраны до заявки." },
+        { title: "События", text: "Концерты, мастер-классы и корпоративные визиты получают отдельный путь." },
+        { title: "Команда", text: "Роли видят только нужные действия и статусы." },
+      ],
+    },
   },
   en: {
     alt: "AgroPark Nekrasovo Pole territory",
     badge: "May-September season | online booking",
-    title: "AgroPark Nekrasovo Pole: domes, walks and nature events.",
+    title: "Nekrasovo Field as a clear digital ecosystem for guests and the team.",
     lead:
-      "Choose a visit format, check prices, ask the AI assistant and send a request in minutes. The park team sees the booking in CRM and confirms the details quickly.",
+      "Guests see real park zones, prices and routes, ask AI quickly and send a request. The team receives structured bookings, statuses and KPIs in one operating surface.",
     actions: [
       { label: "Book a visit", href: "/buchung", icon: CalendarCheck },
       { label: "Ask AI", href: "/kontakt", icon: Bot },
@@ -70,24 +85,29 @@ const heroCopy: Record<
       { value: "78%", label: "zone occupancy", change: "+5% live" },
       { value: "6", label: "visit formats", change: "tours, domes, events" },
     ],
-    panelTitle: "Nekrasovo Field",
-    panelBadge: "online",
-    pathLabel: "Guest path",
-    pathTitle: "One route, three connected steps",
-    pathItems: ["Select format and date", "AI answers questions", "Team confirms the booking"],
-    pipeline: [
-      { count: "12", label: "new", tone: "bg-amber-400" },
-      { count: "8", label: "active", tone: "bg-sky-400" },
-      { count: "47", label: "today", tone: "bg-emerald-400" },
-      { count: "5", label: "events", tone: "bg-lime-400" },
-    ],
+    panelTitle: "AgroPark OS",
+    panelBadge: "connected beta",
+    pathLabel: "Live scenario",
+    pathTitle: "Website, AI and CRM move as one route",
+    pathItems: ["Guest selects a format and date", "AI explains price, route and rules", "Team sees the request and next action"],
+    simulation: {
+      photo: "real park",
+      booking: "Booking",
+      ai: "AI answer",
+      crm: "CRM updated",
+      rail: [
+        { title: "Grill domes", text: "Prices, capacity and rules are clear before the request." },
+        { title: "Events", text: "Concerts, workshops and corporate visits get their own path." },
+        { title: "Team", text: "Roles see only relevant actions and statuses." },
+      ],
+    },
   },
   de: {
     alt: "Gelände des AgroParks Nekrasovo Pole",
     badge: "Saison Mai-September | Online-Buchung",
-    title: "AgroPark Nekrasovo Pole: Kuppeln, Spaziergänge und Natur-Events.",
+    title: "Nekrasovo Feld als klare digitale Plattform für Gäste und Team.",
     lead:
-      "Wählen Sie das Besuchsformat, prüfen Sie Preise, fragen Sie den AI-Assistenten und senden Sie die Anfrage in wenigen Minuten. Das Team sieht die Buchung im CRM und bestätigt die Details.",
+      "Gäste sehen echte Parkzonen, Preise und Routen, fragen AI direkt und senden eine Anfrage. Das Team erhält strukturierte Buchungen, Status und KPI in einer Arbeitsoberfläche.",
     actions: [
       { label: "Besuch buchen", href: "/buchung", icon: CalendarCheck },
       { label: "AI fragen", href: "/kontakt", icon: Bot },
@@ -99,24 +119,29 @@ const heroCopy: Record<
       { value: "78%", label: "Auslastung", change: "+5% live" },
       { value: "6", label: "Besuchsformate", change: "Touren, Kuppeln, Events" },
     ],
-    panelTitle: "Nekrasovo Feld",
-    panelBadge: "online",
-    pathLabel: "Gästepfad",
-    pathTitle: "Ein Weg, drei verbundene Schritte",
-    pathItems: ["Format und Datum wählen", "AI beantwortet Fragen", "Team bestätigt die Buchung"],
-    pipeline: [
-      { count: "12", label: "neu", tone: "bg-amber-400" },
-      { count: "8", label: "aktiv", tone: "bg-sky-400" },
-      { count: "47", label: "heute", tone: "bg-emerald-400" },
-      { count: "5", label: "events", tone: "bg-lime-400" },
-    ],
+    panelTitle: "AgroPark OS",
+    panelBadge: "connected beta",
+    pathLabel: "Live-Szenario",
+    pathTitle: "Website, AI und CRM laufen als ein Weg",
+    pathItems: ["Gast wählt Format und Datum", "AI erklärt Preis, Route und Regeln", "Team sieht Anfrage und nächsten Schritt"],
+    simulation: {
+      photo: "echter Park",
+      booking: "Buchung",
+      ai: "AI-Antwort",
+      crm: "CRM aktualisiert",
+      rail: [
+        { title: "Grillkuppeln", text: "Preise, Kapazität und Regeln sind vor der Anfrage klar." },
+        { title: "Events", text: "Konzerte, Workshops und Firmenbesuche bekommen eigene Pfade." },
+        { title: "Team", text: "Rollen sehen nur relevante Aktionen und Status." },
+      ],
+    },
   },
   tr: {
     alt: "AgroPark Nekrasovo Pole alanı",
     badge: "Mayıs-Eylül sezonu | online rezervasyon",
-    title: "AgroPark Nekrasovo Pole: kubbeler, yürüyüşler ve doğa etkinlikleri.",
+    title: "Nekrasovo Alanı misafir ve ekip için net bir dijital ekosistem.",
     lead:
-      "Ziyaret formatını seçin, fiyatları kontrol edin, AI asistana sorun ve birkaç dakika içinde talep gönderin. Park ekibi rezervasyonu CRM'de görür ve detayları hızlıca onaylar.",
+      "Misafirler gerçek park alanlarını, fiyatları ve rotaları görür, AI'ya hızlıca sorar ve talep gönderir. Ekip yapılandırılmış rezervasyonları, durumları ve KPI'ları tek yüzeyde alır.",
     actions: [
       { label: "Rezervasyon yap", href: "/buchung", icon: CalendarCheck },
       { label: "AI'ya sor", href: "/kontakt", icon: Bot },
@@ -128,37 +153,228 @@ const heroCopy: Record<
       { value: "78%", label: "alan doluluğu", change: "canlı +5%" },
       { value: "6", label: "ziyaret formatı", change: "turlar, kubbeler, etkinlikler" },
     ],
-    panelTitle: "Nekrasovo Alanı",
-    panelBadge: "online",
-    pathLabel: "Misafir yolu",
-    pathTitle: "Tek rota, üç bağlı adım",
-    pathItems: ["Format ve tarih seçilir", "AI soruları yanıtlar", "Ekip rezervasyonu onaylar"],
-    pipeline: [
-      { count: "12", label: "yeni", tone: "bg-amber-400" },
-      { count: "8", label: "aktif", tone: "bg-sky-400" },
-      { count: "47", label: "bugün", tone: "bg-emerald-400" },
-      { count: "5", label: "etkinlik", tone: "bg-lime-400" },
-    ],
+    panelTitle: "AgroPark OS",
+    panelBadge: "connected beta",
+    pathLabel: "Canlı senaryo",
+    pathTitle: "Website, AI ve CRM tek rota gibi çalışır",
+    pathItems: ["Misafir format ve tarih seçer", "AI fiyatı, rotayı ve kuralları açıklar", "Ekip talebi ve sonraki adımı görür"],
+    simulation: {
+      photo: "gerçek park",
+      booking: "Rezervasyon",
+      ai: "AI yanıtı",
+      crm: "CRM güncellendi",
+      rail: [
+        { title: "Grill kubbeleri", text: "Fiyat, kapasite ve kurallar talep öncesi nettir." },
+        { title: "Etkinlikler", text: "Konser, atölye ve kurumsal ziyaretler ayrı yol alır." },
+        { title: "Ekip", text: "Roller sadece ilgili aksiyon ve durumları görür." },
+      ],
+    },
   },
 };
+
+function drawRoundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+function FloatingCanvas({ labels }: { labels: (typeof heroCopy)["en"]["simulation"] }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const progressRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let frame = 0;
+    const photo = new window.Image();
+    photo.src = "/client-assets/agropark/grill-dome.jpg";
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.max(1, Math.floor(rect.width * ratio));
+      canvas.height = Math.max(1, Math.floor(rect.height * ratio));
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      draw();
+    };
+
+    const draw = () => {
+      const { width, height } = canvas.getBoundingClientRect();
+      const p = progressRef.current;
+      ctx.clearRect(0, 0, width, height);
+
+      const mist = ctx.createLinearGradient(0, 0, width, height);
+      mist.addColorStop(0, "rgba(255,255,255,.58)");
+      mist.addColorStop(0.46, "rgba(220,252,231,.2)");
+      mist.addColorStop(1, "rgba(20,83,45,.12)");
+      ctx.fillStyle = mist;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.save();
+      ctx.globalAlpha = 0.76;
+      ctx.fillStyle = "rgba(255,255,255,.62)";
+      for (let i = 0; i < 9; i++) {
+        const x = ((i * 210 + frame * 0.22) % (width + 240)) - 120;
+        const y = height * (0.18 + (i % 4) * 0.13) + Math.sin(frame / 48 + i) * 12;
+        ctx.beginPath();
+        ctx.ellipse(x, y, 120 + (i % 3) * 32, 28 + (i % 2) * 10, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      const cardW = Math.min(440, width * 0.58);
+      const cardH = cardW * 0.68;
+      const cx = width * (0.48 + p * 0.08);
+      const cy = height * (0.48 - p * 0.08);
+      const tilt = (-0.08 + p * 0.16) * Math.PI;
+
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(tilt);
+      ctx.shadowColor = "rgba(15,53,37,.24)";
+      ctx.shadowBlur = 38;
+      ctx.shadowOffsetY = 24;
+      drawRoundRect(ctx, -cardW / 2, -cardH / 2, cardW, cardH, 24);
+      ctx.fillStyle = "#fbfaf5";
+      ctx.fill();
+
+      drawRoundRect(ctx, -cardW / 2 + 16, -cardH / 2 + 16, cardW - 32, cardH * 0.56, 18);
+      ctx.save();
+      ctx.clip();
+      if (photo.complete) {
+        ctx.drawImage(photo, -cardW / 2 + 16, -cardH / 2 + 16, cardW - 32, cardH * 0.56);
+      } else {
+        ctx.fillStyle = "#174832";
+        ctx.fillRect(-cardW / 2 + 16, -cardH / 2 + 16, cardW - 32, cardH * 0.56);
+      }
+      ctx.restore();
+
+      ctx.fillStyle = "rgba(15,53,37,.9)";
+      ctx.font = "800 18px Avenir Next, Segoe UI, sans-serif";
+      ctx.fillText(labels.photo, -cardW / 2 + 28, cardH * 0.19);
+
+      const chipY = cardH * 0.29;
+      [labels.booking, labels.ai, labels.crm].forEach((label, index) => {
+        const chipX = -cardW / 2 + 18 + index * ((cardW - 36) / 3);
+        const chipW = (cardW - 54) / 3;
+        drawRoundRect(ctx, chipX, chipY, chipW, 42, 14);
+        ctx.fillStyle = index === 1 ? "#facc15" : index === 2 ? "#14532d" : "#ecfdf5";
+        ctx.fill();
+        ctx.fillStyle = index === 1 ? "#0f3525" : index === 2 ? "#ffffff" : "#14532d";
+        ctx.font = "800 12px Avenir Next, Segoe UI, sans-serif";
+        ctx.fillText(label, chipX + 14, chipY + 26);
+      });
+      ctx.restore();
+
+      frame += 1;
+    };
+
+    resize();
+    photo.onload = draw;
+    window.addEventListener("resize", resize);
+
+    let raf = 0;
+    const tick = () => {
+      draw();
+      raf = window.requestAnimationFrame(tick);
+    };
+    raf = window.requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+      window.cancelAnimationFrame(raf);
+    };
+  }, [labels]);
+
+  useGSAP(
+    () => {
+      if (!canvasRef.current || typeof window === "undefined") return;
+      gsap.registerPlugin(ScrollTrigger);
+      const trigger = canvasRef.current.closest("section");
+      if (!trigger) return;
+
+      const scroll = ScrollTrigger.create({
+        trigger,
+        start: "top top",
+        end: "bottom top",
+        scrub: true,
+        onUpdate: (self) => {
+          progressRef.current = self.progress;
+        },
+      });
+
+      return () => scroll.kill();
+    },
+    { dependencies: [] },
+  );
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0 h-full w-full opacity-70" aria-hidden="true" />;
+}
 
 export function Hero() {
   const { language } = useLanguagePreference();
   const copy = heroCopy[language];
+  const rootRef = useRef<HTMLElement | null>(null);
+
+  useGSAP(
+    () => {
+      if (!rootRef.current || typeof window === "undefined") return;
+      gsap.registerPlugin(ScrollTrigger);
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+
+      gsap.from(".hero-reveal", {
+        y: 34,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        stagger: 0.09,
+      });
+
+      gsap.to(".hero-float", {
+        y: -22,
+        rotateX: 4,
+        rotateY: -5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: rootRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    },
+    { scope: rootRef },
+  );
 
   return (
-    <section className="relative isolate min-h-[100svh] overflow-hidden bg-emerald-950 pt-32 text-white md:pt-24">
-      <Image src="/client-assets/agropark/aerial-view.png" alt={copy.alt} fill priority className="-z-20 object-cover opacity-42" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,rgba(10,42,29,.98),rgba(10,42,29,.84)_48%,rgba(10,42,29,.44))]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.045)_1px,transparent_1px)] bg-[size:64px_64px]" />
-      <div className="mx-auto grid min-h-[calc(100svh-96px)] max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.98fr_0.9fr] lg:items-center lg:px-8 xl:gap-14">
-        <div>
-          <Badge className="mb-6 border border-amber-300/30 bg-amber-300/12 px-4 py-2 text-amber-100 hover:bg-amber-300/12">
+    <section
+      ref={rootRef}
+      className="relative isolate min-h-[100svh] overflow-hidden bg-[#f7f5ec] pt-32 text-emerald-950 md:pt-24"
+    >
+      <NextImage src="/client-assets/agropark/aerial-view.png" alt={copy.alt} fill priority className="-z-20 object-cover opacity-18" />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_18%,rgba(255,255,255,.88),transparent_32%),radial-gradient(circle_at_78%_0%,rgba(252,211,77,.24),transparent_28%),linear-gradient(135deg,#f9f7ef_0%,#edf6e8_42%,#cfe6d7_100%)]" />
+      <div className="absolute inset-x-0 top-0 z-0 h-44 bg-[linear-gradient(to_bottom,rgba(255,255,255,.8),rgba(255,255,255,0))]" />
+      <FloatingCanvas labels={copy.simulation} />
+
+      <div className="relative z-10 mx-auto grid min-h-[calc(100svh-96px)] max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[0.92fr_0.9fr] lg:items-center lg:px-8 xl:gap-16">
+        <div className="max-w-4xl">
+          <Badge className="hero-reveal mb-6 border border-emerald-900/10 bg-white/72 px-4 py-2 text-emerald-900 shadow-sm backdrop-blur hover:bg-white/72">
             {copy.badge}
           </Badge>
-          <h1 className="max-w-4xl text-5xl font-black leading-[0.96] tracking-tight sm:text-6xl lg:text-7xl">{copy.title}</h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/80">{copy.lead}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <h1 className="hero-reveal text-4xl font-black leading-[0.98] tracking-tight text-emerald-950 sm:text-6xl lg:text-7xl">
+            {copy.title}
+          </h1>
+          <p className="hero-reveal mt-6 max-w-2xl text-base leading-8 text-emerald-950/72 sm:text-lg">{copy.lead}</p>
+          <div className="hero-reveal mt-8 flex flex-wrap gap-3">
             {copy.actions.map((action, index) => (
               <Button
                 key={action.href}
@@ -166,8 +382,8 @@ export function Hero() {
                 size="lg"
                 className={
                   index === 0
-                    ? "bg-amber-300 text-emerald-950 hover:bg-amber-200"
-                    : "border border-white/18 bg-white/10 text-white hover:bg-white/16"
+                    ? "w-full bg-amber-300 text-emerald-950 hover:bg-amber-200 sm:w-auto"
+                    : "w-full border border-emerald-900/12 bg-white/72 text-emerald-950 shadow-sm hover:bg-white sm:w-auto"
                 }
               >
                 <Link href={action.href}>
@@ -177,17 +393,19 @@ export function Hero() {
               </Button>
             ))}
           </div>
-          <div className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-4">
+          <div className="hero-reveal mt-10 grid max-w-3xl gap-3 sm:grid-cols-2 xl:grid-cols-4">
             {copy.kpis.map((kpi) => (
-              <div key={kpi.label} className="rounded-xl border border-white/12 bg-white/10 p-4 backdrop-blur">
-                <div className="text-2xl font-black text-amber-200">{kpi.value}</div>
-                <div className="mt-1 text-[11px] font-black uppercase leading-4 text-white/70">{kpi.label}</div>
+              <div key={kpi.label} className="rounded-xl border border-emerald-900/10 bg-white/70 p-4 shadow-sm backdrop-blur">
+                <div className="text-2xl font-black text-emerald-950">{kpi.value}</div>
+                <div className="mt-1 text-[11px] font-black uppercase leading-4 text-emerald-950/60">{kpi.label}</div>
+                <div className="mt-2 text-xs font-bold text-emerald-700">{kpi.change}</div>
               </div>
             ))}
           </div>
         </div>
-        <div className="relative mx-auto w-full max-w-[560px]" style={{ perspective: "1200px" }}>
-          <div className="animate-float rounded-[28px] border border-white/20 bg-[#fbfaf5] p-4 text-emerald-950 shadow-2xl shadow-black/30">
+
+        <div className="hero-reveal hero-float relative mx-auto w-full max-w-[560px]" style={{ perspective: "1200px" }}>
+          <div className="rounded-[28px] border border-emerald-950/12 bg-[#fbfaf5]/92 p-4 text-emerald-950 shadow-2xl shadow-emerald-950/18 backdrop-blur-xl">
             <div className="flex items-center justify-between border-b border-emerald-950/10 pb-4">
               <strong className="text-sm">{copy.panelTitle}</strong>
               <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-black text-emerald-900">{copy.panelBadge}</span>
@@ -218,12 +436,11 @@ export function Hero() {
                 ))}
               </div>
             </div>
-            <div className="mt-4 grid gap-3 sm:grid-cols-4">
-              {copy.pipeline.map((stage) => (
-                <div key={stage.label} className="rounded-lg border border-emerald-950/10 bg-white p-3">
-                  <span className={`mb-2 block h-1.5 w-8 rounded-full ${stage.tone}`} />
-                  <div className="text-lg font-black">{stage.count}</div>
-                  <div className="text-[10px] font-bold uppercase text-emerald-950/52">{stage.label}</div>
+            <div className="mt-4 grid gap-3 sm:grid-cols-3">
+              {copy.simulation.rail.map((item) => (
+                <div key={item.title} className="rounded-lg border border-emerald-950/10 bg-white p-3">
+                  <div className="text-xs font-black uppercase text-amber-700">{item.title}</div>
+                  <div className="mt-2 text-xs leading-5 text-emerald-950/62">{item.text}</div>
                 </div>
               ))}
             </div>

@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
-import { BarChart3, Bot, CalendarCheck, CheckCircle2, ClipboardList, Copy, Home, Leaf, LogOut, MapPinned, MessageSquareText, RefreshCcw, Sparkles } from "lucide-react";
+import { BarChart3, Bot, CalendarCheck, CheckCircle2, ClipboardList, Copy, Home, Leaf, LogOut, MapPinned, MessageSquareText, RefreshCcw, Sparkles, UserRound } from "lucide-react";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { OpenChatButton } from "@/components/chat/open-chat-button";
 import { appCopy } from "@/components/i18n/app-copy";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
-import { useLanguagePreference } from "@/components/i18n/use-language-preference";
+import { useLanguagePreference, type LanguageCode } from "@/components/i18n/use-language-preference";
 import { BrandLogo } from "@/components/layout/brand-logo";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { aiAutomations, parkOffers, parkPipeline } from "@/data/agropark";
-import type { DemoUser } from "@/lib/auth";
+import type { DemoUser, UserRole } from "@/lib/auth";
 import { logout } from "@/lib/auth-actions";
 
 const chartValues = [
@@ -27,6 +27,228 @@ const chartValues = [
 
 const kpiIcons = [CalendarCheck, MessageSquareText, BarChart3, Leaf] as const;
 const quickActionIcons = [CalendarCheck, Bot, MapPinned, Home] as const;
+const roleIcons = {
+  admin: BarChart3,
+  manager: CalendarCheck,
+  staff: ClipboardList,
+  visitor: UserRound,
+} satisfies Record<UserRole, typeof BarChart3>;
+
+const roleModeCopy: Record<
+  LanguageCode,
+  Record<
+    UserRole,
+    {
+      eyebrow: string;
+      title: string;
+      lead: string;
+      metrics: { label: string; value: string }[];
+      focus: string[];
+      next: string;
+    }
+  >
+> = {
+  ru: {
+    admin: {
+      eyebrow: "Режим директора",
+      title: "Контроль сезона и инвестиционных решений",
+      lead: "Этот вход показывает, как руководитель видит KPI, загрузку зон, AI-качество, спрос и точки роста без ручного сбора отчетов.",
+      metrics: [
+        { label: "прогноз спроса", value: "+18%" },
+        { label: "риск ответа", value: "3" },
+        { label: "ROI сигнал", value: "12-24%" },
+      ],
+      focus: ["Финансовые сигналы", "Сезонная загрузка", "AI-контроль качества", "Roadmap решений"],
+      next: "Решение: какие зоны и форматы усиливать перед пиковым спросом.",
+    },
+    manager: {
+      eyebrow: "Режим менеджера",
+      title: "Бронирования, календарь и подтверждения",
+      lead: "Менеджер видит рабочую очередь, мероприятия, загрузку форматов и ответы гостям, чтобы быстрее закрывать заявки.",
+      metrics: [
+        { label: "в очереди", value: "8" },
+        { label: "события", value: "5" },
+        { label: "сегодня", value: "47" },
+      ],
+      focus: ["Календарь", "Подтверждения", "Гостевые ответы", "Доступность зон"],
+      next: "Действие: подтвердить заявки с датой, форматом и контактами.",
+    },
+    staff: {
+      eyebrow: "Режим администратора",
+      title: "Ежедневный inbox и быстрый follow-up",
+      lead: "Администратор получает поток заявок, карточки гостей и готовые тексты для WhatsApp, Telegram или e-mail.",
+      metrics: [
+        { label: "новые", value: "12" },
+        { label: "нужен ответ", value: "3" },
+        { label: "черновики AI", value: "6" },
+      ],
+      focus: ["Новые заявки", "Готовые ответы", "Статусы", "Повторный контакт"],
+      next: "Действие: обработать входящие обращения и передать сложные случаи менеджеру.",
+    },
+    visitor: {
+      eyebrow: "Режим гостя",
+      title: "Прозрачный путь гостя без внутренних данных",
+      lead: "Гость видит только свою бронь, маршрут, цены, статус обращения и AI-поддержку, без управленческой информации.",
+      metrics: [
+        { label: "шаги", value: "3" },
+        { label: "языки", value: "4" },
+        { label: "статус", value: "QR" },
+      ],
+      focus: ["Моя бронь", "Маршрут", "AI-вопросы", "Статус заявки"],
+      next: "Действие: проверить подтверждение и задать вопрос без звонка.",
+    },
+  },
+  en: {
+    admin: {
+      eyebrow: "Director mode",
+      title: "Season control and investment decisions",
+      lead: "This login shows how leadership sees KPIs, zone load, AI quality, demand and growth points without manual reporting.",
+      metrics: [
+        { label: "demand forecast", value: "+18%" },
+        { label: "reply risk", value: "3" },
+        { label: "ROI signal", value: "12-24%" },
+      ],
+      focus: ["Financial signals", "Season occupancy", "AI quality control", "Decision roadmap"],
+      next: "Decision: which zones and formats to strengthen before peak demand.",
+    },
+    manager: {
+      eyebrow: "Manager mode",
+      title: "Bookings, calendar and confirmations",
+      lead: "The manager sees the work queue, events, format capacity and guest replies to close requests faster.",
+      metrics: [
+        { label: "queue", value: "8" },
+        { label: "events", value: "5" },
+        { label: "today", value: "47" },
+      ],
+      focus: ["Calendar", "Confirmations", "Guest replies", "Zone availability"],
+      next: "Action: confirm requests with date, format and contacts.",
+    },
+    staff: {
+      eyebrow: "Administrator mode",
+      title: "Daily inbox and fast follow-up",
+      lead: "The administrator receives request flow, guest cards and prepared texts for WhatsApp, Telegram or e-mail.",
+      metrics: [
+        { label: "new", value: "12" },
+        { label: "need reply", value: "3" },
+        { label: "AI drafts", value: "6" },
+      ],
+      focus: ["New requests", "Prepared replies", "Statuses", "Follow-up"],
+      next: "Action: process incoming requests and pass complex cases to the manager.",
+    },
+    visitor: {
+      eyebrow: "Guest mode",
+      title: "Transparent guest path without internal data",
+      lead: "The guest sees only their booking, route, prices, request status and AI support, without management information.",
+      metrics: [
+        { label: "steps", value: "3" },
+        { label: "languages", value: "4" },
+        { label: "status", value: "QR" },
+      ],
+      focus: ["My booking", "Route", "AI questions", "Request status"],
+      next: "Action: check confirmation and ask a question without calling.",
+    },
+  },
+  de: {
+    admin: {
+      eyebrow: "Direktor-Modus",
+      title: "Saisonsteuerung und Investitionsentscheidungen",
+      lead: "Dieser Zugang zeigt KPI, Zonenauslastung, AI-Qualität, Nachfrage und Wachstumspunkte ohne manuelle Berichte.",
+      metrics: [
+        { label: "Nachfrage", value: "+18%" },
+        { label: "Antwort-Risiko", value: "3" },
+        { label: "ROI-Signal", value: "12-24%" },
+      ],
+      focus: ["Finanzsignale", "Saisonauslastung", "AI-Qualität", "Entscheidungsroadmap"],
+      next: "Entscheidung: welche Zonen und Formate vor der Spitze verstärkt werden.",
+    },
+    manager: {
+      eyebrow: "Manager-Modus",
+      title: "Buchungen, Kalender und Bestätigungen",
+      lead: "Der Manager sieht Warteschlange, Events, Kapazität und Gästeantworten, um Anfragen schneller zu schließen.",
+      metrics: [
+        { label: "Queue", value: "8" },
+        { label: "Events", value: "5" },
+        { label: "heute", value: "47" },
+      ],
+      focus: ["Kalender", "Bestätigungen", "Gästeantworten", "Zonenverfügbarkeit"],
+      next: "Aktion: Anfragen mit Datum, Format und Kontakten bestätigen.",
+    },
+    staff: {
+      eyebrow: "Administrator-Modus",
+      title: "Täglicher Inbox und schneller Follow-up",
+      lead: "Der Administrator erhält Anfragefluss, Gästekarten und vorbereitete Texte für WhatsApp, Telegram oder E-Mail.",
+      metrics: [
+        { label: "neu", value: "12" },
+        { label: "Antwort nötig", value: "3" },
+        { label: "AI-Entwürfe", value: "6" },
+      ],
+      focus: ["Neue Anfragen", "Textvorschläge", "Status", "Follow-up"],
+      next: "Aktion: Eingänge bearbeiten und komplexe Fälle an den Manager geben.",
+    },
+    visitor: {
+      eyebrow: "Gast-Modus",
+      title: "Transparenter Gästepfad ohne interne Daten",
+      lead: "Der Gast sieht nur Buchung, Route, Preise, Anfrage-Status und AI-Hilfe, keine Managementinformationen.",
+      metrics: [
+        { label: "Schritte", value: "3" },
+        { label: "Sprachen", value: "4" },
+        { label: "Status", value: "QR" },
+      ],
+      focus: ["Meine Buchung", "Route", "AI-Fragen", "Anfrage-Status"],
+      next: "Aktion: Bestätigung prüfen und ohne Anruf eine Frage stellen.",
+    },
+  },
+  tr: {
+    admin: {
+      eyebrow: "Direktör modu",
+      title: "Sezon kontrolü ve yatırım kararları",
+      lead: "Bu giriş KPI, alan yükü, AI kalitesi, talep ve büyüme noktalarını manuel rapor olmadan gösterir.",
+      metrics: [
+        { label: "talep tahmini", value: "+18%" },
+        { label: "yanıt riski", value: "3" },
+        { label: "ROI sinyali", value: "12-24%" },
+      ],
+      focus: ["Finans sinyalleri", "Sezon doluluğu", "AI kalite kontrolü", "Karar roadmap"],
+      next: "Karar: yoğun dönemden önce hangi alan ve formatlar güçlendirilecek.",
+    },
+    manager: {
+      eyebrow: "Yönetici modu",
+      title: "Rezervasyonlar, takvim ve onaylar",
+      lead: "Yönetici iş kuyruğunu, etkinlikleri, kapasiteyi ve misafir yanıtlarını görür.",
+      metrics: [
+        { label: "kuyruk", value: "8" },
+        { label: "etkinlik", value: "5" },
+        { label: "bugün", value: "47" },
+      ],
+      focus: ["Takvim", "Onaylar", "Misafir yanıtları", "Alan uygunluğu"],
+      next: "Aksiyon: tarih, format ve iletişim bilgisi olan talepleri onayla.",
+    },
+    staff: {
+      eyebrow: "Administratör modu",
+      title: "Günlük inbox ve hızlı follow-up",
+      lead: "Administratör talep akışını, misafir kartlarını ve WhatsApp, Telegram veya e-mail metinlerini alır.",
+      metrics: [
+        { label: "yeni", value: "12" },
+        { label: "yanıt lazım", value: "3" },
+        { label: "AI taslak", value: "6" },
+      ],
+      focus: ["Yeni talepler", "Hazır yanıtlar", "Durumlar", "Follow-up"],
+      next: "Aksiyon: gelen talepleri işle ve karmaşık konuları yöneticiye aktar.",
+    },
+    visitor: {
+      eyebrow: "Misafir modu",
+      title: "İç veri olmadan şeffaf misafir yolu",
+      lead: "Misafir sadece rezervasyon, rota, fiyatlar, talep durumu ve AI desteğini görür.",
+      metrics: [
+        { label: "adım", value: "3" },
+        { label: "dil", value: "4" },
+        { label: "durum", value: "QR" },
+      ],
+      focus: ["Rezervasyonum", "Rota", "AI soruları", "Talep durumu"],
+      next: "Aksiyon: onayı kontrol et ve arama yapmadan soru sor.",
+    },
+  },
+};
 
 type DemoBooking = {
   id?: string;
@@ -94,6 +316,8 @@ export function DashboardClient({ user }: { user: DemoUser }) {
   const { language } = useLanguagePreference();
   const copy = appCopy[language].dashboard;
   const roleLabel = copy.roleLabels[user.role];
+  const roleMode = roleModeCopy[language][user.role];
+  const RoleIcon = roleIcons[user.role];
   const [demoData, setDemoData] = useState<DemoData>(emptyDemoData);
   const [summaryCopied, setSummaryCopied] = useState(false);
 
@@ -202,6 +426,41 @@ export function DashboardClient({ user }: { user: DemoUser }) {
             ))}
           </div>
         </div>
+
+        <section className="mb-8 overflow-hidden rounded-[28px] border border-emerald-950/10 bg-emerald-950 text-white shadow-2xl shadow-emerald-950/12">
+          <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[0.95fr_1.05fr] lg:p-7">
+            <div className="min-w-0">
+              <div className="mb-5 flex size-12 items-center justify-center rounded-xl bg-white/12">
+                <RoleIcon className="size-6 text-amber-200" />
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">{roleMode.eyebrow}</p>
+              <h2 className="mt-3 text-2xl font-black tracking-tight sm:text-3xl">{roleMode.title}</h2>
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">{roleMode.lead}</p>
+              <div className="mt-5 rounded-xl border border-white/10 bg-white/8 p-4 text-sm font-bold leading-6 text-white/86">
+                {roleMode.next}
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="grid gap-3 sm:grid-cols-3">
+                {roleMode.metrics.map((metric) => (
+                  <div key={metric.label} className="rounded-xl border border-white/10 bg-white/8 p-4">
+                    <div className="text-2xl font-black text-amber-200">{metric.value}</div>
+                    <div className="mt-1 text-[11px] font-black uppercase leading-4 text-white/62">{metric.label}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2">
+                {roleMode.focus.map((item) => (
+                  <div key={item} className="flex min-h-12 items-center gap-3 rounded-xl border border-white/10 bg-white/8 p-3 text-sm font-bold">
+                    <CheckCircle2 className="size-4 shrink-0 text-lime-300" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {copy.kpis.map((kpi, index) => {

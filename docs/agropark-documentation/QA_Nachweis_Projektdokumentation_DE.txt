@@ -1,0 +1,37 @@
+AgroPark Projektdokumentation - QA-Nachweis
+Stand: 25.06.2026
+
+Geprüfte Datei:
+docs/agropark-documentation/AgroPark_Projektdokumentation_DE.docx
+
+Ziel:
+Nichttechnische Projektdokumentation für Stakeholder, Kundenpräsentation und Jira-Dokumentenhub.
+
+Inhaltliche Prüfung:
+- Dokument erklärt Ziel, Nutzen, Workflow, Rollenmodell, AI-Chat, Mehrsprachigkeit, QA und Roadmap in deutscher Sprache.
+- Sprache ist bewusst nichttechnisch und für Betreiber, Management und Vertrieb verständlich.
+- Keine Platzhalter wie TODO, PLACEHOLDER oder Lorem gefunden.
+- Dokument nutzt echte Projektbausteine: Website, Buchung, AI-Chat, CRM-Dashboard, Pitch Deck und Jira/Xray QA.
+
+Visuelle Prüfung der eingebetteten Bilder:
+- Mindmap geprüft: keine Überlappung, alle Knoten lesbar.
+- Workflow-Grafik geprüft: alle Schritte lesbar, keine abgeschnittenen Texte.
+- Rollenmodell geprüft: vier Rollen klar getrennt und lesbar.
+- QA-Matrix geprüft: Tabellenstruktur und Status lesbar.
+- Screenshot-Collage geprüft: nur AgroPark Screenshots, kein Fremdprojektbild enthalten.
+
+Technische Dokumentprüfung:
+- Structural QA: PASS.
+- DOCX ZIP-Test: PASS.
+- Accessibility Audit: 0 High, 0 Medium, 0 Low Findings.
+- Image Audit: 6 eingebettete Inline-Bilder vorhanden.
+- Heading Audit: 9 Heading-1-Abschnitte vorhanden.
+
+Render-Hinweis:
+Der Documents-Plugin-Renderer konnte in dieser lokalen Session nicht ausgeführt werden, weil die Python-Abhängigkeit pdf2image in der aktuellen Umgebung fehlt. Microsoft Word ist installiert, die COM-Automation ist in der nicht-interaktiven Sitzung jedoch durch Windows-Anmeldesitzung 0x80070520 blockiert. Deshalb wurde die finale Prüfung über DOCX-Integrität, Accessibility Audit, Image Audit, Heading Audit und direkte visuelle Prüfung der generierten PNG-Grafiken durchgeführt.
+
+Jira-Zuordnung:
+- AGRO-40: zentraler Dokumentenhub.
+- AGRO-22: Dokumentationspflege und Synchronisierung.
+- AGRO-37: zentraler Testplan.
+- AGRO-39: Demo-Abnahme und QA-Nachweis.
